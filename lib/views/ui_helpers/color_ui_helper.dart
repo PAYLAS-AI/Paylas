@@ -22,4 +22,6 @@ class ColorUiHelper {
 
   static final Color inputSecondDarkColor = Color.fromRGBO(43, 95, 86, 1);
 
+  static final Color categoryTicketColor = Color.fromRGBO(2, 1, 32,1);
+
 }
