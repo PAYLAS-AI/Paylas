@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:paylas/locator/locator.dart';
+import 'package:paylas/router/page_router.dart';
 import 'package:paylas/tools/screen_sizes.dart';
 import 'package:paylas/views/login/login_page.dart';
+import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 
 void main() {
  
@@ -19,10 +21,11 @@ class PaylasApp extends StatelessWidget {
     return MaterialApp(
       title: 'Paylas App',
       theme: ThemeData(
-        // This is the theme of your application.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: ColorUiHelper.mainTitleBlue),
         useMaterial3: true,
       ),
+      debugShowCheckedModeBanner: false,
+      onGenerateRoute: PageRouter.onGenerateRoute,
       home: LoginPage(),
 
     );

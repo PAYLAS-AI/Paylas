@@ -4,6 +4,16 @@ allprojects {
         mavenCentral()
     }
 }
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        // Make sure the AGP version is updated to at least 8.2.1
+        classpath 'com.android.tools.build:gradle:8.2.1'  // Update this line to the latest version
+    }
+}
 
 rootProject.buildDir = "../build"
 subprojects {

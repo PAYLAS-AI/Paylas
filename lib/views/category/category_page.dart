@@ -1,10 +1,9 @@
+
+
+
 import 'package:flutter/material.dart';
 import 'package:paylas/locator/locator.dart';
 import 'package:paylas/tools/screen_sizes.dart';
-import 'package:paylas/views/login/bottom_bar.dart';
-import 'package:paylas/views/login/input_bar.dart';
-import 'package:paylas/views/widgets/login_header.dart';
-import 'package:paylas/views/widgets/plane_icon.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -22,23 +21,6 @@ class LoginPage extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            Positioned(
-
-              left: screen.width * 0.075,
-              top: screen.height * 0.09,
-
-              child: LoginHeader()
-            ),
-
-            LoginInputBar(),
-
-            LoginBottomBar(),
-
-            Positioned(
-              top: 20,
-              right: 50,
-              child: PlaneIcon()
-            )
           ],
         ),
       ),

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:paylas/locator/locator.dart';
 import 'package:paylas/tools/screen_sizes.dart';
-import 'package:paylas/views/login/bottom_bar.dart';
-import 'package:paylas/views/login/input_bar.dart';
+import 'package:paylas/views/register/bottom_bar.dart';
+import 'package:paylas/views/register/input_bar.dart';
 import 'package:paylas/views/widgets/login_header.dart';
 import 'package:paylas/views/widgets/plane_icon.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+class RegisterPage extends StatelessWidget {
+  RegisterPage({super.key});
 
   final screen = locator<ScreenSizes>();
 
@@ -30,9 +30,9 @@ class LoginPage extends StatelessWidget {
               child: LoginHeader()
             ),
 
-            LoginInputBar(),
+            RegisterInputBar(),
 
-            LoginBottomBar(),
+            RegisterBottomBar(),
 
             Positioned(
               top: 20,
@@ -45,5 +45,3 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
-
-
