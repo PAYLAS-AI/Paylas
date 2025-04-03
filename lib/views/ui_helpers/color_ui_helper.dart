@@ -24,4 +24,9 @@ class ColorUiHelper {
 
   static final Color categoryTicketColor = Color.fromRGBO(2, 1, 32,1);
 
+
+  static final Color profileGradiendPrimary = const Color.fromARGB(255, 57, 53, 53);
+
+  static final Color profileCardBg = Colors.white;
+
 }

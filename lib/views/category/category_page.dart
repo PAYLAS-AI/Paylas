@@ -7,8 +7,7 @@ import 'package:paylas/tools/screen_sizes.dart';
 import 'package:paylas/views/category/category_button.dart';
 import 'package:paylas/views/category/category_header.dart';
 import 'package:paylas/views/category/subcategory_button.dart';
-import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
-import 'package:paylas/views/ui_helpers/text_style_helper.dart';
+
 
 class CategoryPage extends StatelessWidget {
   CategoryPage({super.key});

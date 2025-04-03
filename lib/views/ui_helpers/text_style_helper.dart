@@ -47,4 +47,15 @@ class TextStyleHelper {
   static TextStyle categoryContentSecondarStyle = GoogleFonts.montserrat(
       fontSize: 14, fontWeight: FontWeight.w800, color: ColorUiHelper.categoryTicketColor , height: 1); 
 
+
+
+// Profile page
+  static TextStyle profileDetailStyle = GoogleFonts.montserrat(
+      fontSize: 14, color: ColorUiHelper.profileGradiendPrimary , height: 1); 
+
+  static TextStyle profileDetailUnderlineStyle = GoogleFonts.montserrat(
+      fontSize: 14, color: ColorUiHelper.profileGradiendPrimary , height: 1 , decoration: TextDecoration.underline,); 
+
+      static TextStyle profileDetailCounterStyle = GoogleFonts.montserrat(
+      fontSize: 24, color: ColorUiHelper.profileGradiendPrimary,fontWeight: FontWeight.w600 ,); 
 }
