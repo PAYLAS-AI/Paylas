@@ -7,6 +7,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:paylas/views/category/category_page.dart';
 import 'package:paylas/views/login/login_page.dart';
+import 'package:paylas/views/past_jobs/past_jobs_page.dart';
+import 'package:paylas/views/profile/profile_page.dart';
 import 'package:paylas/views/register/register_page.dart';
 
 class PageRouter {
@@ -28,6 +30,18 @@ class PageRouter {
         return MaterialPageRoute(builder: (context) => CategoryPage(),);
       }else{
         return CupertinoPageRoute(builder: (context) => CategoryPage(),);
+      }
+    }else if (settings.name == "profilePage"){
+      if( defaultTargetPlatform == TargetPlatform.android){
+        return MaterialPageRoute(builder: (context) => ProfilePage(),);
+      }else{
+        return CupertinoPageRoute(builder: (context) => ProfilePage(),);
+      }
+    }else if (settings.name == "pastJobsPage"){
+      if( defaultTargetPlatform == TargetPlatform.android){
+        return MaterialPageRoute(builder: (context) => PastJobsPage(),);
+      }else{
+        return CupertinoPageRoute(builder: (context) => PastJobsPage(),);
       }
     }
     return null;

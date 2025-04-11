@@ -58,4 +58,37 @@ class TextStyleHelper {
 
       static TextStyle profileDetailCounterStyle = GoogleFonts.montserrat(
       fontSize: 24, color: ColorUiHelper.profileGradiendPrimary,fontWeight: FontWeight.w600 ,); 
+
+
+// Past jobs page
+
+  static TextStyle pastJobsTitleStyle = GoogleFonts.montserrat(
+      fontSize: 16, fontWeight: FontWeight.w600, color: ColorUiHelper.mainSubtitleColor , height: 1.2); 
+
+
+// input text style
+  static TextStyle inputTextStyle = GoogleFonts.montserrat(
+      fontSize: 16, fontWeight: FontWeight.w400, color: ColorUiHelper.inputHintColor , height: 1.2); 
+
+
+
+// Sort bar
+  static TextStyle sortSelectedTextStyle = GoogleFonts.montserrat(
+      fontSize: 12, fontWeight: FontWeight.w500, color: ColorUiHelper.mainSubtitleColor , height: 1); 
+  static TextStyle sortTextStyle = GoogleFonts.montserrat(
+      fontSize: 12, fontWeight: FontWeight.w600, color: ColorUiHelper.categoryTicketColor , height: 1); 
+
+// Product box
+  static TextStyle productTitleTextStyle = GoogleFonts.montserrat(
+      fontSize: 13, fontWeight: FontWeight.w700, color: ColorUiHelper.productTitleColor , height: 1); 
+  static TextStyle productSubtitleTextStyle = GoogleFonts.montserrat(
+      fontSize: 10, fontWeight: FontWeight.w900, color: ColorUiHelper.productSubtitleColor , height: 1);    
+  static TextStyle productSubtitleSecondTextStyle = GoogleFonts.montserrat(
+      fontSize: 10, fontWeight: FontWeight.w500, color: ColorUiHelper.productSubtitleColor , height: 1);  
+      
+  static TextStyle productPriceTextStyle = GoogleFonts.montserrat(
+      fontSize: 13, fontWeight: FontWeight.w700, color: ColorUiHelper.productPriceColor , height: 1);        
+
+
+
 }

@@ -18,7 +18,7 @@ class CategoryHeader extends StatelessWidget {
       height: 50,
       padding: EdgeInsets.only(left: 8),
       decoration: BoxDecoration(
-        image: DecorationImage(image: AssetImage("assets/logo/ticket.png"),fit: BoxFit.fill)
+        image: DecorationImage(image: AssetImage("assets/icon/ticket.png"),fit: BoxFit.fill)
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

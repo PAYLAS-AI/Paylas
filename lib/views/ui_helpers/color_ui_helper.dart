@@ -29,4 +29,15 @@ class ColorUiHelper {
 
   static final Color profileCardBg = Colors.white;
 
+
+  static final Color inputHintColor = Color.fromRGBO(2, 1, 32,1);
+
+  static final Color productTitleColor = Color.fromRGBO(54, 27, 13,1);
+  static final Color productSubtitleColor = Color.fromRGBO(93, 93, 93,1);
+  static final Color productPriceColor = Color.fromRGBO(54, 181, 74,1);
+
+
+  static final Color favoriteIconColor = Colors.red;
+  static final Color favoriteBgColor = Colors.white;
+
 }

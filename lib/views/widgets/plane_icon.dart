@@ -10,7 +10,7 @@ class PlaneIcon extends StatelessWidget {
     return SizedBox(
       width: 60,
       height: 30,
-      child: Image.asset("assets/logo/plane.png",fit: BoxFit.fitWidth,)
+      child: Image.asset("assets/icon/plane.png",fit: BoxFit.fitWidth,)
       );
   }
 }
