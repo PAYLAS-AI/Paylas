@@ -95,7 +95,7 @@ class PastJobBox extends StatelessWidget {
                       SizedBox(
                          width:(screen.width - 20) / 3 ,
                         child: Text(
-                          " $jobOwner Bey",
+                          " $jobOwner",
                           style: TextStyleHelper.productSubtitleSecondTextStyle,
                           overflow: TextOverflow.ellipsis,
                         ),

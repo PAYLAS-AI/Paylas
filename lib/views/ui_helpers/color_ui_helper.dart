@@ -40,4 +40,8 @@ class ColorUiHelper {
   static final Color favoriteIconColor = Colors.red;
   static final Color favoriteBgColor = Colors.white;
 
+
+  static final Color detailCardColor = Colors.white;
+  static final Color detailReportColor = Colors.red;
+    static final Color detailButtonColor = Color.fromARGB(255, 214, 214, 214);
 }

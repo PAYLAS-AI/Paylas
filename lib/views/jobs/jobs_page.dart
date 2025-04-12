@@ -33,7 +33,7 @@ class JobsPage extends StatelessWidget {
                 children: List.generate(10, (index) => JobBox(
                 imageUrl: "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg",
                 title: "Köpek Gezdirme",
-                jobOwner: "Enes",
+                jobOwner: "Enes Bey",
                 score: 4.8,
               )),
               ),

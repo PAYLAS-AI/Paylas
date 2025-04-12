@@ -88,7 +88,7 @@ class JobBox extends StatelessWidget {
                   SizedBox(
                     width: ((screen.width / 2) - 40) / 2,
                     child: Text(
-                      " $jobOwner Bey",
+                      " $jobOwner",
                       style: TextStyleHelper
                           .productSubtitleSecondTextStyle,
                       overflow: TextOverflow.ellipsis,

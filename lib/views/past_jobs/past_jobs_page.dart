@@ -33,7 +33,7 @@ class PastJobsPage extends StatelessWidget {
                               "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg",
                           jobDate: "01/11/2024",
                           title: "Köpek Gezdirme",
-                          jobOwner: "Enes",
+                          jobOwner: "Enes Bey",
                           location: "Öğretmenevi / Elazığ",
                           jobDuration: 2,
                           jobPrice: 140,
