@@ -1,69 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:paylas/locator/locator.dart';
+import 'package:paylas/router/page_router.dart';
+import 'package:paylas/tools/screen_sizes.dart';
+import 'package:paylas/views/login/login_page.dart';
+import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
+
 
 void main() {
-  runApp(const MyApp());
+ 
+  getitSetup();
+  runApp(ProviderScope(child: const PaylasApp()));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class PaylasApp extends StatelessWidget {
+  const PaylasApp({super.key});
+
   @override
   Widget build(BuildContext context) {
+    // ekran ölçüleri alınır.
+    ScreenSizes().init(context);
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Paylas App',
       theme: ThemeData(
-        // This is the theme of your application.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: ColorUiHelper.mainTitleBlue),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
+      debugShowCheckedModeBanner: false,
+      onGenerateRoute: PageRouter.onGenerateRoute,
+      home: LoginPage(),
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
     );
   }
 }
