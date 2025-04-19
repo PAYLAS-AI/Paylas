@@ -6,15 +6,14 @@ import 'package:paylas/views/profile/profile_details.dart';
 
 
 
-class ProfilePage extends StatelessWidget {
-  ProfilePage({super.key});
+class ProfileView extends StatelessWidget {
+  ProfileView({super.key});
 
   final screen = locator<ScreenSizes>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
+    return Container(
         width: screen.width,
         height: screen.height,
         decoration: BoxDecoration(
@@ -29,7 +28,6 @@ class ProfilePage extends StatelessWidget {
 
           ],
         ),
-      ),
-    );
+      );
   }
 }

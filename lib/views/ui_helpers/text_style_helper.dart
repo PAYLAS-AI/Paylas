@@ -162,4 +162,52 @@ class TextStyleHelper {
       fontWeight: FontWeight.bold,
       color: ColorUiHelper.detailCardColor,
       height: 1);
+
+
+
+
+// home page
+  static TextStyle homePageStyle = GoogleFonts.montserrat(
+      fontSize: 14,
+      fontWeight: FontWeight.bold,
+      color: ColorUiHelper.mainTitleYellow,
+      height: 1.2);
+
+  static TextStyle homeAppBarTitleStyle = GoogleFonts.montserrat(
+      fontSize: 20,
+      fontWeight: FontWeight.w800,
+      color: ColorUiHelper.mainSubtitleColor,
+      height: 1.2);
+
+  static TextStyle homeLabelStyle = GoogleFonts.montserrat(
+      fontSize: 16,
+      fontWeight: FontWeight.bold,
+      color: ColorUiHelper.mainSubtitleColor,
+      height: 1.2,
+      shadows: [Shadow(color: ColorUiHelper.homePageSecondShadow , blurRadius: 5)]
+      );
+  static TextStyle homeCategoryNameStyle = GoogleFonts.montserrat(
+      fontSize: 14,
+      fontWeight: FontWeight.w700,
+      color: ColorUiHelper.productTitleColor,
+      height: 1,
+      shadows: [Shadow(color: ColorUiHelper.homePageShadow , blurRadius: 5)]
+      );
+
+  static TextStyle homeAllButtonTextStyle = GoogleFonts.montserrat(
+      fontSize: 14,
+      fontWeight: FontWeight.w500,
+      color: ColorUiHelper.categoryTicketColor,
+      height: 1.2,
+      );
+
+  
+  static TextStyle bottomNavigationTextStyle = GoogleFonts.montserrat(
+      fontSize: 14,
+      fontWeight: FontWeight.w500,
+      color: ColorUiHelper.categoryTicketColor,
+      height: 1,
+      );
+
+
 }

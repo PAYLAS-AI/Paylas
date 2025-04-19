@@ -38,7 +38,8 @@ class LoginBottomBar extends StatelessWidget {
                 )),
             InkWell(
               onTap: () {
-                debugPrint("Login");
+                // Giriş işlemleri burada
+                Navigator.of(context).pushNamed("HomePage");
               },
               borderRadius: BorderRadius.circular(32),
               child: Container(
@@ -68,7 +69,7 @@ class LoginBottomBar extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Navigator.of(context).pushReplacementNamed("registerPage");
+                Navigator.of(context).pushReplacementNamed("RegisterPage");
               },
               borderRadius: BorderRadius.circular(32),
               child: Container(

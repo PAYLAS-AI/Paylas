@@ -5,15 +5,14 @@ import 'package:paylas/views/past_jobs/filter_bar.dart';
 import 'package:paylas/views/past_jobs/past_job_box.dart';
 import 'package:paylas/views/widgets/job_pages_header.dart';
 
-class PastJobsPage extends StatelessWidget {
-  PastJobsPage({super.key});
+class PastJobsView extends StatelessWidget {
+  PastJobsView({super.key});
 
   final screen = locator<ScreenSizes>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
+    return Container(
         width: screen.width,
         height: screen.height,
         decoration: BoxDecoration(
@@ -43,7 +42,6 @@ class PastJobsPage extends StatelessWidget {
                     itemCount: 10))
           ],
         ),
-      ),
-    );
+      );
   }
 }

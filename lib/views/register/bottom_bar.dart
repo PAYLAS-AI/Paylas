@@ -30,7 +30,8 @@ class RegisterBottomBar extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                debugPrint("register");
+                // Kayıt işlemleri burada
+                Navigator.of(context).pushNamed("HomePage");
               },
               borderRadius: BorderRadius.circular(32),
               child: Container(
@@ -56,7 +57,7 @@ class RegisterBottomBar extends StatelessWidget {
             ),
             TextButton(
                 onPressed: () {
-                  Navigator.of(context).pushReplacementNamed("loginPage");
+                  Navigator.of(context).pushReplacementNamed("LoginPage");
                 },
                 child: Text(
                   "Zaten hesabın var mı? Giriş Yap!",
