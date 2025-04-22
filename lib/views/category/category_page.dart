@@ -11,9 +11,7 @@ import 'package:paylas/views/category/subcategory_button.dart';
 
 class CategoryPage extends StatelessWidget {
   CategoryPage({super.key});
-
   final screen = locator<ScreenSizes>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
