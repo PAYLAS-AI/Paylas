@@ -5,7 +5,8 @@ import 'package:paylas/tools/screen_sizes.dart';
 import 'package:paylas/views/login/login_page.dart';
 import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 
-void main() {
+
+void main() async {
  
   getitSetup();
   runApp(const PaylasApp());
