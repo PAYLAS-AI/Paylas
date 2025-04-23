@@ -10,6 +10,8 @@ class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
   final screen = locator<ScreenSizes>();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +32,15 @@ class LoginPage extends StatelessWidget {
               child: LoginHeader()
             ),
 
-            LoginInputBar(),
+            LoginInputBar(
+              emailController: emailController,
+              passwordController: passwordController,
+            ),
 
-            LoginBottomBar(),
+            LoginBottomBar(
+              emailController: emailController,
+              passwordController: passwordController,
+            ),
 
             Positioned(
               top: 20,
