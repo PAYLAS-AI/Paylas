@@ -16,38 +16,40 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: screen.width,
-        height: screen.height,
-        decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage("assets/bg/2.png"),fit: BoxFit.fill)
-        ),
-        child: Stack(
-          children: [
-            Positioned(
-
-              left: screen.width * 0.075,
-              top: screen.height * 0.09,
-
-              child: LoginHeader()
-            ),
-
-            LoginInputBar(
-              emailController: emailController,
-              passwordController: passwordController,
-            ),
-
-            LoginBottomBar(
-              emailController: emailController,
-              passwordController: passwordController,
-            ),
-
-            Positioned(
-              top: 20,
-              right: 50,
-              child: PlaneIcon()
-            )
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          width: screen.width,
+          height: screen.height,
+          decoration: BoxDecoration(
+            image: DecorationImage(image: AssetImage("assets/bg/2.png"),fit: BoxFit.fill)
+          ),
+          child: Stack(
+            children: [
+              Positioned(
+        
+                left: screen.width * 0.075,
+                top: screen.height * 0.09,
+        
+                child: LoginHeader()
+              ),
+        
+              LoginInputBar(
+                emailController: emailController,
+                passwordController: passwordController,
+              ),
+        
+              LoginBottomBar(
+                emailController: emailController,
+                passwordController: passwordController,
+              ),
+        
+              Positioned(
+                top: 20,
+                right: 50,
+                child: PlaneIcon()
+              )
+            ],
+          ),
         ),
       ),
     );
