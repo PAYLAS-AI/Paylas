@@ -10,6 +10,9 @@ class RegisterPage extends StatelessWidget {
   RegisterPage({super.key});
 
   final screen = locator<ScreenSizes>();
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -18,27 +21,25 @@ class RegisterPage extends StatelessWidget {
         width: screen.width,
         height: screen.height,
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage("assets/bg/2.png"),fit: BoxFit.fill)
-        ),
+            image: DecorationImage(
+                image: AssetImage("assets/bg/2.png"), fit: BoxFit.fill)),
         child: Stack(
           children: [
             Positioned(
-
-              left: screen.width * 0.075,
-              top: screen.height * 0.09,
-
-              child: LoginHeader()
+                left: screen.width * 0.075,
+                top: screen.height * 0.09,
+                child: LoginHeader()),
+            RegisterInputBar(
+              nameController: nameController,
+              emailController: emailController,
+              passwordController: passwordController,
             ),
-
-            RegisterInputBar(),
-
-            RegisterBottomBar(),
-
-            Positioned(
-              top: 20,
-              right: 50,
-              child: PlaneIcon()
-            )
+            RegisterBottomBar(
+              nameController: nameController,
+              emailController: emailController,
+              passwordController: passwordController,
+            ),
+            Positioned(top: 20, right: 50, child: PlaneIcon())
           ],
         ),
       ),
