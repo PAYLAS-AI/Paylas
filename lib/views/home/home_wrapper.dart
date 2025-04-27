@@ -2,7 +2,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:paylas/services/auth/auth_service.dart';
-import 'package:paylas/views/home/home_view.dart';
 
 import 'package:paylas/views/login/login_page.dart';
 import 'package:paylas/views/view_router/view_router.dart';

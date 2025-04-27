@@ -1,16 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:paylas/locator/locator.dart';
+import 'package:paylas/services/auth/auth_service.dart';
 import 'package:paylas/tools/screen_sizes.dart';
 import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 import 'package:paylas/views/ui_helpers/text_style_helper.dart';
 
-class ProfileCardHeader extends StatelessWidget {
+class ProfileCardHeader extends StatefulWidget {
   ProfileCardHeader({
     super.key,
   });
 
-  final screen = locator<ScreenSizes>();
+  @override
+  State<ProfileCardHeader> createState() => _ProfileCardHeaderState();
+}
 
+class _ProfileCardHeaderState extends State<ProfileCardHeader> {
+  final screen = locator<ScreenSizes>();
+  final AuthService _authService = AuthService();
+  late String? username;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    username = _authService.getCurrentUserName().toString();
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,7 +60,7 @@ class ProfileCardHeader extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(2.0),
             child: Text(
-              "ENES BAYRİ",
+              username??"",
               style: TextStyleHelper.loginSubtitle2Style,
             ),
           ),

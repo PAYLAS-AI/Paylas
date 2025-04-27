@@ -7,6 +7,13 @@ class AuthService {
 
   FirebaseAuth get auth => _auth;
 
+  String? getCurrentUserEmail() {
+    return _auth.currentUser?.email;
+  }
+  String? getCurrentUserName() {
+    return _auth.currentUser?.displayName;
+  }
+
   Future<User?> signIn(String email, String password) async {
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
