@@ -10,36 +10,39 @@ class RegisterPage extends StatelessWidget {
   RegisterPage({super.key});
 
   final screen = locator<ScreenSizes>();
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: screen.width,
-        height: screen.height,
-        decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage("assets/bg/2.png"),fit: BoxFit.fill)
-        ),
-        child: Stack(
-          children: [
-            Positioned(
-
-              left: screen.width * 0.075,
-              top: screen.height * 0.09,
-
-              child: LoginHeader()
-            ),
-
-            RegisterInputBar(),
-
-            RegisterBottomBar(),
-
-            Positioned(
-              top: 20,
-              right: 50,
-              child: PlaneIcon()
-            )
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          width: screen.width,
+          height: screen.height,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/bg/2.png"), fit: BoxFit.fill)),
+          child: Stack(
+            children: [
+              Positioned(
+                  left: screen.width * 0.075,
+                  top: screen.height * 0.09,
+                  child: LoginHeader()),
+              RegisterInputBar(
+                nameController: nameController,
+                emailController: emailController,
+                passwordController: passwordController,
+              ),
+              RegisterBottomBar(
+                nameController: nameController,
+                emailController: emailController,
+                passwordController: passwordController,
+              ),
+              Positioned(top: 20, right: 50, child: PlaneIcon())
+            ],
+          ),
         ),
       ),
     );

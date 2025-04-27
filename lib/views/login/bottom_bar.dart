@@ -1,13 +1,20 @@
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:paylas/locator/locator.dart';
+import 'package:paylas/services/auth/auth_service.dart';
 import 'package:paylas/tools/screen_sizes.dart';
 import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 import 'package:paylas/views/ui_helpers/text_style_helper.dart';
 
 class LoginBottomBar extends StatelessWidget {
+  final AuthService _authService = AuthService();
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+
   LoginBottomBar({
     super.key,
+    required this.emailController,
+    required this.passwordController,
   });
 
   final screen = locator<ScreenSizes>();
@@ -37,9 +44,26 @@ class LoginBottomBar extends StatelessWidget {
                   style: TextStyleHelper.forgotPasswordTextStyle,
                 )),
             InkWell(
-              onTap: () {
-                // Giriş işlemleri burada
-                Navigator.of(context).pushNamed("HomePage");
+              onTap: () async {
+                debugPrint("Login");
+                User? user = await _authService.signIn(
+                  emailController.text.trim(),
+                  passwordController.text.trim(),
+                );
+                if (user == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                        content: Text(
+                            "Giriş başarısız! Bilgilerinizi kontrol edin.")),
+                  );
+                } else if (!_authService.isEmailVerified()) {
+                  _authService.auth.signOut();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                        content:
+                            Text("Email dogrulamasi yapmaniz gerekmektedir.")),
+                  );
+                }
               },
               borderRadius: BorderRadius.circular(32),
               child: Container(

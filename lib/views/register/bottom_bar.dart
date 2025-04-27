@@ -1,13 +1,23 @@
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:paylas/locator/locator.dart';
+import 'package:paylas/services/auth/auth_service.dart';
 import 'package:paylas/tools/screen_sizes.dart';
+import 'package:paylas/views/login/login_page.dart';
 import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 import 'package:paylas/views/ui_helpers/text_style_helper.dart';
 
 class RegisterBottomBar extends StatelessWidget {
+  final AuthService _authService = AuthService();
+  final TextEditingController nameController;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+
   RegisterBottomBar({
     super.key,
+    required this.nameController,
+    required this.emailController,
+    required this.passwordController,
   });
 
   final screen = locator<ScreenSizes>();
@@ -29,9 +39,30 @@ class RegisterBottomBar extends StatelessWidget {
               height: 15,
             ),
             InkWell(
-              onTap: () {
-                // Kayıt işlemleri burada
-                Navigator.of(context).pushNamed("HomePage");
+              onTap: () async {
+                debugPrint("register");
+                User? user = await _authService.register(
+                    emailController.text.trim(), passwordController.text.trim(),
+                    name: nameController.text);
+                if (user != null) {
+                  _authService.signOut();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                        content: Text(
+                            "Email dogrulama icin e-posta adresinizi kontrol ediniz")),
+                  );
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                        content: Text(
+                            "Kayıt başarısız! Bilgilerinizi kontrol edin.")),
+                  );
+                }
+
               },
               borderRadius: BorderRadius.circular(32),
               child: Container(

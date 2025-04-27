@@ -6,8 +6,15 @@ import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 import 'package:paylas/views/widgets/custom_text_input.dart';
 
 class RegisterInputBar extends StatelessWidget {
+  final TextEditingController nameController;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+
   RegisterInputBar({
     super.key,
+    required this.nameController,
+    required this.emailController,
+    required this.passwordController,
   });
 
   final screen = locator<ScreenSizes>();
@@ -15,43 +22,40 @@ class RegisterInputBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
-        alignment: Alignment.center,
-        child: SizedBox(
-          width: screen.width,
-          height: screen.height * 0.3,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CustomTextInput(
-                label: "Adınız",
-                icon: Icon(Icons.account_circle),
-                textController: TextEditingController(),
-                primaryColor: ColorUiHelper.inputLightColor,
-                secondaryColor: ColorUiHelper.inputDarkColor,
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              CustomTextInput(
-                label: "E-mail",
-                icon: Icon(Icons.email_outlined),
-                textController: TextEditingController(),
-                primaryColor: ColorUiHelper.inputLightColor,
-                secondaryColor: ColorUiHelper.inputDarkColor,
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              CustomTextInput(
-                label: "Şifre",
-                icon: Icon(Icons.lock),
-                textController: TextEditingController(),
-                primaryColor: ColorUiHelper.inputLightColor,
-                secondaryColor: ColorUiHelper.inputDarkColor,
-                isObscure: true,
-              ),
-            ],
-          ),
-        ));
+      alignment: Alignment.center,
+      child: SizedBox(
+        width: screen.width,
+        height: screen.height * 0.3,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CustomTextInput(
+              label: "Adınız",
+              icon: Icon(Icons.account_circle),
+              textController: nameController,
+              primaryColor: ColorUiHelper.inputLightColor,
+              secondaryColor: ColorUiHelper.inputDarkColor,
+            ),
+            SizedBox(height: 15),
+            CustomTextInput(
+              label: "E-mail",
+              icon: Icon(Icons.email_outlined),
+              textController: emailController,
+              primaryColor: ColorUiHelper.inputLightColor,
+              secondaryColor: ColorUiHelper.inputDarkColor,
+            ),
+            SizedBox(height: 15),
+            CustomTextInput(
+              label: "Şifre",
+              icon: Icon(Icons.lock),
+              textController: passwordController,
+              primaryColor: ColorUiHelper.inputLightColor,
+              secondaryColor: ColorUiHelper.inputDarkColor,
+              isObscure: true,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
