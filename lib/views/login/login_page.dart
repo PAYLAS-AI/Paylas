@@ -26,6 +26,8 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user != null) {
+
+        print(user.displayName.toString());
         // Kullanıcı zaten giriş yapmış, direkt HomePage'e yönlendir
         WidgetsBinding.instance.addPostFrameCallback((_) {
           Navigator.pushReplacement(

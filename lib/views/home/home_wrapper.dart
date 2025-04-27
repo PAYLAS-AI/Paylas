@@ -18,7 +18,6 @@ class HomeWrapper extends StatelessWidget {
             body: Center(child: CircularProgressIndicator()),
           );
         }
-
         if (!snapshot.hasData) {
           return LoginPage();
         }
