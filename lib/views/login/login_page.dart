@@ -24,8 +24,6 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    final FirebaseAuth _auth = FirebaseAuth.instance;
-    _auth.signOut();
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user != null) {
 

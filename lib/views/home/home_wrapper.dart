@@ -5,6 +5,7 @@ import 'package:paylas/services/auth/auth_service.dart';
 import 'package:paylas/views/home/home_view.dart';
 
 import 'package:paylas/views/login/login_page.dart';
+import 'package:paylas/views/view_router/view_router.dart';
 
 class HomeWrapper extends StatelessWidget {
   final AuthService _authService = AuthService();
@@ -23,7 +24,7 @@ class HomeWrapper extends StatelessWidget {
           return LoginPage();
         }
 
-        return HomeView();
+        return ViewRouter();
       },
     );
   }
