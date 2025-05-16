@@ -13,6 +13,14 @@ class JobService {
         .toList();
   }
 
+  Future<Job?> showJob(String jobId) async {
+    final doc = await _db.collection('jobs').doc(jobId).get();
+    if (doc.exists) {
+      return Job.fromMap(doc.data()!, doc.id);
+    } else {
+      return null;
+    }
+  }
   Future<void> addNewJob(Job job) async {
     await _db.collection('jobs').add(job.toMap());
   }

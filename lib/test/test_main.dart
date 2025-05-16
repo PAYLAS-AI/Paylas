@@ -14,7 +14,7 @@ void main() async {
 
   // Test: Yeni kategori ekle
   await categoryService.addNewCategory(
-    Category(id: '', name: 'Test Kategori', createdDate: DateTime.now()),
+    Category(id: '', name: ' Kategori ismi', createdDate: DateTime.now()),
   );
 
   // Test: Tüm kategorileri getir
@@ -24,7 +24,7 @@ void main() async {
   }
 
 
-    final firestoreService = JobService();
+    final jobService = JobService();
     final job = Job(
       id: '',
       title: 'Bahçe Bakımı',
@@ -34,13 +34,27 @@ void main() async {
       createdDate: DateTime.now(),
     );
 
-    await firestoreService.addNewJob(job);
+    await jobService.addNewJob(job);
 
-    final jobs = await firestoreService.getAllJobs();
+    final jobs = await jobService.getAllJobs();
     for (final j in jobs) {
       print('is: ${j.title} - ${j.createdDate}');
     }
-
+  try {
+    final job = await jobService.showJob('ZaEsBLYcx0LbNuIXaJHd');
+    if (job != null) {
+      print("en son testler");
+      print('Job Title: ${job.title}');
+      print('Description: ${job.description}');
+      print('Category: ${job.categoryId}');
+      print('Owner: ${job.ownerId}');
+      print('Created Date: ${job.createdDate}');
+    } else {
+      print('Job not found.');
+    }
+  } catch (e) {
+    print('Bir hata oluştu: $e');
+  }
 
 
 }
