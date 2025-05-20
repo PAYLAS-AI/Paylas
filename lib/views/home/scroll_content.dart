@@ -32,7 +32,7 @@ class ScrollContent extends StatelessWidget {
       width: screen.width,
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
-            color: ColorUiHelper.homePageSecondShadow.withValues(alpha: 200),
+            color: ColorUiHelper.homePageSecondShadow.withAlpha(70),
             blurRadius: 10)
       ]),
       child: Column(

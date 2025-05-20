@@ -198,7 +198,7 @@ class TextStyleHelper {
       fontSize: 14,
       fontWeight: FontWeight.w500,
       color: ColorUiHelper.categoryTicketColor,
-      height: 1.2,
+      height: 0.5,
       );
 
   
@@ -209,5 +209,35 @@ class TextStyleHelper {
       height: 1,
       );
 
+
+
+// add job page
+
+  static TextStyle addJobTitleStyle = GoogleFonts.montserrat(
+      fontSize: 36,
+      fontWeight: FontWeight.bold,
+      color: ColorUiHelper.mainTitleYellow,
+      height: 1.2);
+
+
+  static TextStyle addJobSubtitleStyle = GoogleFonts.montserrat(
+      fontSize: 16,
+      color: ColorUiHelper.mainSubtitleColor,
+      fontWeight: FontWeight.w600,
+      height: 1
+      );
+
+    static TextStyle addImageButtonTextStyle = GoogleFonts.montserrat(
+      fontSize: 16,
+      fontWeight: FontWeight.bold,
+      height: 0.5,
+      color: ColorUiHelper.mainTitleYellow);
+
+
+    static TextStyle dropdownTextStyle = GoogleFonts.montserrat(
+      fontSize: 16,
+      fontWeight: FontWeight.w600,
+      color: ColorUiHelper.inputHintColor,
+      height: 1.2);
 
 }

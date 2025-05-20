@@ -5,6 +5,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:paylas/views/add_job/add_job_page.dart';
 import 'package:paylas/views/details/job_details_page.dart';
 import 'package:paylas/views/jobs/jobs_page.dart';
 import 'package:paylas/views/login/login_page.dart';
@@ -43,7 +44,14 @@ class PageRouter {
       }else{
         return CupertinoPageRoute(builder: (context) => JobDetailsPage(),);
       }
+    }else if (settings.name == "AddJobPage"){
+      if( defaultTargetPlatform == TargetPlatform.android){
+        return MaterialPageRoute(builder: (context) => AddJobPage(),);
+      }else{
+        return CupertinoPageRoute(builder: (context) => AddJobPage(),);
+      }
     }
+
     return null;
   }
 

@@ -9,6 +9,8 @@ import 'package:paylas/views/view_router/view_router.dart';
 class HomeWrapper extends StatelessWidget {
   final AuthService _authService = AuthService();
 
+  HomeWrapper({super.key});
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(

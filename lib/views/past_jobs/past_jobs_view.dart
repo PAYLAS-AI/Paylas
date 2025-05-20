@@ -18,29 +18,31 @@ class PastJobsView extends StatelessWidget {
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("assets/bg/2.png"), fit: BoxFit.fill)),
-        child: Column(
-          children: [
-            JobsPagesHeader(
-              iconAsset: "assets/icon/history.png",
-              label: "Geçmiş İşlerim",
-            ),
-            FilterBar(),
-            Flexible(
-                child: ListView.separated(
-                    itemBuilder: (context, index) => PastJobBox(
-                          imageUrl:
-                              "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg",
-                          jobDate: "01/11/2024",
-                          title: "Köpek Gezdirme",
-                          jobOwner: "Enes Bey",
-                          location: "Öğretmenevi / Elazığ",
-                          jobDuration: 2,
-                          jobPrice: 140,
-                          score: 4.8,
-                        ),
-                    separatorBuilder: (context, index) => SizedBox(height: 20,),
-                    itemCount: 10))
-          ],
+        child: SafeArea(
+          child: Column(
+            children: [
+              JobsPagesHeader(
+                iconAsset: "assets/icon/history.png",
+                label: "Geçmiş İşlerim",
+              ),
+              FilterBar(),
+              Flexible(
+                  child: ListView.separated(
+                      itemBuilder: (context, index) => PastJobBox(
+                            imageUrl:
+                                "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg",
+                            jobDate: "01/11/2024",
+                            title: "Köpek Gezdirme",
+                            jobOwner: "Enes Bey",
+                            location: "Öğretmenevi / Elazığ",
+                            jobDuration: 2,
+                            jobPrice: 140,
+                            score: 4.8,
+                          ),
+                      separatorBuilder: (context, index) => SizedBox(height: 20,),
+                      itemCount: 10))
+            ],
+          ),
         ),
       );
   }

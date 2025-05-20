@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:paylas/locator/locator.dart';
 import 'package:paylas/tools/screen_sizes.dart';
+import 'package:paylas/tools/text_controllers.dart';
 import 'package:paylas/views/home/home_wrapper.dart';
 import 'package:paylas/views/login/bottom_bar.dart';
 import 'package:paylas/views/login/input_bar.dart';
@@ -9,7 +12,7 @@ import 'package:paylas/views/widgets/login_header.dart';
 import 'package:paylas/views/widgets/plane_icon.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({super.key});
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -17,19 +20,19 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final screen = locator<ScreenSizes>();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  late final StreamSubscription<User?> _authListener;
+  
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user != null) {
 
-        print(user.displayName.toString());
-        // Kullanıcı zaten giriş yapmış, direkt HomePage'e yönlendir
+    super.initState();
+    _authListener = FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user != null && mounted) {
+        debugPrint(user.displayName.toString());
+
         WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (!mounted) return;
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => HomeWrapper()),
@@ -43,6 +46,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Container(
           width: screen.width,
@@ -61,13 +65,13 @@ class _LoginPageState extends State<LoginPage> {
               ),
 
               LoginInputBar(
-                emailController: emailController,
-                passwordController: passwordController,
+                emailController: TextControllerHelper.loginEmailController,
+                passwordController: TextControllerHelper.loginPasswordController,
               ),
 
               LoginBottomBar(
-                emailController: emailController,
-                passwordController: passwordController,
+                emailController: TextControllerHelper.loginEmailController,
+                passwordController: TextControllerHelper.loginPasswordController,
               ),
 
               Positioned(
@@ -80,6 +84,13 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    TextControllerHelper.resetLoginTextControllers();
+    _authListener.cancel();
+    super.dispose();
   }
 }
 

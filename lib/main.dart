@@ -10,6 +10,8 @@ import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 
 
 
+
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -35,7 +37,6 @@ class PaylasApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       onGenerateRoute: PageRouter.onGenerateRoute,
       home: LoginPage(),
-
     );
   }
 }

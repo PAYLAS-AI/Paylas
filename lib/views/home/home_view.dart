@@ -24,65 +24,67 @@ class HomeView extends StatelessWidget {
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("assets/bg/2.png"), fit: BoxFit.fill)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CustomAppBar(
-              profileUrl:
-                  "https://forum.shiftdelete.net/ekler/mh_hp_cizmeli_kedi_400x400-jpg.132558/",
-            ),
-            Flexible(
-              child: SizedBox(
-                height: 25,
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CustomAppBar(
+                profileUrl:
+                    "https://forum.shiftdelete.net/ekler/mh_hp_cizmeli_kedi_400x400-jpg.132558/",
               ),
-            ),
-            Consumer(
-              builder: (context, ref, child) => ScrollContent(
-                height: screen.height * 0.3 + 40,
-                labelIconAssetUrl: "assets/icon/advert.png",
-                label: "Aktif İlanlar",
-                onPressed: () {
-                  ref.read(selectedCategoryProvider.notifier).state = CategoryBy.all;
-                  Navigator.of(context).pushNamed("JobsPage");
-                },
-                widgetBuilder: JobBox(
-                  imageUrl:
-                      "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg",
-                  title: "Köpek Gezdirme",
-                  jobOwner: "Enes Bey",
-                  score: 4.8,
-                  onTap: () {
-                    Navigator.of(context).pushNamed("DetailsPage");
+              Flexible(
+                child: SizedBox(
+                  height: 25,
+                ),
+              ),
+              Consumer(
+                builder: (context, ref, child) => ScrollContent(
+                  height: screen.height * 0.3 + 40,
+                  labelIconAssetUrl: "assets/icon/advert.png",
+                  label: "Aktif İlanlar",
+                  onPressed: () {
+                    ref.read(selectedCategoryProvider.notifier).state = CategoryBy.all;
+                    Navigator.of(context).pushNamed("JobsPage");
                   },
+                  widgetBuilder: JobBox(
+                    imageUrl:
+                        "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg",
+                    title: "Köpek Gezdirme",
+                    jobOwner: "Enes Bey",
+                    score: 4.8,
+                    onTap: () {
+                      Navigator.of(context).pushNamed("DetailsPage");
+                    },
+                  ),
+                  itemCount: 10,
                 ),
-                itemCount: 10,
               ),
-            ),
-            Flexible(
-              child: SizedBox(
-                height: 25,
-              ),
-            ),
-            Consumer(
-              builder: (context, ref, child) => ScrollContent(
-                height: screen.height * 0.25,
-                labelIconAssetUrl: "assets/icon/category.png",
-                label: "Daha Fazla Kategori",
-                onPressed: () {
-                  ref.read(selectedNavigationIndexProvider.notifier).state = 1;
-                },
-                widgetBuilder: Row(
-                  children: [
-                    CategoryBox(label: "Hizmetler", assetIconUrl: "assets/icon/categories/services.png"),
-                    CategoryBox(label: "Ürünler", assetIconUrl: "assets/icon/categories/shopping.png"),
-                    CategoryBox(label: "Eğitim", assetIconUrl: "assets/icon/categories/education.png"),
-                    CategoryBox(label: "Ustalık", assetIconUrl: "assets/icon/categories/craftsmanship.png"),
-                  ],
+              Flexible(
+                child: SizedBox(
+                  height: 25,
                 ),
-                itemCount: 1,
               ),
-            ),
-          ],
+              Consumer(
+                builder: (context, ref, child) => ScrollContent(
+                  height: screen.height * 0.25,
+                  labelIconAssetUrl: "assets/icon/category.png",
+                  label: "Daha Fazla Kategori",
+                  onPressed: () {
+                    ref.read(selectedNavigationIndexProvider.notifier).state = 1;
+                  },
+                  widgetBuilder: Row(
+                    children: [
+                      CategoryBox(label: "Hizmetler", assetIconUrl: "assets/icon/categories/services.png"),
+                      CategoryBox(label: "Ürünler", assetIconUrl: "assets/icon/categories/shopping.png"),
+                      CategoryBox(label: "Eğitim", assetIconUrl: "assets/icon/categories/education.png"),
+                      CategoryBox(label: "Ustalık", assetIconUrl: "assets/icon/categories/craftsmanship.png"),
+                    ],
+                  ),
+                  itemCount: 1,
+                ),
+              ),
+            ],
+          ),
         ),
       );
   }
