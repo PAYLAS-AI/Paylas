@@ -21,7 +21,6 @@ class _ProfileCardHeaderState extends State<ProfileCardHeader> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     username = _authService.getCurrentUserName().toString();
   }

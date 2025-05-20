@@ -29,15 +29,16 @@ class ProfileView extends StatelessWidget {
               children: [ProfileCardHeader(), ProfileCardDetails()],
             ),
             Positioned(
-              right: 20,
+              right: 40,
               top: 40,
                 child: IconButton(
                     onPressed: () {
                       _authService.signOut();
                     },
+                    style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(ColorUiHelper.detailReportColor)),
                     icon: Icon(
                       Icons.logout,
-                      color: ColorUiHelper.detailReportColor,
+                      color: ColorUiHelper.mainSubtitleColor,
                     )))
           ],
         ),

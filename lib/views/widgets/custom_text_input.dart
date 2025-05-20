@@ -21,7 +21,7 @@ class CustomTextInput extends StatelessWidget {
   final TextEditingController textController;
   final Color primaryColor;
   final Color secondaryColor;
-  final bool isObscure;
+  final bool? isObscure;
   final double? width;
   final double? height;
   final EdgeInsets? contentPadding;
@@ -54,7 +54,7 @@ class CustomTextInput extends StatelessWidget {
         ),
         controller: textController,
         keyboardType: TextInputType.emailAddress,
-        obscureText: isObscure,
+        obscureText: isObscure ?? false ,
       ),
     );
   }
