@@ -24,6 +24,9 @@ class JobService {
   Future<void> addNewJob(Job job) async {
     await _db.collection('jobs').add(job.toMap());
   }
+  Future<void> archiveJob(String jobId) async {
+    await _db.collection('jobs').doc(jobId).update({'isArchived': true});
+  }
 
   Future<void> updateJob(Job job) async {
     await _db.collection('jobs').doc(job.id).update(job.toMap());

@@ -5,7 +5,68 @@ import 'package:paylas/models/category/category.dart';
 import 'package:paylas/models/job/job.dart';
 import 'package:paylas/services/category/category_service.dart';
 import 'package:paylas/services/job/job_service.dart';
+import 'package:paylas/models/past_job/past_job.dart';
+import 'package:paylas/services/past_job/past_job_service.dart';
 
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  final categoryService = CategoryService();
+  final jobService = JobService();
+  final pastJobService = PastJobService();
+
+  // Yeni kategori
+  await categoryService.addNewCategory(
+    Category(id: '', name: 'Kategori ismi', createdDate: DateTime.now()),
+  );
+
+  // Tüm kategoriler
+  final categories = await categoryService.getAllCategories();
+  for (final c in categories) {
+    print('Kategori: ${c.name}');
+  }
+
+  // Yeni iş
+  final job = Job(
+    id: '',
+    title: 'Bahçe Bakımı',
+    description: 'Ev bahçesi düzenlenecek.',
+    categoryId: 'temizlik-id',
+    ownerId: 'uid-1234',
+    createdDate: DateTime.now(),
+    isArchived: false,
+  );
+  await jobService.addNewJob(job);
+
+  // Tüm işler
+  final jobs = await jobService.getAllJobs();
+  for (final j in jobs) {
+    print('İş: ${j.title} - Archived: ${j.isArchived}');
+  }
+
+  // Örnek geçmiş iş
+  final pastJob = PastJob(
+    id: '',
+    jobId: jobs.first.id.toString(),
+    userId: 'uid-1234',
+    completedDate: DateTime.now(),
+  );
+  await pastJobService.addNewPastJob(pastJob);
+
+  // Show pastJob
+  final result = await pastJobService.showPastJob('AznnoJvIpCKPEJK0cOAL'); // gerçek ID ile değiştir
+  if (result != null) {
+    print('Past Job -> Job ID: ${result.jobId}, User: ${result.userId}');
+  } else {
+    print('Past job not found.');
+  }
+}
+
+
+
+
+/*
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -58,3 +119,4 @@ void main() async {
 
 
 }
+*/

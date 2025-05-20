@@ -6,6 +6,7 @@ class Job {
   final String categoryId;
   final String ownerId;
   final DateTime createdDate;
+  final bool isArchived;
 
   Job({
     required this.id,
@@ -14,6 +15,7 @@ class Job {
     required this.categoryId,
     required this.ownerId,
     required this.createdDate,
+    this.isArchived = false,
   });
 
   factory Job.fromMap(Map<String, dynamic> map, String documentId) {
@@ -24,6 +26,7 @@ class Job {
       categoryId: map['categoryId'] ?? '',
       ownerId: map['ownerId'] ?? '',
       createdDate: (map['createdDate'] as Timestamp).toDate(),
+      isArchived: map['isArchived'] ?? false,
     );
   }
 
@@ -34,6 +37,7 @@ class Job {
       'categoryId': categoryId,
       'ownerId': ownerId,
       'createdDate': createdDate,
+      'isArchived': isArchived,
     };
   }
 }
