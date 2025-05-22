@@ -27,6 +27,7 @@ class LoginInputBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomTextInput(
+                maxLine: 1,
                 label: "E-mail",
                 icon: Icon(Icons.email_outlined),
                 textController: emailController,
@@ -37,6 +38,7 @@ class LoginInputBar extends StatelessWidget {
                 height: 15,
               ),
               CustomTextInput(
+                maxLine: 1,
                 label: "Şifre",
                 icon: Icon(Icons.lock),
                 textController: passwordController,

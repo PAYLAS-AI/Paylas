@@ -30,13 +30,23 @@ class ViewRouter extends ConsumerWidget {
         index: selectedView,
         children: views,
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed("AddJobPage");
+        },
+        backgroundColor: ColorUiHelper.categoryTicketColor,
+        shape: CircleBorder(),
+        elevation: 1,
+        child: Icon(Icons.assignment_add,color: ColorUiHelper.mainSubtitleColor,),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (value) {
             ref.read(selectedNavigationIndexProvider.notifier).state = value;
         },
         currentIndex: selectedView,
-        elevation: 1,
-        type: BottomNavigationBarType.shifting,
+        elevation: 6,
+        type: BottomNavigationBarType.fixed,
         selectedLabelStyle: TextStyleHelper.bottomNavigationTextStyle,
         selectedItemColor: ColorUiHelper.categoryTicketColor,
   // home - jobs - past jobs - profile      

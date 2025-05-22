@@ -35,6 +35,7 @@ class RegisterInputBar extends StatelessWidget {
               textController: nameController,
               primaryColor: ColorUiHelper.inputLightColor,
               secondaryColor: ColorUiHelper.inputDarkColor,
+              maxLine: 1,
             ),
             SizedBox(height: 15),
             CustomTextInput(
@@ -43,6 +44,7 @@ class RegisterInputBar extends StatelessWidget {
               textController: emailController,
               primaryColor: ColorUiHelper.inputLightColor,
               secondaryColor: ColorUiHelper.inputDarkColor,
+              maxLine: 1,
             ),
             SizedBox(height: 15),
             CustomTextInput(
@@ -52,6 +54,7 @@ class RegisterInputBar extends StatelessWidget {
               primaryColor: ColorUiHelper.inputLightColor,
               secondaryColor: ColorUiHelper.inputDarkColor,
               isObscure: true,
+              maxLine: 1,
             ),
           ],
         ),

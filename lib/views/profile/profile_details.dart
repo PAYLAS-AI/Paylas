@@ -8,7 +8,7 @@ import 'package:paylas/views/profile/score_card.dart';
 import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 
 class ProfileCardDetails extends StatefulWidget {
-  ProfileCardDetails({
+  const ProfileCardDetails({
     super.key,
   });
 
@@ -24,7 +24,7 @@ class _ProfileCardDetailsState extends State<ProfileCardDetails> {
 
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
 
     email = _authService.getCurrentUserEmail().toString();
