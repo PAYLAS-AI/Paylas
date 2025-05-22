@@ -1,33 +1,36 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uuid/uuid.dart';
 class Job {
-  final String id;
-  final String title;
-  final String description;
-  final String categoryId;
-  final String ownerId;
-  final DateTime createdDate;
-  final bool isArchived;
-  final DateTime validityDate;
-  final String location;
+  String? id;
+  String title;
+  String description;
+  String category;
+  String ownerId;
+  DateTime createdDate;
+  bool isArchived;
+  DateTime validityDate;
+  String location;
 
   Job({
-    required this.id,
+    this.id,
     required this.title,
     required this.description,
-    required this.categoryId,
+    required this.category,
     required this.ownerId,
     required this.createdDate,
     required this.validityDate,
     required this.location,
     this.isArchived = false,
-  });
+  }){
+    id = Uuid().v4();
+  }
 
   factory Job.fromMap(Map<String, dynamic> map, String documentId) {
     return Job(
       id: documentId,
       title: map['title'] ?? '',
       description: map['description'] ?? '',
-      categoryId: map['categoryId'] ?? '',
+      category: map['category'] ?? '',
       ownerId: map['ownerId'] ?? '',
       createdDate: (map['createdDate'] as Timestamp).toDate(),
       isArchived: map['isArchived'] ?? false,
@@ -40,7 +43,7 @@ class Job {
     return {
       'title': title,
       'description': description,
-      'categoryId': categoryId,
+      'category': category,
       'ownerId': ownerId,
       'createdDate': createdDate,
       'isArchived': isArchived,

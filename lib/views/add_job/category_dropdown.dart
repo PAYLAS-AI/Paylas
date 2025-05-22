@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:paylas/locator/locator.dart';
 import 'package:paylas/model/categoryby.dart';
+import 'package:paylas/provider/all_providers.dart';
 import 'package:paylas/tools/screen_sizes.dart';
 import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 import 'package:paylas/views/ui_helpers/text_style_helper.dart';
 
 // ignore: must_be_immutable
-class CategoryDropdown extends StatelessWidget {
+class CategoryDropdown extends ConsumerWidget {
   CategoryDropdown({
     super.key,
   });
   final screen = locator<ScreenSizes>();
 
 
-  CategoryBy? currentCategory;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
         margin: EdgeInsets.only(bottom: 8),
         decoration: BoxDecoration(
@@ -25,7 +26,7 @@ class CategoryDropdown extends StatelessWidget {
         ),
         child: DropdownMenu(
             onSelected: (value) {
-              currentCategory = value;
+              ref.read(currentCategoryProvider.notifier).state = value!;
               debugPrint("Kategori seçildi: $value");
             },
             width: screen.width * 0.75,

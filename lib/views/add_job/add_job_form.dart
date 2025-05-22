@@ -4,6 +4,7 @@ import 'package:paylas/locator/locator.dart';
 import 'package:paylas/provider/all_providers.dart';
 import 'package:paylas/tools/screen_sizes.dart';
 import 'package:paylas/tools/text_controllers.dart';
+import 'package:paylas/views/add_job/add_job_button.dart';
 import 'package:paylas/views/add_job/add_job_image.dart';
 import 'package:paylas/views/add_job/category_dropdown.dart';
 import 'package:paylas/views/add_job/custom_input.dart';
@@ -205,26 +206,7 @@ class AddJobForm extends ConsumerWidget {
                   "İlanı Yayınla!",
                   style: TextStyleHelper.homeLabelStyle,
                 ),
-                content: Container(
-                  width: screen.width * 0.65,
-                  height: 40,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(32),
-                      color: ColorUiHelper.inputDarkColor,
-                      gradient: LinearGradient(
-                          colors: [
-                            ColorUiHelper.inputDarkColor,
-                            ColorUiHelper.inputSecondDarkColor
-                          ],
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight)),
-                  child: Center(
-                    child: Text(
-                      "İlan Oluştur!",
-                      style: TextStyleHelper.loginButtonTextStyle,
-                    ),
-                  ),
-                ),
+                content: AddJobButton(),
               ),
             ]),
       ],

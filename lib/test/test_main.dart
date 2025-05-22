@@ -32,7 +32,7 @@ void main() async {
     id: '',
     title: 'Bahçe Bakımı',
     description: 'Ev bahçesi düzenlenecek.',
-    categoryId: 'temizlik-id',
+    category: 'temizlik-id',
     ownerId: 'uid-1234',
     createdDate: DateTime.now(),
     validityDate: DateTime.now().add(Duration(days: 30)), // 30 gün geçerli
