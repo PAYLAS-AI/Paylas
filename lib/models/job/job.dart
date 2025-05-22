@@ -7,6 +7,8 @@ class Job {
   final String ownerId;
   final DateTime createdDate;
   final bool isArchived;
+  final DateTime validityDate;
+  final String location;
 
   Job({
     required this.id,
@@ -15,6 +17,8 @@ class Job {
     required this.categoryId,
     required this.ownerId,
     required this.createdDate,
+    required this.validityDate,
+    required this.location,
     this.isArchived = false,
   });
 
@@ -27,6 +31,8 @@ class Job {
       ownerId: map['ownerId'] ?? '',
       createdDate: (map['createdDate'] as Timestamp).toDate(),
       isArchived: map['isArchived'] ?? false,
+      validityDate: (map['validityDate'] as Timestamp).toDate(),
+      location: map['location'] ?? '',
     );
   }
 
@@ -38,6 +44,8 @@ class Job {
       'ownerId': ownerId,
       'createdDate': createdDate,
       'isArchived': isArchived,
+      'validityDate': validityDate,
+      'location': location,
     };
   }
 }

@@ -27,7 +27,7 @@ void main() async {
     print('Kategori: ${c.name}');
   }
 
-  // Yeni iş
+
   final job = Job(
     id: '',
     title: 'Bahçe Bakımı',
@@ -35,6 +35,8 @@ void main() async {
     categoryId: 'temizlik-id',
     ownerId: 'uid-1234',
     createdDate: DateTime.now(),
+    validityDate: DateTime.now().add(Duration(days: 30)), // 30 gün geçerli
+    location: 'Antalya, Muratpaşa', // örnek konum
     isArchived: false,
   );
   await jobService.addNewJob(job);
@@ -62,8 +64,6 @@ void main() async {
     print('Past job not found.');
   }
 }
-
-
 
 
 /*

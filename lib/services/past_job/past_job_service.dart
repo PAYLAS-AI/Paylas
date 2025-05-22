@@ -29,7 +29,8 @@ class PastJobService {
       return null;
     }
   }
-
+  // yeni bir pastJob eklerken mutlaka gecmis is olacak job
+  // archived yapilmali ki yeni isler kisminda artik gozukmesin!!!!!!
   Future<void> addNewPastJob(PastJob pastJob) async {
     await _db.collection('past_jobs').add(pastJob.toMap());
   }

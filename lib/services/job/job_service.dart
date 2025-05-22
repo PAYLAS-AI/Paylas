@@ -6,6 +6,17 @@ import 'package:paylas/models/job/job.dart';
 class JobService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
+  Future<List<Job>> getUnarchivedJobs() async {
+    final snapshot = await _db
+        .collection('jobs')
+        .where('isArchived', isEqualTo: false)
+        .get();
+
+    return snapshot.docs
+        .map((doc) => Job.fromMap(doc.data(), doc.id))
+        .toList();
+  }
+
   Future<List<Job>> getAllJobs() async {
     final snapshot = await _db.collection('jobs').get();
     return snapshot.docs
