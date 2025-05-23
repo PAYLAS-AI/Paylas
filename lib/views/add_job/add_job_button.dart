@@ -25,7 +25,7 @@ class AddJobButton extends ConsumerWidget {
       borderRadius: BorderRadius.circular(32),
       onTap: () async{
         final loadingNotifier = ref.read(addJobLoadingProvider.notifier);
-        Job newJob = Job(title: TextControllerHelper.addJobTitleController.text, description: TextControllerHelper.addJobDescriptionController.text, category: ref.read(currentCategoryProvider).name , ownerId: AuthService().auth.currentUser!.uid, createdDate: DateTime.now() , validityDate: DateTime.now(), location: TextControllerHelper.addJobLocationController.text);
+        Job newJob = Job(title: TextControllerHelper.addJobTitleController.text, description: TextControllerHelper.addJobDescriptionController.text, category: ref.read(currentCategoryProvider).name , ownerId: AuthService().auth.currentUser!.uid, createdDate: DateTime.now() , validityDate: DateTime.now(), location: TextControllerHelper.addJobLocationController.text,price: 1000); // price kismini kullanicidan doldur
         loadingNotifier.state = true;
         await jobService.addNewJob(newJob);
         loadingNotifier.state = false;

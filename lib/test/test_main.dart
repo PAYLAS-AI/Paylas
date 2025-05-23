@@ -38,6 +38,7 @@ void main() async {
     validityDate: DateTime.now().add(Duration(days: 30)), // 30 gün geçerli
     location: 'Antalya, Muratpaşa', // örnek konum
     isArchived: false,
+    price: 100
   );
   await jobService.addNewJob(job);
 
