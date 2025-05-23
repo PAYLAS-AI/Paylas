@@ -49,13 +49,7 @@ void main() async {
   }
 
   // Örnek geçmiş iş
-  final pastJob = PastJob(
-    id: '',
-    jobId: jobs.first.id.toString(),
-    userId: 'uid-1234',
-    completedDate: DateTime.now(),
-  );
-  await pastJobService.addNewPastJob(pastJob);
+
 
   // Show pastJob
   final result = await pastJobService.showPastJob('AznnoJvIpCKPEJK0cOAL'); // gerçek ID ile değiştir

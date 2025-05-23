@@ -30,7 +30,7 @@ class ProfileView extends StatelessWidget {
             ),
             Positioned(
               right: 40,
-              top: 40,
+              top: 60,
                 child: IconButton(
                     onPressed: () {
                       _authService.signOut();

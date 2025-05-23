@@ -18,13 +18,13 @@ class ScoreCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: screen.height * 0.2,
+      height: screen.height * 0.16,
       width:  screen.width * 0.425 - 1.5,
       color: ColorUiHelper.profileCardBg,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Image.asset(imgAssetUrl,height: screen.height * 0.08,),
+          Image.asset(imgAssetUrl,height: screen.height * 0.05,),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
