@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:paylas/locator/locator.dart';
 import 'package:paylas/provider/all_providers.dart';
+import 'package:paylas/services/job/job_service.dart';
 import 'package:paylas/views/category/category_view.dart';
 import 'package:paylas/views/home/home_view.dart';
 import 'package:paylas/views/past_jobs/past_jobs_view.dart';
@@ -10,9 +12,22 @@ import 'package:paylas/views/profile/profile_view.dart';
 import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 import 'package:paylas/views/ui_helpers/text_style_helper.dart';
 
-class ViewRouter extends ConsumerWidget {
+class ViewRouter extends ConsumerStatefulWidget {
+  const ViewRouter({super.key});
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _ViewRouterState();
+}
 
-  ViewRouter({super.key});
+
+class _ViewRouterState extends ConsumerState<ViewRouter> {
+
+  final JobService jobService = locator<JobService>();
+
+  @override
+  void initState() {
+    super.initState();
+    getJobs();
+  }
 
   final views = [
     HomeView(),
@@ -22,7 +37,7 @@ class ViewRouter extends ConsumerWidget {
   ];
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     int selectedView = ref.watch(selectedNavigationIndexProvider);
 
     return Scaffold(
@@ -58,5 +73,9 @@ class ViewRouter extends ConsumerWidget {
         ],
       ),
     );
+  }
+
+  void getJobs() async{
+    ref.read(allJobsProvider.notifier).state = await jobService.getAllJobs();
   }
 }

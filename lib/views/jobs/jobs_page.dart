@@ -3,22 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:paylas/locator/locator.dart';
 import 'package:paylas/model/categoryby.dart';
+import 'package:paylas/models/job/job.dart';
 import 'package:paylas/provider/all_providers.dart';
+import 'package:paylas/services/job/job_service.dart';
 import 'package:paylas/tools/screen_sizes.dart';
 import 'package:paylas/views/jobs/job_box.dart';
 import 'package:paylas/views/jobs/jobs_filter_bar.dart';
 import 'package:paylas/views/widgets/job_pages_header.dart';
 
+
+
 class JobsPage extends ConsumerWidget {
   JobsPage({super.key});
 
   final screen = locator<ScreenSizes>();
+  final jobService = locator<JobService>();
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
 
     CategoryBy selectedCategory = ref.watch(selectedCategoryProvider);
-
+    List<Job> jobs = getCategoryList(selectedCategory);
+    ref.watch(allJobsProvider);
+    
     return Scaffold(
       body: Container(
           width: screen.width,
@@ -37,12 +44,13 @@ class JobsPage extends ConsumerWidget {
               Flexible(
                 child: GridView.count(
                   crossAxisCount: 2,
-                  children: List.generate(10, (index) => JobBox(
+                  children: List.generate(jobs.length, (index) => JobBox(
                   imageUrl: "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg",
-                  title: "Köpek Gezdirme",
-                  jobOwner: "Enes Bey",
+                  title: jobs[index].title,
+                  jobOwner: "${jobs[index].ownerId} Bey",
                   score: 4.8,
                   onTap: () {
+                    ref.read(detailsPageCurrentJobProvider.notifier).state = jobs[index];
                     Navigator.of(context).pushNamed("DetailsPage");
                   },
                 )),
@@ -52,5 +60,15 @@ class JobsPage extends ConsumerWidget {
           ),
         ),
     );
+  }
+
+  
+  List<Job> getCategoryList(CategoryBy selectedCategory){
+    List<Job> list = jobService.allJobs;
+    if(selectedCategory != CategoryBy.all){
+      return list.where((job) => job.category == selectedCategory.name,).toList();
+    }else{
+      return list;
+    }
   }
 }

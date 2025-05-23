@@ -5,6 +5,7 @@ import 'package:paylas/models/job/job.dart';
 
 class JobService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
+  List<Job> allJobs = [];
   // guncel isleri categorilere gore sunmak icin asagidaki methodu kullan
   Future<List<Job>> getJobsByCategory(String category) async {
     final snapshot = await _db
@@ -31,9 +32,11 @@ class JobService {
 
   Future<List<Job>> getAllJobs() async {
     final snapshot = await _db.collection('jobs').get();
-    return snapshot.docs
+    List<Job> jobs = snapshot.docs
         .map((doc) => Job.fromMap(doc.data(), doc.id))
         .toList();
+    allJobs = jobs;
+    return jobs;
   }
 
   Future<Job?> showJob(String jobId) async {

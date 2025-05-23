@@ -10,6 +10,7 @@ class Job {
   bool isArchived;
   DateTime validityDate;
   String location;
+  int price;
 
   Job({
     this.id,
@@ -20,6 +21,7 @@ class Job {
     required this.createdDate,
     required this.validityDate,
     required this.location,
+    required this.price,
     this.isArchived = false,
   }){
     id = Uuid().v4();
@@ -36,6 +38,7 @@ class Job {
       isArchived: map['isArchived'] ?? false,
       validityDate: (map['validityDate'] as Timestamp).toDate(),
       location: map['location'] ?? '',
+      price: map['price'] ?? 0,
     );
   }
 
@@ -49,6 +52,7 @@ class Job {
       'isArchived': isArchived,
       'validityDate': validityDate,
       'location': location,
+      'price': price,
     };
   }
 }

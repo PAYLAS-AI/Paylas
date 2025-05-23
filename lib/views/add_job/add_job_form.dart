@@ -168,6 +168,7 @@ class AddJobForm extends ConsumerWidget {
                   inputLabel: "İlan Ücreti",
                   maxLine: 1,
                   textController: TextControllerHelper.addJobCostController,
+                  keyboardType: TextInputType.number,
                 ),
               ),
               Step(

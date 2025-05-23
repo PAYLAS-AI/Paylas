@@ -13,6 +13,7 @@ class AddJobCustomInput extends StatelessWidget {
     required this.textController,
     required this.height,
     required this.maxLine,
+    this.keyboardType
   });
 
   final screen = locator<ScreenSizes>();
@@ -22,6 +23,7 @@ class AddJobCustomInput extends StatelessWidget {
   final TextEditingController textController;
   final double height;
   final int maxLine;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +43,8 @@ class AddJobCustomInput extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         height: height,
         maxLine: maxLine,
+        keyboardType: keyboardType,
+
       ),
     );
   }
