@@ -10,13 +10,12 @@ import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 class AddPageContent extends ConsumerWidget {
   AddPageContent({
     super.key,
-
   });
 
   final screen = locator<ScreenSizes>();
 
   @override
-  Widget build(BuildContext context , WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     bool isLoading = ref.watch(addJobLoadingProvider);
     return Container(
       width: screen.width,
@@ -29,8 +28,20 @@ class AddPageContent extends ConsumerWidget {
           children: [
             AddJobHeader(),
             Flexible(
-              child: isLoading ? Center(child: CircularProgressIndicator(color: ColorUiHelper.mainTitleYellow,)) : AddJobForm() 
-            ),
+                child: Stack(children: [
+              AddJobForm(),
+              isLoading
+                  ? Container(
+                      width: screen.width,
+                      height: screen.height,
+                      color:
+                          ColorUiHelper.homePageSecondShadow.withOpacity(0.5),
+                      child: Center(
+                          child: CircularProgressIndicator(
+                        color: ColorUiHelper.mainTitleYellow,
+                      )))
+                  : Container()
+            ])),
           ],
         ),
       ),

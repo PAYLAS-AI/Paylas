@@ -1,18 +1,23 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:paylas/locator/locator.dart';
+import 'package:paylas/models/job/job.dart';
+import 'package:paylas/provider/all_providers.dart';
 import 'package:paylas/tools/screen_sizes.dart';
 import 'package:paylas/views/details/details_card.dart';
 import 'package:paylas/views/ui_helpers/text_style_helper.dart';
 
-class JobDetailsPage extends StatelessWidget {
+class JobDetailsPage extends ConsumerWidget {
   JobDetailsPage({super.key});
 
   final screen = locator<ScreenSizes>();
 
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
+    Job currentJob = ref.read(detailsPageCurrentJobProvider)!;
     return Scaffold(
       body: SizedBox(
           width: screen.width,
@@ -30,15 +35,15 @@ class JobDetailsPage extends StatelessWidget {
                 ),
               ),
               JobDetails(
-                title: "Köpek Gezdirme",
+                title: currentJob.title,
                 favoriteCount: 13,
-                jobOwner: "Enes Bey",
+                jobOwner: "${currentJob.ownerId.substring(0,5)} Bey",
                 score: 4.8,
                 description:
-                    "Evcil köpeğimiz pamuğu 2 saat gezdirecek birini arıyoruz. Çok uysaldır ve yönlendirmeleri dinler. İş yoğunluğundan dolayı bu işi yapacak birini arıyorum.",
-                location: " Öğretmenevi bulvar / Elazığ",
-                jobDuration: 3,
-                jobPrice: 100,
+                    currentJob.description,
+                location: " ${currentJob.location}",
+                jobDuration: currentJob.validityDate.hour.toDouble(),
+                jobPrice: currentJob.price,
               ),
               Positioned(
                 left: 30,

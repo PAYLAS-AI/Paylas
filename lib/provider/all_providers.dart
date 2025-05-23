@@ -4,6 +4,7 @@
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:paylas/model/categoryby.dart';
+import 'package:paylas/models/job/job.dart';
 
 final selectedNavigationIndexProvider = StateProvider<int>((ref) => 0,);
 
@@ -16,3 +17,7 @@ final currentStepProvider = StateProvider<int>((ref) => 0,);
 final currentCategoryProvider = StateProvider<CategoryBy>((ref) => CategoryBy.all,);
 
 final addJobLoadingProvider = StateProvider<bool>((ref) => false,);
+
+final detailsPageCurrentJobProvider = StateProvider<Job?>((ref) => null,);
+
+final allJobsProvider = StateProvider<List<Job>>((ref) => [],);

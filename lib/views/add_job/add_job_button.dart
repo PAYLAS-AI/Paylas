@@ -1,3 +1,4 @@
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,26 +12,47 @@ import 'package:paylas/tools/text_controllers.dart';
 import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 import 'package:paylas/views/ui_helpers/text_style_helper.dart';
 
-class AddJobButton extends ConsumerWidget {
-  AddJobButton({
-    super.key,
-  });
+class AddJobButton extends ConsumerStatefulWidget {
+  const AddJobButton({super.key});
 
+  @override
+  ConsumerState<AddJobButton> createState() => _AddJobButtonState();
+}
+
+class _AddJobButtonState extends ConsumerState<AddJobButton> {
   final screen = locator<ScreenSizes>();
   final jobService = locator<JobService>();
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(32),
-      onTap: () async{
+      onTap: () async {
         final loadingNotifier = ref.read(addJobLoadingProvider.notifier);
-        Job newJob = Job(title: TextControllerHelper.addJobTitleController.text, description: TextControllerHelper.addJobDescriptionController.text, category: ref.read(currentCategoryProvider).name , ownerId: AuthService().auth.currentUser!.uid, createdDate: DateTime.now() , validityDate: DateTime.now(), location: TextControllerHelper.addJobLocationController.text,price: 1000); // price kismini kullanicidan doldur
+        final currentContext = context;
         loadingNotifier.state = true;
-        await jobService.addNewJob(newJob);
-        loadingNotifier.state = false;
-        // ignore: use_build_context_synchronously
-        Navigator.of(context).pop();
+        try {
+          final newJob = Job(
+            title: TextControllerHelper.addJobTitleController.text,
+            description: TextControllerHelper.addJobDescriptionController.text,
+            category: ref.read(currentCategoryProvider).name,
+            ownerId: AuthService().auth.currentUser!.uid,
+            createdDate: DateTime.now(),
+            validityDate: DateTime.now(),
+            location: TextControllerHelper.addJobLocationController.text,
+            price: int.parse(TextControllerHelper.addJobCostController.text)
+          );
+
+          await jobService.addNewJob(newJob);
+
+          // ignore: use_build_context_synchronously
+          Navigator.of(currentContext).pop();
+          
+        } catch (e) {
+          debugPrint("❌ HATA: $e");
+        } finally {
+          loadingNotifier.state = false;
+        }
       },
       child: Container(
         width: screen.width * 0.65,
@@ -38,13 +60,10 @@ class AddJobButton extends ConsumerWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(32),
             color: ColorUiHelper.inputDarkColor,
-            gradient: LinearGradient(
-                colors: [
-                  ColorUiHelper.inputDarkColor,
-                  ColorUiHelper.inputSecondDarkColor
-                ],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight)),
+            gradient: LinearGradient(colors: [
+              ColorUiHelper.inputDarkColor,
+              ColorUiHelper.inputSecondDarkColor
+            ], begin: Alignment.centerLeft, end: Alignment.centerRight)),
         child: Center(
           child: Text(
             "İlan Oluştur!",
@@ -55,4 +74,3 @@ class AddJobButton extends ConsumerWidget {
     );
   }
 }
-

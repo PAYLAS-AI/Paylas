@@ -10,8 +10,8 @@ class CustomTextInput extends StatelessWidget {
     this.isObscure = false,
     this.width, this.height, this.contentPadding,
     this.borderRadius,
-    this.maxLine
-
+    this.maxLine,
+    this.keyboardType
   });
 
   final screen = locator<ScreenSizes>();
@@ -27,6 +27,7 @@ class CustomTextInput extends StatelessWidget {
   final EdgeInsets? contentPadding;
   final BorderRadiusGeometry? borderRadius;
   final int? maxLine;
+  final TextInputType? keyboardType;
 
 
   @override
@@ -53,7 +54,7 @@ class CustomTextInput extends StatelessWidget {
           hintStyle: TextStyleHelper.inputTextStyle
         ),
         controller: textController,
-        keyboardType: TextInputType.emailAddress,
+        keyboardType: keyboardType ?? TextInputType.emailAddress,
         obscureText: isObscure ?? false ,
       ),
     );
