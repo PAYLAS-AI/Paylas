@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:paylas/locator/locator.dart';
 import 'package:paylas/tools/screen_sizes.dart';
 import 'package:paylas/tools/text_controllers.dart';
+import 'package:paylas/views/past_jobs/past_job_sortbar.dart';
 import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 import 'package:paylas/views/widgets/custom_text_input.dart';
 
@@ -41,7 +42,7 @@ class PastJobsFilterBar extends StatelessWidget {
             onChanged: onChanged,
           ),
     
-          PastJobsFilterBar()
+          PastJobSortBar()
         ],
       ),
     );

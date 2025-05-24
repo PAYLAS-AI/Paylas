@@ -17,9 +17,10 @@ class PastJobService {
         .where('userId', isEqualTo: userId)
         .get();
 
-    return snapshot.docs
+    pastJobs = snapshot.docs
         .map((doc) => PastJob.fromMap(doc.data(), doc.id))
         .toList();
+    return pastJobs;
   }
 
   Future<PastJob?> showPastJob(String pastJobId) async {

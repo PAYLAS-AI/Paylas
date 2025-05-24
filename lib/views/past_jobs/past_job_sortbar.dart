@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:paylas/locator/locator.dart';
 import 'package:paylas/model/sortedby.dart';
-import 'package:paylas/models/job/job.dart';
 import 'package:paylas/models/past_job/past_job.dart';
 import 'package:paylas/provider/all_providers.dart';
-import 'package:paylas/services/job/job_service.dart';
 import 'package:paylas/services/past_job/past_job_service.dart';
 import 'package:paylas/tools/screen_sizes.dart';
 import 'package:paylas/tools/text_controllers.dart';
@@ -26,10 +24,10 @@ class _PastJobSortBarState extends ConsumerState<PastJobSortBar> {
 
 
   final screen = locator<ScreenSizes>();
-  Sortedby sortedBy = Sortedby.all; 
 
   @override
   Widget build(BuildContext context) {
+    Sortedby sortedBy = ref.read(pastJobsSortedByProvider);
     return SizedBox(
       width: screen.width,
       height: 30,
@@ -39,9 +37,9 @@ class _PastJobSortBarState extends ConsumerState<PastJobSortBar> {
           InkWell(
             onTap: () {
               setState(() {
-                sortedBy = Sortedby.all;
+                ref.read(pastJobsSortedByProvider.notifier).state = Sortedby.all;
               });
-              sortJobs(sortedBy);
+              sortJobs(ref.read(pastJobsSortedByProvider.notifier).state);
             },
             borderRadius: BorderRadius.circular(42),
             child: SortItem(
@@ -52,9 +50,9 @@ class _PastJobSortBarState extends ConsumerState<PastJobSortBar> {
           InkWell(
             onTap: () {
               setState(() {
-                sortedBy = Sortedby.price; 
+                ref.read(pastJobsSortedByProvider.notifier).state = Sortedby.price; 
               });
-              sortJobs(sortedBy);
+              sortJobs(ref.read(pastJobsSortedByProvider.notifier).state);
             },
             borderRadius: BorderRadius.circular(42),
             child: SortItem(
@@ -66,9 +64,9 @@ class _PastJobSortBarState extends ConsumerState<PastJobSortBar> {
           InkWell(
             onTap: () {
               setState(() {
-                sortedBy = Sortedby.location; 
+                ref.read(pastJobsSortedByProvider.notifier).state = Sortedby.location; 
               });
-              sortJobs(sortedBy);
+              sortJobs(ref.read(pastJobsSortedByProvider.notifier).state);
             },
             borderRadius: BorderRadius.circular(42),
             child: SortItem(
@@ -80,9 +78,9 @@ class _PastJobSortBarState extends ConsumerState<PastJobSortBar> {
           InkWell(
             onTap: () {
               setState(() {
-                sortedBy = Sortedby.time; 
+                ref.read(pastJobsSortedByProvider.notifier).state = Sortedby.time; 
               });
-              sortJobs(sortedBy);
+              sortJobs(ref.read(pastJobsSortedByProvider.notifier).state);
             },
             borderRadius: BorderRadius.circular(42),
             child: SortItem(
@@ -94,9 +92,9 @@ class _PastJobSortBarState extends ConsumerState<PastJobSortBar> {
           InkWell(
             onTap: () {
               setState(() {
-                sortedBy = Sortedby.date; 
+                ref.read(pastJobsSortedByProvider.notifier).state = Sortedby.date; 
               });
-              sortJobs(sortedBy);
+              sortJobs(ref.read(pastJobsSortedByProvider.notifier).state);
             },
             borderRadius: BorderRadius.circular(42),
             child: SortItem(
