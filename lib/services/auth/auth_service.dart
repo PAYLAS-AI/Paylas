@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:paylas/models/user/app_user.dart';
+import 'package:paylas/services/user/user_service.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -44,7 +46,18 @@ class AuthService {
       await userCredential.user?.updateDisplayName(name);
       await userCredential.user?.reload();
       User? user = userCredential.user;
+
       if (user != null) {
+        final appUser = AppUser(
+          uid: user.uid ,
+          userName: name,
+          email: user.email ?? '',
+          phone: user.phoneNumber ?? '',
+          jobScore: 0.0,
+          successfulJobs: [],
+          failedJobs: [],
+        );
+        await UserService().createUser(appUser); // kullanici firestore ye kaydedilir
         await user.sendEmailVerification();
         return user;
       }

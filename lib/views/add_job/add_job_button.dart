@@ -37,6 +37,7 @@ class _AddJobButtonState extends ConsumerState<AddJobButton> {
             description: TextControllerHelper.addJobDescriptionController.text,
             category: ref.read(currentCategoryProvider).name,
             ownerId: AuthService().auth.currentUser!.uid,
+            ownerName: AuthService().auth.currentUser!.displayName!,
             createdDate: DateTime.now(),
             validityDate: DateTime.now(),
             location: TextControllerHelper.addJobLocationController.text,

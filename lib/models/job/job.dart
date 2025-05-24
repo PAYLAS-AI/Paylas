@@ -6,6 +6,7 @@ class Job {
   String description;
   String category;
   String ownerId;
+  String ownerName;
   DateTime createdDate;
   bool isArchived;
   DateTime validityDate;
@@ -19,6 +20,7 @@ class Job {
     required this.description,
     required this.category,
     required this.ownerId,
+    required this.ownerName,
     required this.createdDate,
     required this.validityDate,
     required this.location,
@@ -35,6 +37,7 @@ class Job {
       description: map['description'] ?? '',
       category: map['category'] ?? '',
       ownerId: map['ownerId'] ?? '',
+      ownerName: map['ownerName'] ?? '',
       createdDate: (map['createdDate'] as Timestamp).toDate(),
       isArchived: map['isArchived'] ?? false,
       validityDate: (map['validityDate'] as Timestamp).toDate(),
@@ -49,6 +52,7 @@ class Job {
       'description': description,
       'category': category,
       'ownerId': ownerId,
+      'ownerName': ownerName,
       'createdDate': createdDate,
       'isArchived': isArchived,
       'validityDate': validityDate,
