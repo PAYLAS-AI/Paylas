@@ -78,4 +78,5 @@ class _ViewRouterState extends ConsumerState<ViewRouter> {
   void getJobs() async{
     ref.read(allJobsProvider.notifier).state = await jobService.getAllJobs();
   }
+
 }

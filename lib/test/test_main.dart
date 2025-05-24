@@ -5,7 +5,6 @@ import 'package:paylas/models/category/category.dart';
 import 'package:paylas/models/job/job.dart';
 import 'package:paylas/services/category/category_service.dart';
 import 'package:paylas/services/job/job_service.dart';
-import 'package:paylas/models/past_job/past_job.dart';
 import 'package:paylas/services/past_job/past_job_service.dart';
 
 void main() async {

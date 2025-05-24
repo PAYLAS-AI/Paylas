@@ -2,16 +2,17 @@
 import 'package:flutter/material.dart';
 import 'package:paylas/locator/locator.dart';
 import 'package:paylas/tools/screen_sizes.dart';
-import 'package:paylas/views/widgets/sort_bar.dart';
+import 'package:paylas/tools/text_controllers.dart';
 import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 import 'package:paylas/views/widgets/custom_text_input.dart';
 
-class FilterBar extends StatelessWidget {
-   FilterBar({
-    super.key,
+class PastJobsFilterBar extends StatelessWidget {
+   PastJobsFilterBar({
+    super.key, this.onChanged,
   });
 
   final screen = locator<ScreenSizes>();
+  final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +33,15 @@ class FilterBar extends StatelessWidget {
             ),
             label: "Geçmiş İşlerinizde Arayın...",
             contentPadding: EdgeInsets.only(bottom: 12),
-            textController: TextEditingController(),
+            textController: TextControllerHelper.filterPastJobsFieldController,
             primaryColor: ColorUiHelper.inputLightColor,
             secondaryColor: ColorUiHelper.inputDarkColor,
             width: screen.width,
             height: 40,
+            onChanged: onChanged,
           ),
     
-          SortBar()
+          PastJobsFilterBar()
         ],
       ),
     );

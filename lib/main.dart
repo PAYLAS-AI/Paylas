@@ -7,6 +7,7 @@ import 'package:paylas/router/page_router.dart';
 import 'package:paylas/tools/screen_sizes.dart';
 import 'package:paylas/views/login/login_page.dart';
 import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
+import 'package:paylas/views/view_router/view_router.dart';
 
 
 
@@ -36,7 +37,8 @@ class PaylasApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: PageRouter.onGenerateRoute,
-      home: LoginPage(),
+      home: //LoginPage(),
+      ViewRouter()
     );
   }
 }
