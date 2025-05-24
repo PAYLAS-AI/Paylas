@@ -8,6 +8,8 @@ import 'package:paylas/provider/all_providers.dart';
 import 'package:paylas/tools/text_controllers.dart';
 import 'package:paylas/views/jobs/job_box.dart';
 import 'package:paylas/views/jobs/jobs_filter_bar.dart';
+import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
+import 'package:paylas/views/ui_helpers/text_style_helper.dart';
 import 'package:paylas/views/widgets/job_pages_header.dart';
 
 // ignore: must_be_immutable
@@ -45,7 +47,22 @@ class _JobsPageContentState extends ConsumerState<JobsPageContent> {
               ),
               
               Flexible(
-                child: GridView.count(
+                child: jobs.isEmpty ? Center(
+                        child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: ColorUiHelper.homePageSecondShadow,
+                                      blurRadius: 5,
+                                      spreadRadius: 5)
+                                ]),
+                            child: Text(
+                              "İş İlanı Yok!",
+                              style: TextStyleHelper.pastJobsEmptyStyle,
+                            )),
+                      ) :
+                GridView.count(
                   crossAxisCount: 2,
                   children: List.generate(widget.jobs.length, (index) => JobBox(
                   imageUrl: "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg",

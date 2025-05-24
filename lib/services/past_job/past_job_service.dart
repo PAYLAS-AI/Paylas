@@ -3,6 +3,7 @@ import 'package:paylas/models/past_job/past_job.dart';
 
 class PastJobService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
+  List<PastJob> pastJobs = [];
 
   Future<List<PastJob>> getAllPastJobs() async {
     final snapshot = await _db.collection('past_jobs').get();
@@ -16,9 +17,10 @@ class PastJobService {
         .where('userId', isEqualTo: userId)
         .get();
 
-    return snapshot.docs
+    pastJobs = snapshot.docs
         .map((doc) => PastJob.fromMap(doc.data(), doc.id))
         .toList();
+    return pastJobs;
   }
 
   Future<PastJob?> showPastJob(String pastJobId) async {

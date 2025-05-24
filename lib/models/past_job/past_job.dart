@@ -34,8 +34,8 @@ class PastJob {
       userId: map['userId'] ?? '',
       completedDate: (map['completedDate'] as Timestamp).toDate(),
       earning: map['earning'] ?? 0,
-      jobDuration: map['jobDuration'],
-      jobScore: map['jobScore'] ?? 0,
+      jobDuration: (map['jobDuration']as Timestamp).toDate(),
+      jobScore: map['jobScore'] ?? 0.0,
       jobTitle: map['jobTitle'] ?? '',
       location: map['location'] ?? ''
     );

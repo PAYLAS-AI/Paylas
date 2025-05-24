@@ -37,6 +37,7 @@ class PaylasApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       onGenerateRoute: PageRouter.onGenerateRoute,
       home: LoginPage(),
+     
     );
   }
 }
