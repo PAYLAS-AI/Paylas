@@ -49,4 +49,21 @@ class TextControllerHelper{
     addJobDescriptionController.clear();
   }
 
+  //-----------------------------------------------------------
+  // Jobs page filtered jobs
+  static final filterFieldController = TextEditingController();
+  static void resetFilterTextControllers(){
+    filterFieldController.clear();
+  }
+
+
+
+
+
+  //-----------------------------------------------------------
+  // Past Jobs page filtered jobs
+  static final filterPastJobsFieldController = TextEditingController();
+  static void resetFilterPastJobsTextControllers(){
+    filterPastJobsFieldController.clear();
+  }
 }

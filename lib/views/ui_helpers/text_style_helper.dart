@@ -85,6 +85,19 @@ class TextStyleHelper {
       color: ColorUiHelper.mainSubtitleColor,
       height: 1.2);
 
+  static TextStyle pastJobsEmptyStyle = GoogleFonts.montserrat(
+      fontSize: 24,
+      fontWeight: FontWeight.w700,
+      color: ColorUiHelper.mainSubtitleColor,
+      height: 1.2);
+
+
+
+
+
+
+
+
 // input text style
   static TextStyle inputTextStyle = GoogleFonts.montserrat(
       fontSize: 16,

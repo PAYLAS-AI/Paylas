@@ -6,19 +6,20 @@ import 'package:paylas/views/ui_helpers/text_style_helper.dart';
 
 class CustomTextInput extends StatelessWidget {
   CustomTextInput({
-    super.key, this.icon, required this.label, required this.textController, required this.primaryColor, required this.secondaryColor,
+    super.key, this.icon, required this.label, this.textController, required this.primaryColor, required this.secondaryColor,
     this.isObscure = false,
     this.width, this.height, this.contentPadding,
     this.borderRadius,
     this.maxLine,
-    this.keyboardType
+    this.keyboardType,
+    this.onChanged
   });
 
   final screen = locator<ScreenSizes>();
 
   final Widget? icon;
   final String label;
-  final TextEditingController textController;
+  final TextEditingController? textController;
   final Color primaryColor;
   final Color secondaryColor;
   final bool? isObscure;
@@ -28,6 +29,7 @@ class CustomTextInput extends StatelessWidget {
   final BorderRadiusGeometry? borderRadius;
   final int? maxLine;
   final TextInputType? keyboardType;
+  final void Function(String)? onChanged;
 
 
   @override
@@ -53,6 +55,7 @@ class CustomTextInput extends StatelessWidget {
           hintText: label,
           hintStyle: TextStyleHelper.inputTextStyle
         ),
+        onChanged: onChanged,
         controller: textController,
         keyboardType: keyboardType ?? TextInputType.emailAddress,
         obscureText: isObscure ?? false ,

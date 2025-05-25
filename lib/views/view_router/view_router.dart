@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:paylas/locator/locator.dart';
 import 'package:paylas/provider/all_providers.dart';
+import 'package:paylas/services/auth/auth_service.dart';
 import 'package:paylas/services/job/job_service.dart';
+import 'package:paylas/services/past_job/past_job_service.dart';
 import 'package:paylas/views/category/category_view.dart';
 import 'package:paylas/views/home/home_view.dart';
 import 'package:paylas/views/past_jobs/past_jobs_view.dart';
@@ -22,11 +24,13 @@ class ViewRouter extends ConsumerStatefulWidget {
 class _ViewRouterState extends ConsumerState<ViewRouter> {
 
   final JobService jobService = locator<JobService>();
+  final PastJobService pastJobService = locator<PastJobService>();
 
   @override
   void initState() {
     super.initState();
     getJobs();
+    getPastJobs();
   }
 
   final views = [
@@ -41,6 +45,7 @@ class _ViewRouterState extends ConsumerState<ViewRouter> {
     int selectedView = ref.watch(selectedNavigationIndexProvider);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: IndexedStack(
         index: selectedView,
         children: views,
@@ -78,4 +83,8 @@ class _ViewRouterState extends ConsumerState<ViewRouter> {
   void getJobs() async{
     ref.read(allJobsProvider.notifier).state = await jobService.getAllJobs();
   }
+  void getPastJobs() async{
+    ref.read(pastJobsProvider.notifier).state = await pastJobService.getPastJobsByUser(AuthService().auth.currentUser!.uid);
+  }
+
 }

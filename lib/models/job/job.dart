@@ -48,6 +48,7 @@ class Job {
 
   Map<String, dynamic> toMap() {
     return {
+      'id':id,
       'title': title,
       'description': description,
       'category': category,

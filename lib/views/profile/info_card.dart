@@ -16,13 +16,13 @@ class InfoTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: screen.height * 0.1,
+      height: screen.height * 0.09,
       width:  screen.width * 0.85,
       color: ColorUiHelper.profileCardBg,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Image.asset(imgAssetUrl,height: screen.height * 0.06,),
+          Image.asset(imgAssetUrl,height: screen.height * 0.05,),
           SizedBox(width: screen.width * 0.58,child: Text(label, style: TextStyleHelper.profileDetailStyle,))
         ],
       ),

@@ -34,36 +34,37 @@ class _ProfileCardDetailsState extends State<ProfileCardDetails> {
   Widget build(BuildContext context) {
     return Container(
       width: screen.width * 0.85,
-      height: screen.height * 0.6 + 7,
+      height: screen.height * 0.52 + 7,
       decoration: BoxDecoration(boxShadow: [BoxShadow(color: ColorUiHelper.profileGradiendPrimary,blurRadius: 5,spreadRadius: 0.5)]),
       child: Column(
         children: [
-
+    
           InfoTile(imgAssetUrl: "assets/icon/email.png" , label: email ?? ""),
-
+    
           Container(width: screen.width * 0.85, height: 2, color: ColorUiHelper.profileGradiendPrimary,),
-
-
+    
+    
           InfoTile(
             imgAssetUrl: "assets/icon/phone.png",
             label: "+90 555 321 21 21",
           ),
-
-
-
+    
+    
+    
           Container(width: screen.width * 0.85, height: 2, color: ColorUiHelper.profileGradiendPrimary,),
-
-
+    
+    
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ScoreCard(
                 imgAssetUrl: "assets/icon/star.png",
                 label: "İş Puanı",
                 score: "4.7",
               ),
-
-              Container(width: 3, height: screen.height * 0.2, color: ColorUiHelper.categoryTicketColor,),
-
+    
+              Container(width: 3, height: screen.height * 0.16, color: ColorUiHelper.categoryTicketColor,),
+    
               ScoreCard(
                 imgAssetUrl: "assets/icon/job-success.png",
                 label: "Başarılı İşler",
@@ -71,19 +72,20 @@ class _ProfileCardDetailsState extends State<ProfileCardDetails> {
               ),
             ],
           ),
-
-          Container(width: screen.width * 0.85, height: 3, color: ColorUiHelper.categoryTicketColor,),
-
+    
+          Container(width: screen.width * 0.85, height: 3, color: ColorUiHelper.profileGradiendPrimary,),
+    
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ScoreCard(
                 imgAssetUrl: "assets/icon/job-fail.png",
                 label: "Başarısız İşler",
                 score: "2",
               ),
-
-              Container(width: 3, height: screen.height * 0.2, color: ColorUiHelper.categoryTicketColor,),
-
+    
+              Container(width: 3, height: screen.height * 0.16, color: ColorUiHelper.categoryTicketColor,),
+    
               ScoreCard(
                 imgAssetUrl: "assets/icon/job.png",
                 label: "İş İlanları",

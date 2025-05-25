@@ -196,7 +196,7 @@ class JobDetails extends StatelessWidget {
               ],
             ),
             PriceButton(
-              price: 100,
+              price: jobPrice,
             )
           ],
         ),

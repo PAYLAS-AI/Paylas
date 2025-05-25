@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:paylas/locator/locator.dart';
 import 'package:paylas/model/sortedby.dart';
-import 'package:paylas/models/job/job.dart';
+import 'package:paylas/models/past_job/past_job.dart';
 import 'package:paylas/provider/all_providers.dart';
-import 'package:paylas/services/job/job_service.dart';
+import 'package:paylas/services/past_job/past_job_service.dart';
 import 'package:paylas/tools/screen_sizes.dart';
 import 'package:paylas/tools/text_controllers.dart';
 import 'package:paylas/views/past_jobs/sort_item.dart';
@@ -13,21 +13,21 @@ import 'package:paylas/views/past_jobs/sort_item.dart';
 
 
 
-class SortBar extends ConsumerStatefulWidget {
-  const SortBar({super.key});
+class PastJobSortBar extends ConsumerStatefulWidget {
+  const PastJobSortBar({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _SortBarState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _PastJobSortBarState();
 }
 
-class _SortBarState extends ConsumerState<SortBar> {
+class _PastJobSortBarState extends ConsumerState<PastJobSortBar> {
 
 
   final screen = locator<ScreenSizes>();
-  Sortedby sortedBy = Sortedby.all; 
 
   @override
   Widget build(BuildContext context) {
+    Sortedby sortedBy = ref.read(pastJobsSortedByProvider);
     return SizedBox(
       width: screen.width,
       height: 30,
@@ -37,9 +37,9 @@ class _SortBarState extends ConsumerState<SortBar> {
           InkWell(
             onTap: () {
               setState(() {
-                sortedBy = Sortedby.all;
+                ref.read(pastJobsSortedByProvider.notifier).state = Sortedby.all;
               });
-              sortJobs(sortedBy);
+              sortJobs(ref.read(pastJobsSortedByProvider.notifier).state);
             },
             borderRadius: BorderRadius.circular(42),
             child: SortItem(
@@ -50,9 +50,9 @@ class _SortBarState extends ConsumerState<SortBar> {
           InkWell(
             onTap: () {
               setState(() {
-                sortedBy = Sortedby.price; 
+                ref.read(pastJobsSortedByProvider.notifier).state = Sortedby.price; 
               });
-              sortJobs(sortedBy);
+              sortJobs(ref.read(pastJobsSortedByProvider.notifier).state);
             },
             borderRadius: BorderRadius.circular(42),
             child: SortItem(
@@ -64,9 +64,9 @@ class _SortBarState extends ConsumerState<SortBar> {
           InkWell(
             onTap: () {
               setState(() {
-                sortedBy = Sortedby.location; 
+                ref.read(pastJobsSortedByProvider.notifier).state = Sortedby.location; 
               });
-              sortJobs(sortedBy);
+              sortJobs(ref.read(pastJobsSortedByProvider.notifier).state);
             },
             borderRadius: BorderRadius.circular(42),
             child: SortItem(
@@ -78,9 +78,9 @@ class _SortBarState extends ConsumerState<SortBar> {
           InkWell(
             onTap: () {
               setState(() {
-                sortedBy = Sortedby.time; 
+                ref.read(pastJobsSortedByProvider.notifier).state = Sortedby.time; 
               });
-              sortJobs(sortedBy);
+              sortJobs(ref.read(pastJobsSortedByProvider.notifier).state);
             },
             borderRadius: BorderRadius.circular(42),
             child: SortItem(
@@ -92,9 +92,9 @@ class _SortBarState extends ConsumerState<SortBar> {
           InkWell(
             onTap: () {
               setState(() {
-                sortedBy = Sortedby.date; 
+                ref.read(pastJobsSortedByProvider.notifier).state = Sortedby.date; 
               });
-              sortJobs(sortedBy);
+              sortJobs(ref.read(pastJobsSortedByProvider.notifier).state);
             },
             borderRadius: BorderRadius.circular(42),
             child: SortItem(
@@ -114,21 +114,21 @@ class _SortBarState extends ConsumerState<SortBar> {
   }
 
   void sortJobs( Sortedby sortedBy){
-    TextControllerHelper.resetFilterTextControllers();
-    List<Job> jobs = [...ref.read(allJobsProvider)];
+    TextControllerHelper.resetFilterPastJobsTextControllers();
+    List<PastJob> pastJobs = [...ref.read(pastJobsProvider)];
     if(sortedBy == Sortedby.date){
-      jobs.sort((a, b) => a.createdDate.compareTo(b.createdDate));
+      pastJobs.sort((a, b) => a.completedDate.compareTo(b.completedDate));
     }else if(sortedBy == Sortedby.price){
-      jobs.sort((a, b) => b.price.compareTo(a.price));
+      pastJobs.sort((a, b) => b.earning.compareTo(a.earning));
     }else if( sortedBy == Sortedby.time){
-      jobs.sort((a, b) => a.validityDate.compareTo(b.validityDate));
+      pastJobs.sort((a, b) => a.jobDuration.compareTo(b.jobDuration));
     }else if( sortedBy == Sortedby.location ){
-      jobs.sort((a, b) => a.location.compareTo(b.location));
+      pastJobs.sort((a, b) => a.location.compareTo(b.location));
     }else{
-      jobs = [...locator<JobService>().allJobs];
+      pastJobs = [...locator<PastJobService>().pastJobs];
     }
-    debugPrint(jobs.first.title.toString());
-    ref.read(allJobsProvider.notifier).state = jobs;
+    debugPrint(pastJobs.first.jobTitle.toString());
+    ref.read(pastJobsProvider.notifier).state = pastJobs;
   }
 
 }

@@ -6,7 +6,6 @@ import 'package:paylas/models/category/category.dart';
 import 'package:paylas/models/job/job.dart';
 import 'package:paylas/services/category/category_service.dart';
 import 'package:paylas/services/job/job_service.dart';
-import 'package:paylas/models/past_job/past_job.dart';
 import 'package:paylas/services/past_job/past_job_service.dart';
 
 void main() async {
@@ -72,7 +71,7 @@ void main() async {
   // Tüm kategoriler
   final categories = await categoryService.getAllCategories();
   for (final c in categories) {
-    print('Kategori: ${c.name}');
+    debugPrint('Kategori: ${c.name}');
   }
 
   final job = Job(
@@ -94,25 +93,19 @@ void main() async {
   // Tüm işler
   final jobs = await jobService.getAllJobs();
   for (final j in jobs) {
-    print('İş: ${j.title} - Archived: ${j.isArchived}');
+    debugPrint('İş: ${j.title} - Archived: ${j.isArchived}');
   }
 
   // Örnek geçmiş iş
-  final pastJob = PastJob(
-    id: '',
-    jobId: jobs.first.id.toString(),
-    userId: 'uid-1234',
-    completedDate: DateTime.now(),
-  );
-  await pastJobService.addNewPastJob(pastJob);
+
 
   // Show pastJob
   final result = await pastJobService
       .showPastJob('AznnoJvIpCKPEJK0cOAL'); // gerçek ID ile değiştir
   if (result != null) {
-    print('Past Job -> Job ID: ${result.jobId}, User: ${result.userId}');
+    debugPrint('Past Job -> Job ID: ${result.jobId}, User: ${result.userId}');
   } else {
-    print('Past job not found.');
+    debugPrint('Past job not found.');
   }
  */
 

@@ -51,6 +51,7 @@ class LoginBottomBar extends StatelessWidget {
                   passwordController.text.trim(),
                 );
                 if (user == null) {
+                  // ignore: use_build_context_synchronously
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                         content: Text(
@@ -58,6 +59,7 @@ class LoginBottomBar extends StatelessWidget {
                   );
                 } else if (!_authService.isEmailVerified()) {
                   _authService.auth.signOut();
+                  // ignore: use_build_context_synchronously
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                         content:

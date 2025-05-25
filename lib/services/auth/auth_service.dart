@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:paylas/models/user/app_user.dart';
 import 'package:paylas/services/user/user_service.dart';
+
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -25,7 +27,7 @@ class AuthService {
       User? user = userCredential.user;
       return user;
     } catch (e) {
-      print("Login error: $e");
+      debugPrint("Login error: $e");
       return null;
     }
   }
@@ -62,7 +64,7 @@ class AuthService {
         return user;
       }
     } catch (e) {
-      print("Registration error: $e");
+      debugPrint("Registration error: $e");
     }
     return null;
   }

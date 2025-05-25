@@ -5,7 +5,7 @@ import 'package:paylas/firebase_options.dart';
 import 'package:paylas/locator/locator.dart';
 import 'package:paylas/router/page_router.dart';
 import 'package:paylas/tools/screen_sizes.dart';
-import 'package:paylas/views/login/login_page.dart';
+import 'package:paylas/views/home/home_wrapper.dart';
 import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 
 
@@ -21,13 +21,22 @@ void main() async {
   runApp(ProviderScope(child: const PaylasApp()));
 }
 
-class PaylasApp extends StatelessWidget {
+class PaylasApp extends StatefulWidget {
   const PaylasApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // ekran ölçüleri alınır.
+  State<PaylasApp> createState() => _PaylasAppState();
+}
+
+class _PaylasAppState extends State<PaylasApp> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+        // ekran ölçüleri alınır.
     ScreenSizes().init(context);
+  }
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Paylas App',
       theme: ThemeData(
@@ -36,7 +45,8 @@ class PaylasApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: PageRouter.onGenerateRoute,
-      home: LoginPage(),
+      home: HomeWrapper(),
+     
     );
   }
 }

@@ -9,6 +9,8 @@ import 'package:paylas/views/home/category_box.dart';
 import 'package:paylas/views/home/custom_appbar.dart';
 import 'package:paylas/views/home/scroll_content.dart';
 import 'package:paylas/views/jobs/job_box.dart';
+import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
+import 'package:paylas/views/ui_helpers/text_style_helper.dart';
 
 class HomeView extends ConsumerWidget {
   HomeView({super.key});
@@ -48,7 +50,21 @@ class HomeView extends ConsumerWidget {
                       CategoryBy.all;
                   Navigator.of(context).pushNamed("JobsPage");
                 },
-                widgetBuilder: ListView.separated(
+                widgetBuilder: jobService.allJobs.isEmpty ? Center(
+                        child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: ColorUiHelper.homePageSecondShadow,
+                                      blurRadius: 5,
+                                      spreadRadius: 5)
+                                ]),
+                            child: Text(
+                              "İş İlanı Yok!",
+                              style: TextStyleHelper.pastJobsEmptyStyle,
+                            )),
+                      ) : ListView.separated(
                   itemBuilder: (context, index) => JobBox(
                     imageUrl:
                         "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg",
@@ -66,7 +82,7 @@ class HomeView extends ConsumerWidget {
                   ),
                   itemCount: jobService.allJobs.length > 10
                       ? 10
-                      : jobService.allJobs.length,
+                      : (jobService.allJobs.isEmpty ? 1 : jobService.allJobs.length),
                   scrollDirection: Axis.horizontal,
                 ),
               ),
