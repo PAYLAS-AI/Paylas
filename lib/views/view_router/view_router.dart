@@ -45,6 +45,7 @@ class _ViewRouterState extends ConsumerState<ViewRouter> {
     int selectedView = ref.watch(selectedNavigationIndexProvider);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: IndexedStack(
         index: selectedView,
         children: views,

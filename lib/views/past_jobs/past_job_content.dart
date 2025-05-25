@@ -13,23 +13,17 @@ class PastJobsContent extends ConsumerStatefulWidget {
   PastJobsContent({
     super.key,
     required this.pastJobs,
+    required this.filteredPastJobs,
   });
   List<PastJob> pastJobs;
-
+  List<PastJob> filteredPastJobs;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _PastJobsContentState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _PastJobsContentState();
 }
 
 class _PastJobsContentState extends ConsumerState<PastJobsContent> {
-  late List<PastJob> pastJobs;
-  
-  @override
-  void initState() {
-    super.initState();
-    pastJobs = [...widget.pastJobs];
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -40,13 +34,13 @@ class _PastJobsContentState extends ConsumerState<PastJobsContent> {
         ),
         PastJobsFilterBar(
           onChanged: (value) {
-              setState(() {
-                    pastJobs = filteredList(value);
-                  });
-            },
+            setState(() {
+              widget.filteredPastJobs = filteredList(value);
+            });
+          },
         ),
-        Flexible(
-            child: pastJobs.isEmpty
+        Expanded(
+            child: widget.filteredPastJobs.isEmpty
                 ? Center(
                     child: Container(
                         decoration: BoxDecoration(
@@ -66,32 +60,38 @@ class _PastJobsContentState extends ConsumerState<PastJobsContent> {
                     itemBuilder: (context, index) => PastJobBox(
                           imageUrl:
                               "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg",
-                          jobDate: DateFormat('dd/MM/yyyy')
-                              .format(pastJobs[index].completedDate),
-                          title: pastJobs[index].jobTitle,
+                          jobDate: DateFormat('dd/MM/yyyy').format(
+                              widget.filteredPastJobs[index].completedDate),
+                          title: widget.filteredPastJobs[index].jobTitle,
                           jobOwner:
-                              "${pastJobs[index].userId.substring(0, 5)} Bey",
-                          location: pastJobs[index].location,
-                          jobDuration: pastJobs[index]
-                              .jobDuration
-                              .difference(pastJobs[index].completedDate)
+                              "${widget.filteredPastJobs[index].userId.substring(0, 5)} Bey",
+                          location: widget.filteredPastJobs[index].location,
+                          jobDuration: widget
+                              .filteredPastJobs[index].jobDuration
+                              .difference(
+                                  widget.filteredPastJobs[index].completedDate)
                               .inHours
                               .toDouble(),
-                          jobPrice: pastJobs[index].earning.toDouble(),
-                          score: pastJobs[index].jobScore,
+                          jobPrice:
+                              widget.filteredPastJobs[index].earning.toDouble(),
+                          score: widget.filteredPastJobs[index].jobScore,
                         ),
                     separatorBuilder: (context, index) => SizedBox(
                           height: 20,
                         ),
-                    itemCount: pastJobs.length))
+                    itemCount: widget.filteredPastJobs.length))
       ],
     );
   }
 
-  List<PastJob> filteredList(String value){
+  List<PastJob> filteredList(String value) {
     List<PastJob> newJobs = widget.pastJobs;
-    return newJobs.where((element) => element.jobTitle.contains(value) || element.location.contains(value),).toList();
+    return newJobs
+        .where(
+          (element) =>
+              element.jobTitle.contains(value) ||
+              element.location.contains(value),
+        )
+        .toList();
   }
-
-
 }

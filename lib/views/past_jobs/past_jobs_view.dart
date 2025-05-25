@@ -15,16 +15,12 @@ class PastJobsView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     List<PastJob> pastJobs = ref.watch(pastJobsProvider);
-    debugPrint(pastJobs.toString());
-    debugPrint("1111111111111111111111");
     return Container(
-      width: screen.width,
-      height: screen.height,
       decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage("assets/bg/2.png"), fit: BoxFit.fill)),
       child: SafeArea(
-        child: PastJobsContent(key: ValueKey(pastJobs.hashCode),pastJobs: pastJobs),
+        child: PastJobsContent(pastJobs: pastJobs, filteredPastJobs: [...pastJobs],),
       ),
     );
   }

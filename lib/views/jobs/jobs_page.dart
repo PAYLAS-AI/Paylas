@@ -29,6 +29,7 @@ class JobsPage extends ConsumerWidget {
 
     
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
           width: screen.width,
           height: screen.height,

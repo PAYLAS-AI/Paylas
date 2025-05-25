@@ -2,6 +2,7 @@
 
 
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:paylas/model/categoryby.dart';
 import 'package:paylas/model/sortedby.dart';
@@ -27,3 +28,7 @@ final allJobsProvider = StateProvider<List<Job>>((ref) => [],);
 final pastJobsProvider = StateProvider<List<PastJob>>((ref) => [],);
 
 final pastJobsSortedByProvider = StateProvider<Sortedby>((ref) => Sortedby.all,);
+
+final authStateProvider = StreamProvider<User?>((ref) {
+  return FirebaseAuth.instance.authStateChanges();
+});

@@ -19,6 +19,7 @@ class JobDetailsPage extends ConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
     Job currentJob = ref.read(detailsPageCurrentJobProvider)!;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SizedBox(
           width: screen.width,
           height: screen.height,
