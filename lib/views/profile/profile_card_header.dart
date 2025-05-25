@@ -6,7 +6,7 @@ import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 import 'package:paylas/views/ui_helpers/text_style_helper.dart';
 
 class ProfileCardHeader extends StatefulWidget {
-  ProfileCardHeader({
+  const ProfileCardHeader({
     super.key,
   });
 

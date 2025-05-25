@@ -23,7 +23,7 @@ void main() async {
   // Tüm kategoriler
   final categories = await categoryService.getAllCategories();
   for (final c in categories) {
-    print('Kategori: ${c.name}');
+    debugPrint('Kategori: ${c.name}');
   }
 
 
@@ -44,7 +44,7 @@ void main() async {
   // Tüm işler
   final jobs = await jobService.getAllJobs();
   for (final j in jobs) {
-    print('İş: ${j.title} - Archived: ${j.isArchived}');
+    debugPrint('İş: ${j.title} - Archived: ${j.isArchived}');
   }
 
   // Örnek geçmiş iş
@@ -53,9 +53,9 @@ void main() async {
   // Show pastJob
   final result = await pastJobService.showPastJob('AznnoJvIpCKPEJK0cOAL'); // gerçek ID ile değiştir
   if (result != null) {
-    print('Past Job -> Job ID: ${result.jobId}, User: ${result.userId}');
+    debugPrint('Past Job -> Job ID: ${result.jobId}, User: ${result.userId}');
   } else {
-    print('Past job not found.');
+    debugPrint('Past job not found.');
   }
 }
 

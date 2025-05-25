@@ -46,23 +46,25 @@ class RegisterBottomBar extends StatelessWidget {
                     name: nameController.text);
                 if (user != null) {
                   _authService.signOut();
+                  // ignore: use_build_context_synchronously
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                         content: Text(
                             "Email dogrulama icin e-posta adresinizi kontrol ediniz")),
                   );
                   Navigator.pushReplacement(
+                    // ignore: use_build_context_synchronously
                     context,
                     MaterialPageRoute(builder: (context) => LoginPage()),
                   );
                 } else {
+                  // ignore: use_build_context_synchronously
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                         content: Text(
                             "Kayıt başarısız! Bilgilerinizi kontrol edin.")),
                   );
                 }
-
               },
               borderRadius: BorderRadius.circular(32),
               child: Container(

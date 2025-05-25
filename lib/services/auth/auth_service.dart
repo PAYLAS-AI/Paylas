@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/rendering.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -23,7 +24,7 @@ class AuthService {
       User? user = userCredential.user;
       return user;
     } catch (e) {
-      print("Login error: $e");
+      debugPrint("Login error: $e");
       return null;
     }
   }
@@ -49,7 +50,7 @@ class AuthService {
         return user;
       }
     } catch (e) {
-      print("Registration error: $e");
+      debugPrint("Registration error: $e");
     }
     return null;
   }

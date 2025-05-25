@@ -2,15 +2,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:paylas/provider/all_providers.dart';
-import 'package:paylas/services/auth/auth_service.dart';
 
 import 'package:paylas/views/login/login_page.dart';
 import 'package:paylas/views/view_router/view_router.dart';
 
 class HomeWrapper extends ConsumerWidget {
-  final AuthService _authService = AuthService();
 
-  HomeWrapper({super.key});
+  const HomeWrapper({super.key});
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
