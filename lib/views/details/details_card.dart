@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:paylas/locator/locator.dart';
+import 'package:paylas/models/user/app_user.dart';
+import 'package:paylas/services/user/user_service.dart';
 import 'package:paylas/tools/screen_sizes.dart';
 import 'package:paylas/views/details/details_buttons.dart';
 import 'package:paylas/views/details/price_button.dart';
@@ -10,7 +12,7 @@ import 'package:paylas/views/ui_helpers/text_style_helper.dart';
 
 class JobDetails extends StatelessWidget {
   JobDetails({
-    super.key, required this.title, required this.favoriteCount, required this.jobOwner, required this.score, required this.description, required this.location, required this.jobDuration, required this.jobPrice,
+    super.key, required this.title, required this.favoriteCount, required this.jobOwner, required this.score, required this.description, required this.location, required this.jobDuration, required this.jobPrice,required this.userId
   });
 
   final screen = locator<ScreenSizes>();
@@ -23,6 +25,10 @@ class JobDetails extends StatelessWidget {
   final String location;
   final double jobDuration;
   final int jobPrice;
+  final String userId;
+
+
+  final UserService userService = locator<UserService>();
 
   @override
   Widget build(BuildContext context) {
@@ -183,6 +189,11 @@ class JobDetails extends StatelessWidget {
                     color: ColorUiHelper.categoryTicketColor,
                     size: 30,
                   ),
+                  onPressed: () async {
+                    AppUser currentUser = await userService.getUser(userId);
+                    // ignore: use_build_context_synchronously
+                    Navigator.of(context).pushNamed("OtherProfilePage",arguments: currentUser);
+                  },
                 ),
                 DetailsPageButton(
                   buttonColor: ColorUiHelper.detailReportColor,

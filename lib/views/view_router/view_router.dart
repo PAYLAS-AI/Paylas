@@ -10,7 +10,7 @@ import 'package:paylas/services/past_job/past_job_service.dart';
 import 'package:paylas/views/category/category_view.dart';
 import 'package:paylas/views/home/home_view.dart';
 import 'package:paylas/views/past_jobs/past_jobs_view.dart';
-import 'package:paylas/views/profile/profile_view.dart';
+import 'package:paylas/views/profile/owner_profile/profile_view.dart';
 import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 import 'package:paylas/views/ui_helpers/text_style_helper.dart';
 

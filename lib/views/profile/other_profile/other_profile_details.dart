@@ -1,34 +1,27 @@
 
 import 'package:flutter/material.dart';
 import 'package:paylas/locator/locator.dart';
+import 'package:paylas/models/user/app_user.dart';
 import 'package:paylas/services/auth/auth_service.dart';
 import 'package:paylas/tools/screen_sizes.dart';
-import 'package:paylas/views/profile/info_card.dart';
-import 'package:paylas/views/profile/score_card.dart';
+import 'package:paylas/views/profile/owner_profile/info_card.dart';
+import 'package:paylas/views/profile/owner_profile/score_card.dart';
 import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 
-class ProfileCardDetails extends StatefulWidget {
-  const ProfileCardDetails({
+class OtherProfileCardDetails extends StatefulWidget {
+  const OtherProfileCardDetails({
     super.key,
+    required this.currentUser
   });
+  final AppUser currentUser;
 
   @override
-  State<ProfileCardDetails> createState() => _ProfileCardDetailsState();
+  State<OtherProfileCardDetails> createState() => _OtherProfileCardDetailsState();
 }
 
-class _ProfileCardDetailsState extends State<ProfileCardDetails> {
+class _OtherProfileCardDetailsState extends State<OtherProfileCardDetails> {
   final screen = locator<ScreenSizes>();
 
-  final AuthService _authService = AuthService();
-  late String? email;
-
-  @override
-  void initState() {
-
-    super.initState();
-
-    email = _authService.getCurrentUserEmail().toString();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,14 +32,14 @@ class _ProfileCardDetailsState extends State<ProfileCardDetails> {
       child: Column(
         children: [
     
-          InfoTile(imgAssetUrl: "assets/icon/email.png" , label: email ?? ""),
+          InfoTile(imgAssetUrl: "assets/icon/email.png" , label: widget.currentUser.email),
     
           Container(width: screen.width * 0.85, height: 2, color: ColorUiHelper.profileGradiendPrimary,),
     
     
           InfoTile(
             imgAssetUrl: "assets/icon/phone.png",
-            label: "+90 555 321 21 21",
+            label: widget.currentUser.phone,
           ),
     
     
@@ -60,7 +53,7 @@ class _ProfileCardDetailsState extends State<ProfileCardDetails> {
               ScoreCard(
                 imgAssetUrl: "assets/icon/star.png",
                 label: "İş Puanı",
-                score: "4.7",
+                score: widget.currentUser.jobScore.toString(),
               ),
     
               Container(width: 3, height: screen.height * 0.16, color: ColorUiHelper.categoryTicketColor,),
@@ -68,7 +61,7 @@ class _ProfileCardDetailsState extends State<ProfileCardDetails> {
               ScoreCard(
                 imgAssetUrl: "assets/icon/job-success.png",
                 label: "Başarılı İşler",
-                score: "6",
+                score: widget.currentUser.successfulJobs.length.toString(),
               ),
             ],
           ),
@@ -81,7 +74,7 @@ class _ProfileCardDetailsState extends State<ProfileCardDetails> {
               ScoreCard(
                 imgAssetUrl: "assets/icon/job-fail.png",
                 label: "Başarısız İşler",
-                score: "2",
+                score: widget.currentUser.failedJobs.length.toString(),
               ),
     
               Container(width: 3, height: screen.height * 0.16, color: ColorUiHelper.categoryTicketColor,),
@@ -89,7 +82,7 @@ class _ProfileCardDetailsState extends State<ProfileCardDetails> {
               ScoreCard(
                 imgAssetUrl: "assets/icon/job.png",
                 label: "İş İlanları",
-                score: "1",
+                score: widget.currentUser.sharedJobCount.toString(),
               ),
             ],
           ),

@@ -36,9 +36,10 @@ class JobDetailsPage extends ConsumerWidget {
                 ),
               ),
               JobDetails(
+                userId: currentJob.ownerId,
                 title: currentJob.title,
                 favoriteCount: 13,
-                jobOwner: "${currentJob.ownerId.substring(0,5)} Bey",
+                jobOwner: "${currentJob.ownerName} Bey",
                 score: 4.8,
                 description:
                     currentJob.description,

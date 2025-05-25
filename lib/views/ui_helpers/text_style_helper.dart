@@ -18,9 +18,9 @@ class TextStyleHelper {
       shadows: [Shadow(color: ColorUiHelper.mainTitleShadow, blurRadius: 5)]);
 
   static TextStyle loginSubtitle2Style = GoogleFonts.montserrat(
-      fontSize: 16,
+      fontSize: 18,
       color: ColorUiHelper.mainSubtitleColor,
-      fontWeight: FontWeight.w200);
+      fontWeight: FontWeight.w600);
 
   static TextStyle forgotPasswordTextStyle = GoogleFonts.montserrat(
       fontSize: 12, color: ColorUiHelper.inputSecondDarkColor);

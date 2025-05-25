@@ -10,7 +10,8 @@ class DetailsPageButton extends StatelessWidget {
     required this.buttonColor,
     required this.buttonIcon,
     this.labelColor,
-    this.buttonWidth
+    this.buttonWidth,
+    this.onPressed
   });
 
   final screen = locator<ScreenSizes>();
@@ -19,28 +20,33 @@ class DetailsPageButton extends StatelessWidget {
   final Widget buttonIcon;
   final Color? labelColor;
   final double? buttonWidth;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: buttonWidth ?? screen.width / 2.1,
-      height: 40,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12), color: buttonColor),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(width: 40,child: buttonIcon),
-          SizedBox(
-            width: 10,
-          ),
-          Expanded(
-            child: Text(
-              buttonLabel,
-              style: labelColor != null ? TextStyleHelper.detailButtonSecondaryTextStyle : TextStyleHelper.detailButtonTextStyle,
+    return InkWell(
+      onTap: onPressed,
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        width: buttonWidth ?? screen.width / 2.1,
+        height: 40,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12), color: buttonColor),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(width: 40,child: buttonIcon),
+            SizedBox(
+              width: 10,
             ),
-          )
-        ],
+            Expanded(
+              child: Text(
+                buttonLabel,
+                style: labelColor != null ? TextStyleHelper.detailButtonSecondaryTextStyle : TextStyleHelper.detailButtonTextStyle,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

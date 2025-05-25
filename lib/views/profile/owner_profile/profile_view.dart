@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:paylas/locator/locator.dart';
 import 'package:paylas/services/auth/auth_service.dart';
 import 'package:paylas/tools/screen_sizes.dart';
-import 'package:paylas/views/profile/profile_card_header.dart';
-import 'package:paylas/views/profile/profile_details.dart';
+import 'package:paylas/views/profile/owner_profile/profile_card_header.dart';
+import 'package:paylas/views/profile/owner_profile/profile_details.dart';
 import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 
 class ProfileView extends StatelessWidget {
