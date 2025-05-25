@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:paylas/firebase_options.dart';
@@ -14,6 +15,53 @@ void main() async {
   final categoryService = CategoryService();
   final jobService = JobService();
   final pastJobService = PastJobService();
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final CollectionReference jobs = firestore.collection('jobs');
+/////// asagidaki kodlar job modelinde owner name yoksa owner id ile arastirip yazmasi icindir
+  final QuerySnapshot jobSnapshot = await jobs.get();
+
+  for (final jobDoc in jobSnapshot.docs) {
+    final jobData = jobDoc.data() as Map<String, dynamic>;
+
+    // ownerId alanı varsa devam et
+    final String? ownerId = jobData['ownerId'];
+
+    if (ownerId != null && ownerId.isNotEmpty) {
+      try {
+        // users koleksiyonundan kullanıcıyı çek
+        final userDoc = await firestore.collection('users').doc(ownerId).get();
+
+        if (userDoc.exists) {
+          final userData = userDoc.data() as Map<String, dynamic>;
+
+          final String ownerName = userData['userName'] ?? 'İsimsiz';
+
+          // Eğer job'da ownerName eksikse güncelle
+          if (jobData['ownerName'] == null ||
+              jobData['ownerName'] == 'İsimsiz' ||
+              (jobData['ownerName'] as String).isEmpty) {
+            await jobDoc.reference.update({
+              'ownerName': ownerName,
+            });
+            print("Güncellendi: ${jobDoc.id} → $ownerName");
+          } else {
+            print("Zaten mevcut: ${jobDoc.id}");
+          }
+        } else {
+          print("Kullanıcı bulunamadı: $ownerId");
+        }
+      } catch (e) {
+        print("Hata oluştu (${jobDoc.id}): $e");
+      }
+    } else {
+      print("ownerId eksik: ${jobDoc.id}");
+    }
+  }
+
+  print("Tüm kayıtlar güncellendi.");
+}
+
+/*
 
   // Yeni kategori
   await categoryService.addNewCategory(
@@ -26,19 +74,20 @@ void main() async {
     debugPrint('Kategori: ${c.name}');
   }
 
-
   final job = Job(
-    id: '',
-    title: 'Bahçe Bakımı',
-    description: 'Ev bahçesi düzenlenecek.',
-    category: 'temizlik-id',
-    ownerId: 'uid-1234',
-    createdDate: DateTime.now(),
-    validityDate: DateTime.now().add(Duration(days: 30)), // 30 gün geçerli
-    location: 'Antalya, Muratpaşa', // örnek konum
-    isArchived: false,
-    price: 100
-  );
+      id: '',
+      title: 'Bahçe Bakımı',
+      description: 'Ev bahçesi düzenlenecek.',
+      category: 'temizlik-id',
+      ownerId: 'uid-1234',
+      createdDate: DateTime.now(),
+      validityDate: DateTime.now().add(Duration(days: 30)),
+      // 30 gün geçerli
+      location: 'Antalya, Muratpaşa',
+      // örnek konum
+      isArchived: false,
+      price: 100,
+      ownerName: 'Ozan');
   await jobService.addNewJob(job);
 
   // Tüm işler
@@ -51,14 +100,14 @@ void main() async {
 
 
   // Show pastJob
-  final result = await pastJobService.showPastJob('AznnoJvIpCKPEJK0cOAL'); // gerçek ID ile değiştir
+  final result = await pastJobService
+      .showPastJob('AznnoJvIpCKPEJK0cOAL'); // gerçek ID ile değiştir
   if (result != null) {
     debugPrint('Past Job -> Job ID: ${result.jobId}, User: ${result.userId}');
   } else {
     debugPrint('Past job not found.');
   }
-}
-
+ */
 
 /*
 void main() async {

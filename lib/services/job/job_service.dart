@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:paylas/models/job/job.dart';
+import 'package:paylas/services/user/user_service.dart';
 
 class JobService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -49,6 +50,8 @@ class JobService {
   }
   Future<void> addNewJob(Job job) async {
     await _db.collection('jobs').add(job.toMap());
+    await UserService().increaseSharedJobCount(job.ownerId);
+
   }
   Future<void> archiveJob(String jobId) async {
     await _db.collection('jobs').doc(jobId).update({'isArchived': true});

@@ -30,14 +30,13 @@ class _AddJobButtonState extends ConsumerState<AddJobButton> {
         final loadingNotifier = ref.read(addJobLoadingProvider.notifier);
         final currentContext = context;
         loadingNotifier.state = true;
-
-
         try {
           final newJob = Job(
             title: TextControllerHelper.addJobTitleController.text,
             description: TextControllerHelper.addJobDescriptionController.text,
             category: ref.read(currentCategoryProvider).name,
             ownerId: AuthService().auth.currentUser!.uid,
+            ownerName: AuthService().auth.currentUser!.displayName!,
             createdDate: DateTime.now(),
             validityDate: DateTime.now(),
             location: TextControllerHelper.addJobLocationController.text,
