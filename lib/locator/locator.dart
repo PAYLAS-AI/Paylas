@@ -2,6 +2,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:paylas/services/job/job_service.dart';
 import 'package:paylas/services/past_job/past_job_service.dart';
+import 'package:paylas/services/url_launcher/launcher_service.dart';
 import 'package:paylas/services/user/user_service.dart';
 import 'package:paylas/tools/screen_sizes.dart';
 
@@ -14,5 +15,6 @@ void getitSetup()  {
   locator.registerLazySingleton(() => JobService(),);
   locator.registerLazySingleton(() => PastJobService(),);
   locator.registerLazySingleton(()=> UserService());
+  locator.registerLazySingleton(() => UrlLauncherService());
 
 }
