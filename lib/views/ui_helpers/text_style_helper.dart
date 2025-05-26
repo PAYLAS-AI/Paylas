@@ -253,4 +253,46 @@ class TextStyleHelper {
       color: ColorUiHelper.inputHintColor,
       height: 1.2);
 
+
+
+
+
+
+
+
+
+// Job request Page
+static TextStyle jobRequestAppbarTitleStyle = GoogleFonts.montserrat(
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+      color: ColorUiHelper.mainTitleYellow,
+      height: 1.2);
+
+static TextStyle jobRequestAppbarSubtitleStyle = GoogleFonts.montserrat(
+      fontSize: 24,
+      color: ColorUiHelper.mainSubtitleColor,
+      fontWeight: FontWeight.w600,
+      height: 1
+      );
+
+static TextStyle jobRequestToolbarStyle = GoogleFonts.montserrat(
+      fontSize: 14,
+      color: ColorUiHelper.mainSubtitleColor,
+      fontWeight: FontWeight.w500,
+      height: 1
+      );
+
+static TextStyle jobRequestCloseButtonStyle = GoogleFonts.montserrat(
+      fontSize: 14,
+      color: ColorUiHelper.mainSubtitleColor,
+      fontWeight: FontWeight.w600,
+      height: 1
+      );
+
+static TextStyle jobRequestResponseTextStyle = GoogleFonts.montserrat(
+      fontSize: 13,
+      fontWeight: FontWeight.w700,
+      color: ColorUiHelper.requestResponseColor,
+      height: 1);
+
 }

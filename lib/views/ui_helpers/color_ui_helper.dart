@@ -51,4 +51,7 @@ class ColorUiHelper {
 
 
   static final Color bottomDeactiveIcon = const Color.fromARGB(255, 105, 103, 103);
+
+  static final Color closeButtonColor = Colors.red;
+  static final Color requestResponseColor = const Color.fromARGB(255, 0, 68, 184);
 }

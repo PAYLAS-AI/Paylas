@@ -7,13 +7,13 @@ import 'package:paylas/views/ui_helpers/text_style_helper.dart';
 
 class CustomAppBar extends StatelessWidget {
   CustomAppBar({
-    super.key, required this.profileUrl,
+    super.key,
     
   });
 
   final screen = locator<ScreenSizes>();
 
-  final String profileUrl;
+
 
   @override
   Widget build(BuildContext context) {
@@ -40,22 +40,28 @@ class CustomAppBar extends StatelessWidget {
                     style: TextStyleHelper.homeAppBarTitleStyle,
                   ),
                 Flexible(child: SizedBox(width: screen.width,)),
-                Container(
-                  height: 40,
-                  width: 40,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: ColorUiHelper.categoryTicketColor,width: 1),
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 10,
-                        spreadRadius: 0.2,
-                        color: ColorUiHelper.homePageSecondShadow
-                      )
-                    ],
-                    image: DecorationImage(image: NetworkImage(profileUrl))
+                InkWell(
+                  borderRadius: BorderRadius.circular(120),
+                  onTap: () {
+                    Navigator.of(context).pushNamed("JobRequestPage");
+                  },
+                  child: Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: ColorUiHelper.categoryTicketColor,width: 1),
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 10,
+                          spreadRadius: 0.2,
+                          color: ColorUiHelper.homePageSecondShadow
+                        )
+                      ],
+                      image: DecorationImage(image: AssetImage("assets/icon/notification.png"))
+                    ),
+                      
                   ),
-    
                 ),
                 SizedBox(width: 20,)
               ],
