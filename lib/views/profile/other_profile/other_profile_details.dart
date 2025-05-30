@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:paylas/locator/locator.dart';
 import 'package:paylas/models/user/app_user.dart';
-import 'package:paylas/services/auth/auth_service.dart';
 import 'package:paylas/tools/screen_sizes.dart';
 import 'package:paylas/views/profile/owner_profile/info_card.dart';
 import 'package:paylas/views/profile/owner_profile/score_card.dart';

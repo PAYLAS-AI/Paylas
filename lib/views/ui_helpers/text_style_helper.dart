@@ -253,4 +253,82 @@ class TextStyleHelper {
       color: ColorUiHelper.inputHintColor,
       height: 1.2);
 
+
+
+
+
+
+
+
+
+// Job request Page
+static TextStyle jobRequestAppbarTitleStyle = GoogleFonts.montserrat(
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+      color: ColorUiHelper.mainTitleYellow,
+      height: 1.2);
+
+static TextStyle jobRequestAppbarSubtitleStyle = GoogleFonts.montserrat(
+      fontSize: 24,
+      color: ColorUiHelper.mainSubtitleColor,
+      fontWeight: FontWeight.w600,
+      height: 1
+      );
+
+static TextStyle jobRequestToolbarStyle = GoogleFonts.montserrat(
+      fontSize: 14,
+      color: ColorUiHelper.mainSubtitleColor,
+      fontWeight: FontWeight.w500,
+      height: 1
+      );
+static TextStyle jobRequestToolbarCounterStyle = GoogleFonts.montserrat(
+      fontSize: 12,
+      color: ColorUiHelper.mainSubtitleColor,
+      fontWeight: FontWeight.w700,
+      height: 1
+      );
+
+static TextStyle jobRequestCloseButtonStyle = GoogleFonts.montserrat(
+      fontSize: 14,
+      color: ColorUiHelper.mainSubtitleColor,
+      fontWeight: FontWeight.w600,
+      height: 1
+      );
+
+static TextStyle jobRequestResponseTextStyle = GoogleFonts.montserrat(
+      fontSize: 13,
+      fontWeight: FontWeight.w700,
+      color: ColorUiHelper.requestResponseColor,
+      height: 1);
+
+
+
+// Admin page
+  static TextStyle adminJobRequestTextStyle = GoogleFonts.montserrat(
+      fontSize: 16,
+      fontWeight: FontWeight.w900,
+      color: ColorUiHelper.productSubtitleColor,
+      height: 1);
+
+  static TextStyle adminJobRequestSecondTextStyle = GoogleFonts.montserrat(
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+      color: ColorUiHelper.productSubtitleColor,
+      height: 1);
+  static TextStyle adminJobRequestTitleTextStyle = GoogleFonts.montserrat(
+      fontSize: 18,
+      fontWeight: FontWeight.w700,
+      color: ColorUiHelper.productTitleColor,
+      height: 1);
+  static TextStyle adminButtonsTextStyle = GoogleFonts.montserrat(
+      fontSize: 16,
+      fontWeight: FontWeight.w700,
+      color: ColorUiHelper.productTitleColor,
+      height: 1);
+  static TextStyle adminButtonsSecondTextStyle = GoogleFonts.montserrat(
+      fontSize: 16,
+      fontWeight: FontWeight.w700,
+      color: ColorUiHelper.mainSubtitleColor,
+      height: 1);
+
 }

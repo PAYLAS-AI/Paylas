@@ -31,10 +31,7 @@ class HomeView extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomAppBar(
-              profileUrl:
-                  "https://forum.shiftdelete.net/ekler/mh_hp_cizmeli_kedi_400x400-jpg.132558/",
-            ),
+            CustomAppBar(),
             Flexible(
               child: SizedBox(
                 height: 25,
