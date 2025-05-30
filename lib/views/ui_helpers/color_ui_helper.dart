@@ -54,4 +54,10 @@ class ColorUiHelper {
 
   static final Color closeButtonColor = Colors.red;
   static final Color requestResponseColor = const Color.fromARGB(255, 0, 68, 184);
+
+
+  static final Color adminRejectColor = Colors.red;
+  static final Color adminCheckColor = Colors.green;
+
+  
 }
