@@ -3,6 +3,7 @@ class AppUser {
   String userName;
   String email;
   String phone;
+  String userType;
   double jobScore;
   List<String> successfulJobs;
   List<String> failedJobs;
@@ -13,6 +14,7 @@ class AppUser {
     required this.userName,
     required this.email,
     required this.phone,
+    required this.userType,
     required this.jobScore,
     required this.successfulJobs,
     required this.failedJobs,
@@ -25,6 +27,7 @@ class AppUser {
       userName: map['userName'] ?? '',
       email: map['email'] ?? '',
       phone: map['phone'] ?? '',
+      userType: map['userType'] ?? '',
       jobScore: (map['jobScore'] ?? 0).toDouble(),
       successfulJobs: List<String>.from(map['successfulJobs'] ?? []),
       failedJobs: List<String>.from(map['failedJobs'] ?? []),
@@ -38,6 +41,7 @@ class AppUser {
       'userName': userName,
       'email': email,
       'phone': phone,
+      'userType': userType,
       'jobScore': jobScore,
       'successfulJobs': successfulJobs,
       'failedJobs': failedJobs,

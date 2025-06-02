@@ -56,6 +56,7 @@ class AuthService {
           userName: name,
           email: user.email ?? '',
           phone: user.phoneNumber ?? '',
+          userType: 'user', // burayi guncelle sonra admin icin de
           jobScore: 0.0,
           successfulJobs: [],
           failedJobs: [],
