@@ -30,7 +30,26 @@ class JobService {
         .map((doc) => Job.fromMap(doc.data(), doc.id))
         .toList();
   }
+  Future<List<Job>> getUnActiveJobs() async {
+    final snapshot = await _db
+        .collection('jobs')
+        .where('isActive', isEqualTo: false)
+        .get();
 
+    return snapshot.docs
+        .map((doc) => Job.fromMap(doc.data(), doc.id))
+        .toList();
+  }
+  Future<List<Job>> getActiveJobs() async {
+    final snapshot = await _db
+        .collection('jobs')
+        .where('isActive', isEqualTo: true)
+        .get();
+
+    return snapshot.docs
+        .map((doc) => Job.fromMap(doc.data(), doc.id))
+        .toList();
+  }
   Future<List<Job>> getAllJobs() async {
     final snapshot = await _db.collection('jobs').get();
     List<Job> jobs = snapshot.docs
@@ -55,6 +74,15 @@ class JobService {
   }
   Future<void> archiveJob(String jobId) async {
     await _db.collection('jobs').doc(jobId).update({'isArchived': true});
+  }
+  Future<void> unArchiveJob(String jobId) async {
+    await _db.collection('jobs').doc(jobId).update({'isArchived': false});
+  }
+  Future<void> makeJobActive(String jobId) async {
+    await _db.collection('jobs').doc(jobId).update({'isActive': true});
+  }
+  Future<void> makeJobUnActive(String jobId) async {
+    await _db.collection('jobs').doc(jobId).update({'isActive': false});
   }
 
   Future<void> updateJob(Job job) async {

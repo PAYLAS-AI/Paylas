@@ -9,6 +9,7 @@ class Job {
   String ownerName;
   DateTime createdDate;
   bool isArchived;
+  bool isActive;
   DateTime validityDate;
   String location;
   int price;
@@ -26,6 +27,7 @@ class Job {
     required this.location,
     required this.price,
     this.isArchived = false,
+    this.isActive = false
   }){
     id = Uuid().v4();
   }
@@ -40,6 +42,7 @@ class Job {
       ownerName: map['ownerName'] ?? '',
       createdDate: (map['createdDate'] as Timestamp).toDate(),
       isArchived: map['isArchived'] ?? false,
+      isActive: map['isActive'] ?? false,
       validityDate: (map['validityDate'] as Timestamp).toDate(),
       location: map['location'] ?? '',
       price: map['price'] ?? 0,
@@ -56,6 +59,7 @@ class Job {
       'ownerName': ownerName,
       'createdDate': createdDate,
       'isArchived': isArchived,
+      'isActive': isActive,
       'validityDate': validityDate,
       'location': location,
       'price': price,
