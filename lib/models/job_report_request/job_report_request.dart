@@ -1,27 +1,31 @@
 import 'package:uuid/uuid.dart';
 
-class JobAdminControlRequest {
-  String? jobAdminControlRequestId;
+class JobReportRequest {
+  String? jobReportRequestId;
   String jobId;
   String ownerId;
+  String reportedUserId;
   String jobImgUrl;
   String jobTitle;
 
-  JobAdminControlRequest({
-    this.jobAdminControlRequestId,
+  JobReportRequest({
+    this.jobReportRequestId,
     required this.jobId,
     required this.ownerId,
+    required this.reportedUserId,
     required this.jobImgUrl,
     required this.jobTitle,
   }){
-  jobAdminControlRequestId = Uuid().v4();
-}
+    jobReportRequestId = Uuid().v4();
+  }
 
-  factory JobAdminControlRequest.fromMap(Map<String, dynamic> map) {
-    return JobAdminControlRequest(
-      jobAdminControlRequestId: map['jobAdminControlRequestId'] as String,
+
+  factory JobReportRequest.fromMap(Map<String, dynamic> map) {
+    return JobReportRequest(
+      jobReportRequestId: map['jobReportRequestId'] as String,
       jobId: map['jobId'] as String,
       ownerId: map['ownerId'] as String,
+      reportedUserId: map['reportedUserId'] as String,
       jobImgUrl: map['jobImgUrl'] as String,
       jobTitle: map['jobTitle'] as String,
     );
@@ -29,9 +33,10 @@ class JobAdminControlRequest {
 
   Map<String, dynamic> toMap() {
     return {
-      'jobAdminControlRequestId': jobAdminControlRequestId,
+      'jobReportRequestId': jobReportRequestId,
       'jobId': jobId,
       'ownerId': ownerId,
+      'reportedUserId': reportedUserId,
       'jobImgUrl': jobImgUrl,
       'jobTitle': jobTitle,
     };
