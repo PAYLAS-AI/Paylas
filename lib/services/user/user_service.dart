@@ -28,4 +28,14 @@ class UserService {
       field: FieldValue.arrayUnion([jobId])
     });
   }
+  Future<void> banUser(String uid) async {
+    await _users.doc(uid).update({
+      'isBanned': true,
+    });
+  }
+  Future<void> unBanUser(String uid) async {
+    await _users.doc(uid).update({
+      'isBanned': false,
+    });
+  }
 }

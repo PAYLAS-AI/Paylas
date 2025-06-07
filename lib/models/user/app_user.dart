@@ -8,6 +8,7 @@ class AppUser {
   List<String> successfulJobs;
   List<String> failedJobs;
   int sharedJobCount;
+  bool isBanned;
 
   AppUser({
     required this.uid,
@@ -19,6 +20,7 @@ class AppUser {
     required this.successfulJobs,
     required this.failedJobs,
     this.sharedJobCount = 0,
+    this.isBanned = false,
   });
 
   factory AppUser.fromMap(String id, Map<String, dynamic> map) {
@@ -32,6 +34,7 @@ class AppUser {
       successfulJobs: List<String>.from(map['successfulJobs'] ?? []),
       failedJobs: List<String>.from(map['failedJobs'] ?? []),
       sharedJobCount: map['sharedJobCount'] ?? 0,
+      isBanned: map['isBanned'] ?? false,
     );
   }
 
@@ -46,6 +49,7 @@ class AppUser {
       'successfulJobs': successfulJobs,
       'failedJobs': failedJobs,
       'sharedJobCount': sharedJobCount,
+      'isBanned': isBanned,
     };
   }
 }
