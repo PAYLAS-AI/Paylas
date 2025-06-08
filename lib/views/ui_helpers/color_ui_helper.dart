@@ -43,7 +43,10 @@ class ColorUiHelper {
 
   static final Color detailCardColor = Colors.white;
   static final Color detailReportColor = Colors.red;
-    static final Color detailButtonColor = Color.fromARGB(255, 214, 214, 214);
+  static final Color detailButtonColor = Color.fromARGB(255, 214, 214, 214);
+
+  
+  static final Color reportLightColor = Color.fromARGB(255, 208, 173, 173);
 
   static final Color homePageShadow = Colors.white;
   static final Color homePageSecondShadow = Colors.black;

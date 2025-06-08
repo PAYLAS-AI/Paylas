@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:paylas/locator/locator.dart';
 import 'package:paylas/tools/screen_sizes.dart';
@@ -6,18 +5,18 @@ import 'package:paylas/views/admin/admin_procces_button.dart';
 import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 import 'package:paylas/views/ui_helpers/text_style_helper.dart';
 
-class CreatedJobRequestCard extends StatelessWidget {
-  CreatedJobRequestCard({
+class IncomingJobCard extends StatelessWidget {
+  IncomingJobCard({
     super.key,
     required this.imageUrl,
     required this.title,
-    required this.jobOwner,
+    required this.user,
   });
 
   final screen = locator<ScreenSizes>();
   final String imageUrl;
   final String title;
-  final String jobOwner;
+  final String user;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +53,7 @@ class CreatedJobRequestCard extends StatelessWidget {
                   )),
               AdminProccessButton(
                 bgColor: ColorUiHelper.mainSubtitleColor,
-                label: "DETAY",
+                label: "PROFİL",
                 icon: Icon(
                   Icons.remove_red_eye_rounded,
                   color: ColorUiHelper.productTitleColor,
@@ -88,14 +87,14 @@ class CreatedJobRequestCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        "İlan Sahibi :",
+                        "Kullanıcı :",
                         style: TextStyleHelper.adminJobRequestTextStyle,
                         overflow: TextOverflow.ellipsis,
                       ),
                       SizedBox(
                         width: (screen.width - 20) / 2.8,
                         child: Text(
-                          " $jobOwner",
+                          " $user",
                           style: TextStyleHelper.adminJobRequestSecondTextStyle,
                           overflow: TextOverflow.ellipsis,
                         ),

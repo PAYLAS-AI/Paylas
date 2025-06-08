@@ -6,8 +6,8 @@ import 'package:paylas/views/admin/admin_procces_button.dart';
 import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 import 'package:paylas/views/ui_helpers/text_style_helper.dart';
 
-class CreatedJobRequestCard extends StatelessWidget {
-  CreatedJobRequestCard({
+class ReportCard extends StatelessWidget {
+  ReportCard({
     super.key,
     required this.imageUrl,
     required this.title,
@@ -26,7 +26,7 @@ class CreatedJobRequestCard extends StatelessWidget {
       height: screen.height * 0.15,
       margin: EdgeInsets.only(bottom: 8, top: 8),
       decoration:
-          BoxDecoration(color: ColorUiHelper.inputLightColor, boxShadow: [
+          BoxDecoration(color: ColorUiHelper.reportLightColor, boxShadow: [
         BoxShadow(
             color: ColorUiHelper.categoryTicketColor,
             blurRadius: 1,
@@ -123,9 +123,9 @@ class CreatedJobRequestCard extends StatelessWidget {
                       ),
                       AdminProccessButton(
                         bgColor: ColorUiHelper.adminRejectColor,
-                        label: "REDDET",
+                        label: "KALDIR",
                         icon: Icon(
-                          Icons.close_outlined,
+                          Icons.delete_forever_outlined,
                           color: ColorUiHelper.mainSubtitleColor,
                           size: 26,
                         ),
