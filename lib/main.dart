@@ -46,8 +46,7 @@ class _PaylasAppState extends State<PaylasApp> {
       ),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: PageRouter.onGenerateRoute,
-      home: //HomeWrapper(),
-      AdminPage()
+      home: HomeWrapper(),
       
       
     );
