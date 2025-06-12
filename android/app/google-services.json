@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "260011829307",
+    "project_id": "paylas-f4c19",
+    "storage_bucket": "paylas-f4c19.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:260011829307:android:4275fd4165044087ba941e",
+        "android_client_info": {
+          "package_name": "com.ebaysoft.paylas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeOt88STE5ZQAthQgxAy0qw9BcxM515qU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

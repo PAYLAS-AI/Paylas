@@ -43,7 +43,10 @@ class ColorUiHelper {
 
   static final Color detailCardColor = Colors.white;
   static final Color detailReportColor = Colors.red;
-    static final Color detailButtonColor = Color.fromARGB(255, 214, 214, 214);
+  static final Color detailButtonColor = Color.fromARGB(255, 214, 214, 214);
+
+  
+  static final Color reportLightColor = Color.fromARGB(255, 208, 173, 173);
 
   static final Color homePageShadow = Colors.white;
   static final Color homePageSecondShadow = Colors.black;
@@ -51,4 +54,13 @@ class ColorUiHelper {
 
 
   static final Color bottomDeactiveIcon = const Color.fromARGB(255, 105, 103, 103);
+
+  static final Color closeButtonColor = Colors.red;
+  static final Color requestResponseColor = const Color.fromARGB(255, 0, 68, 184);
+
+
+  static final Color adminRejectColor = Colors.red;
+  static final Color adminCheckColor = Colors.green;
+
+  
 }

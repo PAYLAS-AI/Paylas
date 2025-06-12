@@ -11,7 +11,7 @@ class ScrollContent extends StatelessWidget {
     required this.labelIconAssetUrl,
     required this.label,
     required this.widgetBuilder,
-    required this.itemCount, this.onPressed,
+     this.onPressed,
   });
 
   final screen = locator<ScreenSizes>();
@@ -21,7 +21,7 @@ class ScrollContent extends StatelessWidget {
 
   final Widget widgetBuilder;
 
-  final int itemCount;
+
 
   final void Function()? onPressed;
 
@@ -32,7 +32,7 @@ class ScrollContent extends StatelessWidget {
       width: screen.width,
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
-            color: ColorUiHelper.homePageSecondShadow.withValues(alpha: 200),
+            color: ColorUiHelper.homePageSecondShadow.withAlpha(70),
             blurRadius: 10)
       ]),
       child: Column(
@@ -77,14 +77,7 @@ class ScrollContent extends StatelessWidget {
           SizedBox(
             height: height - 40,
             width: screen.width,
-            child: ListView.separated(
-              itemBuilder: (context, index) => widgetBuilder,
-              separatorBuilder: (context, index) => SizedBox(
-                width: 2,
-              ),
-              itemCount: itemCount,
-              scrollDirection: Axis.horizontal,
-            ),
+            child: widgetBuilder
           )
         ],
       ),

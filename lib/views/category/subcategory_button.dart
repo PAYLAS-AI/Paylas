@@ -39,7 +39,7 @@ class SubCategoryButton extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(width: 4,),
-                Text("ALT KATEGORİLER" , style: TextStyleHelper.categoryContentSecondarStyle,),
+                Text("TÜM KATEGORİLER" , style: TextStyleHelper.categoryContentSecondarStyle,),
                 Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: CircleAvatar(

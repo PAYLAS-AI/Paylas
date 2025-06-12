@@ -5,8 +5,13 @@ import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 import 'package:paylas/views/widgets/custom_text_input.dart';
 
 class LoginInputBar extends StatelessWidget {
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+
   LoginInputBar({
     super.key,
+    required this.emailController,
+    required this.passwordController,
   });
 
   final screen = locator<ScreenSizes>();
@@ -22,9 +27,10 @@ class LoginInputBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomTextInput(
+                maxLine: 1,
                 label: "E-mail",
                 icon: Icon(Icons.email_outlined),
-                textController: TextEditingController(),
+                textController: emailController,
                 primaryColor: ColorUiHelper.inputLightColor,
                 secondaryColor: ColorUiHelper.inputDarkColor,
               ),
@@ -32,9 +38,10 @@ class LoginInputBar extends StatelessWidget {
                 height: 15,
               ),
               CustomTextInput(
+                maxLine: 1,
                 label: "Şifre",
                 icon: Icon(Icons.lock),
-                textController: TextEditingController(),
+                textController: passwordController,
                 primaryColor: ColorUiHelper.inputLightColor,
                 secondaryColor: ColorUiHelper.inputDarkColor,
                 isObscure: true,

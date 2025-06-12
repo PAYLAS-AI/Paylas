@@ -2,17 +2,36 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:paylas/locator/locator.dart';
 import 'package:paylas/provider/all_providers.dart';
+import 'package:paylas/services/auth/auth_service.dart';
+import 'package:paylas/services/job/job_service.dart';
+import 'package:paylas/services/past_job/past_job_service.dart';
 import 'package:paylas/views/category/category_view.dart';
 import 'package:paylas/views/home/home_view.dart';
 import 'package:paylas/views/past_jobs/past_jobs_view.dart';
-import 'package:paylas/views/profile/profile_view.dart';
+import 'package:paylas/views/profile/owner_profile/profile_view.dart';
 import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 import 'package:paylas/views/ui_helpers/text_style_helper.dart';
 
-class ViewRouter extends ConsumerWidget {
+class ViewRouter extends ConsumerStatefulWidget {
+  const ViewRouter({super.key});
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _ViewRouterState();
+}
 
-  ViewRouter({super.key});
+
+class _ViewRouterState extends ConsumerState<ViewRouter> {
+
+  final JobService jobService = locator<JobService>();
+  final PastJobService pastJobService = locator<PastJobService>();
+
+  @override
+  void initState() {
+    super.initState();
+    getJobs();
+    getPastJobs();
+  }
 
   final views = [
     HomeView(),
@@ -22,21 +41,32 @@ class ViewRouter extends ConsumerWidget {
   ];
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     int selectedView = ref.watch(selectedNavigationIndexProvider);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: IndexedStack(
         index: selectedView,
         children: views,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed("AddJobPage");
+        },
+        backgroundColor: ColorUiHelper.categoryTicketColor,
+        shape: CircleBorder(),
+        elevation: 1,
+        child: Icon(Icons.assignment_add,color: ColorUiHelper.mainSubtitleColor,),
       ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (value) {
             ref.read(selectedNavigationIndexProvider.notifier).state = value;
         },
         currentIndex: selectedView,
-        elevation: 1,
-        type: BottomNavigationBarType.shifting,
+        elevation: 6,
+        type: BottomNavigationBarType.fixed,
         selectedLabelStyle: TextStyleHelper.bottomNavigationTextStyle,
         selectedItemColor: ColorUiHelper.categoryTicketColor,
   // home - jobs - past jobs - profile      
@@ -49,4 +79,12 @@ class ViewRouter extends ConsumerWidget {
       ),
     );
   }
+
+  void getJobs() async{
+    ref.read(allJobsProvider.notifier).state = await jobService.getAllJobs();
+  }
+  void getPastJobs() async{
+    ref.read(pastJobsProvider.notifier).state = await pastJobService.getPastJobsByUser(AuthService().auth.currentUser!.uid);
+  }
+
 }

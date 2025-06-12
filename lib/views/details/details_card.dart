@@ -1,6 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:paylas/locator/locator.dart';
+import 'package:paylas/models/user/app_user.dart';
+import 'package:paylas/services/url_launcher/launcher_service.dart';
+import 'package:paylas/services/user/user_service.dart';
 import 'package:paylas/tools/screen_sizes.dart';
 import 'package:paylas/views/details/details_buttons.dart';
 import 'package:paylas/views/details/price_button.dart';
@@ -8,12 +10,18 @@ import 'package:paylas/views/details/score_bar.dart';
 import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 import 'package:paylas/views/ui_helpers/text_style_helper.dart';
 
-class JobDetails extends StatelessWidget {
-  JobDetails({
-    super.key, required this.title, required this.favoriteCount, required this.jobOwner, required this.score, required this.description, required this.location, required this.jobDuration, required this.jobPrice,
-  });
-
-  final screen = locator<ScreenSizes>();
+class JobDetails extends StatefulWidget {
+  const JobDetails(
+      {super.key,
+      required this.title,
+      required this.favoriteCount,
+      required this.jobOwner,
+      required this.score,
+      required this.description,
+      required this.location,
+      required this.jobDuration,
+      required this.jobPrice,
+      required this.userId});
 
   final String title;
   final int favoriteCount;
@@ -23,6 +31,26 @@ class JobDetails extends StatelessWidget {
   final String location;
   final double jobDuration;
   final int jobPrice;
+  final String userId;
+
+  @override
+  State<JobDetails> createState() => _JobDetailsState();
+}
+
+class _JobDetailsState extends State<JobDetails> {
+  final screen = locator<ScreenSizes>();
+
+  @override
+  void initState() {
+    super.initState();
+    getJobOwnerCredential();
+  }
+
+  AppUser? currentUser;
+
+  final UserService userService = locator<UserService>();
+
+  final UrlLauncherService launcherService = locator<UrlLauncherService>();
 
   @override
   Widget build(BuildContext context) {
@@ -34,19 +62,18 @@ class JobDetails extends StatelessWidget {
         decoration: BoxDecoration(
             color: ColorUiHelper.detailCardColor,
             borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(32),
-                topRight: Radius.circular(32))),
+                topLeft: Radius.circular(32), topRight: Radius.circular(32))),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 16, right:16),
+              padding: EdgeInsets.only(left: 16, right: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    title,
+                    widget.title,
                     style: TextStyleHelper.detailTitleTextStyle,
                   ),
                   Column(
@@ -56,7 +83,7 @@ class JobDetails extends StatelessWidget {
                         color: ColorUiHelper.favoriteIconColor,
                       ),
                       Text(
-                        "$favoriteCount",
+                        "${widget.favoriteCount}",
                         style: TextStyleHelper.detailSubtitleTextStyle,
                       )
                     ],
@@ -65,30 +92,27 @@ class JobDetails extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 8, right:8),
+              padding: EdgeInsets.only(left: 8, right: 8),
               child: Text(
-                "İlan Sahibi: $jobOwner",
+                "İlan Sahibi: ${widget.jobOwner}",
                 style: TextStyleHelper.detailSubtitleTextStyle,
               ),
             ),
-    
             Padding(
-              padding: EdgeInsets.only(left: 8, right:8),
+              padding: EdgeInsets.only(left: 8, right: 8),
               child: ScoreBar(
                 score: 4.8,
               ),
             ),
-    
-            
             Padding(
-              padding: EdgeInsets.only(left: 8, right:8),
+              padding: EdgeInsets.only(left: 8, right: 8),
               child: Text(
-                description,
+                widget.description,
                 style: TextStyleHelper.detailSubtitleTextStyle,
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: 8, right:8),
+              padding: EdgeInsets.only(left: 8, right: 8),
               width: (screen.width - 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -105,7 +129,7 @@ class JobDetails extends StatelessWidget {
                   SizedBox(
                     width: (screen.width - 20) / 1.7,
                     child: Text(
-                      location,
+                      widget.location,
                       style: TextStyleHelper.detailSubtitleTextStyle,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -114,7 +138,7 @@ class JobDetails extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: 8, right:8),
+              padding: EdgeInsets.only(left: 8, right: 8),
               width: (screen.width - 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -131,7 +155,7 @@ class JobDetails extends StatelessWidget {
                   SizedBox(
                     width: (screen.width - 20) / 1.7,
                     child: Text(
-                      " $jobDuration Saat",
+                      " ${widget.jobDuration} Saat",
                       style: TextStyleHelper.detailSubtitleTextStyle,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -139,7 +163,6 @@ class JobDetails extends StatelessWidget {
                 ],
               ),
             ),
-    
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -149,7 +172,7 @@ class JobDetails extends StatelessWidget {
                   buttonIcon: Container(
                     margin: EdgeInsets.only(left: 4),
                     height: 30,
-                    width:30,
+                    width: 30,
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: ColorUiHelper.detailCardColor),
@@ -158,6 +181,17 @@ class JobDetails extends StatelessWidget {
                       color: ColorUiHelper.categoryTicketColor,
                     ),
                   ),
+                  onPressed: () {
+                    if (currentUser == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                            content: Text(
+                                "İlan Sahibi Bilgileri Alınıyor Lütfen Az Sonra Tekrar Deneyin!")),
+                      );
+                    } else {
+                      launcherService.sendEmailTo(currentUser!.email,widget.title);
+                    }
+                  },
                 ),
                 DetailsPageButton(
                   buttonColor: ColorUiHelper.productPriceColor,
@@ -165,12 +199,22 @@ class JobDetails extends StatelessWidget {
                   buttonIcon: Icon(
                     Icons.phone_in_talk_rounded,
                     color: ColorUiHelper.detailCardColor,
-                    size:30,
+                    size: 30,
                   ),
+                  onPressed: () {
+                    if (currentUser == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                            content: Text(
+                                "İlan Sahibi Bilgileri Alınıyor Lütfen Az Sonra Tekrar Deneyin!")),
+                      );
+                    } else {
+                      launcherService.openDialerWithNumber(currentUser!.phone);
+                    }
+                  },
                 )
               ],
             ),
-    
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -183,6 +227,19 @@ class JobDetails extends StatelessWidget {
                     color: ColorUiHelper.categoryTicketColor,
                     size: 30,
                   ),
+                  onPressed: (){
+                    if (currentUser == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                            content: Text(
+                                "İlan Sahibi Bilgileri Alınıyor Lütfen Az Sonra Tekrar Deneyin!")),
+                      );
+                    } else {
+                      // ignore: use_build_context_synchronously
+                      Navigator.of(context).pushNamed("OtherProfilePage",
+                          arguments: currentUser);
+                    }
+                  },
                 ),
                 DetailsPageButton(
                   buttonColor: ColorUiHelper.detailReportColor,
@@ -196,11 +253,15 @@ class JobDetails extends StatelessWidget {
               ],
             ),
             PriceButton(
-              price: 100,
+              price: widget.jobPrice,
             )
           ],
         ),
       ),
     );
+  }
+
+  void getJobOwnerCredential() async {
+    currentUser = await userService.getUser(widget.userId);
   }
 }
