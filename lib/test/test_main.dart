@@ -2,19 +2,52 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:paylas/firebase_options.dart';
-import 'package:paylas/models/category/category.dart';
-import 'package:paylas/models/job/job.dart';
-import 'package:paylas/services/category/category_service.dart';
-import 'package:paylas/services/job/job_service.dart';
-import 'package:paylas/services/past_job/past_job_service.dart';
+
+
 
 void main() async {
+
+
+
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+    final FirebaseFirestore firestore = FirebaseFirestore.instance;
+    final CollectionReference jobs = firestore.collection('jobs');
+
+    // jobs koleksiyonundaki tüm verileri çek
+    final QuerySnapshot jobSnapshot = await jobs.get();
+
+    for (final jobDoc in jobSnapshot.docs) {
+      final jobData = jobDoc.data() as Map<String, dynamic>;
+
+      // Eğer isActive alanı yoksa veya boşsa, true olarak ekle
+      if (!jobData.containsKey('isActive')) {
+        try {
+          await jobDoc.reference.update({
+            'isActive': true,
+          });
+          print("Güncellendi: ${jobDoc.id} → isActive: true");
+        } catch (e) {
+          print("Hata oluştu (${jobDoc.id}): $e");
+        }
+      } else {
+        print("Zaten mevcut: ${jobDoc.id} → isActive: ${jobData['isActive']}");
+      }
+    }
+
+    print("Tüm kayıtlar güncellendi.");
+  }
+
+/*
+
+/*
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  final categoryService = CategoryService();
-  final jobService = JobService();
-  final pastJobService = PastJobService();
+  //final categoryService = CategoryService();
+  //final jobService = JobService();
+  //final pastJobService = PastJobService();
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final CollectionReference jobs = firestore.collection('jobs');
 /////// asagidaki kodlar job modelinde owner name yoksa owner id ile arastirip yazmasi icindir
@@ -61,7 +94,7 @@ void main() async {
   print("Tüm kayıtlar güncellendi.");
 }
 
-/*
+ */
 
   // Yeni kategori
   await categoryService.addNewCategory(
