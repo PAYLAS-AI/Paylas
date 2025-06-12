@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:paylas/locator/locator.dart';
-import 'package:paylas/model/sortedby.dart';
+import 'package:paylas/models/model/sortedby.dart';
 import 'package:paylas/models/past_job/past_job.dart';
 import 'package:paylas/provider/all_providers.dart';
 import 'package:paylas/services/past_job/past_job_service.dart';

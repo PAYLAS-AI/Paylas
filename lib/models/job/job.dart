@@ -13,6 +13,7 @@ class Job {
   DateTime validityDate;
   String location;
   int price;
+  String imgUrl;
 
 
   Job({
@@ -26,15 +27,17 @@ class Job {
     required this.validityDate,
     required this.location,
     required this.price,
+    required this.imgUrl,
     this.isArchived = false,
     this.isActive = false
   }){
     id = Uuid().v4();
   }
 
-  factory Job.fromMap(Map<String, dynamic> map, String documentId) {
+  factory Job.fromMap(Map<String, dynamic> map) {
     return Job(
-      id: documentId,
+      id: map['id'] ?? '',
+      imgUrl: map['imgUrl'] ?? '',
       title: map['title'] ?? '',
       description: map['description'] ?? '',
       category: map['category'] ?? '',
@@ -52,6 +55,7 @@ class Job {
   Map<String, dynamic> toMap() {
     return {
       'id':id,
+      'imgUrl':imgUrl,
       'title': title,
       'description': description,
       'category': category,

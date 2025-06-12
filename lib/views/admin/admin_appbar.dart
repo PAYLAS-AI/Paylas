@@ -1,12 +1,14 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:paylas/provider/all_providers.dart';
 import 'package:paylas/views/admin/admin_request_counter.dart';
 import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 import 'package:paylas/views/ui_helpers/text_style_helper.dart';
 
 class AdminAppbar{
   
-  static PreferredSizeWidget? appBar() => AppBar(
+  static PreferredSizeWidget? appBar(WidgetRef ref) => AppBar(
             backgroundColor: ColorUiHelper.categoryTicketColor,
             leading: CircleAvatar(
               backgroundColor: ColorUiHelper.transparent,
@@ -45,7 +47,7 @@ class AdminAppbar{
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text("İlan İstekleri",style: TextStyleHelper.jobRequestToolbarStyle,),
-                    RequestCounter()
+                    RequestCounter(requestCount: ref.watch(adminJobRequestsProvider).length,)
                   ],
                 ),
               ),

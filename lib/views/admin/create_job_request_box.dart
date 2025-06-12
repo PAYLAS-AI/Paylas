@@ -1,26 +1,37 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:paylas/locator/locator.dart';
+import 'package:paylas/models/job/job.dart';
+import 'package:paylas/provider/all_providers.dart';
+import 'package:paylas/services/job/job_service.dart';
+import 'package:paylas/services/job_admin_control_request/job_admin_control_request_service.dart';
 import 'package:paylas/tools/screen_sizes.dart';
 import 'package:paylas/views/admin/admin_procces_button.dart';
 import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 import 'package:paylas/views/ui_helpers/text_style_helper.dart';
 
-class CreatedJobRequestCard extends StatelessWidget {
+class CreatedJobRequestCard extends ConsumerWidget {
   CreatedJobRequestCard({
     super.key,
     required this.imageUrl,
     required this.title,
     required this.jobOwner,
+    required this.jobId,
+    required this.requestId,
   });
 
   final screen = locator<ScreenSizes>();
+  final jobService = locator<JobService>();
+  final adminRequestControlService = locator<JobAdminControlRequestService>();
+  final String requestId;
+  final String jobId;
   final String imageUrl;
   final String title;
   final String jobOwner;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     return Container(
       width: screen.width,
       height: screen.height * 0.15,
@@ -60,7 +71,15 @@ class CreatedJobRequestCard extends StatelessWidget {
                   color: ColorUiHelper.productTitleColor,
                   size: 26,
                 ),
-                onPressed: () {},
+                onPressed: () async{
+                  Job? job = await jobService.showJob(jobId);
+                  if(job != null){
+                    ref.read(detailsPageCurrentJobProvider.notifier).state = job;
+                    // ignore: use_build_context_synchronously
+                    Navigator.of(context).pushNamed("DetailsPage");
+                  }
+                  
+                },
               ),
             ],
           ),
@@ -116,7 +135,15 @@ class CreatedJobRequestCard extends StatelessWidget {
                           size: 26,
                         ),
                         labelStyle: TextStyleHelper.adminButtonsSecondTextStyle,
-                        onPressed: () {},
+                        onPressed: () async {
+                          jobService.makeJobActiveByInnerId(jobId);
+
+                          await adminRequestControlService.deleteAdminControlRequest(requestId);
+                          List removedList = ref.read(adminJobRequestsProvider);
+                          removedList.removeWhere((req) => req.jobAdminControlRequestId == requestId,);
+                          ref.read(adminJobRequestsProvider.notifier).state =  [...removedList];
+     
+                        },
                       ),
                       SizedBox(
                         width: 8,
@@ -130,7 +157,18 @@ class CreatedJobRequestCard extends StatelessWidget {
                           size: 26,
                         ),
                         labelStyle: TextStyleHelper.adminButtonsSecondTextStyle,
-                        onPressed: () {},
+                        onPressed: () async{
+   
+                          await jobService.deleteDocByInnerId(jobId);
+                          await adminRequestControlService.deleteAdminControlRequest(requestId);
+                          
+                
+                          List removedList = ref.read(adminJobRequestsProvider);
+                          removedList.removeWhere((req) => req.jobAdminControlRequestId == requestId,);
+                          ref.read(adminJobRequestsProvider.notifier).state =  [...removedList];
+     
+                          
+                        },
                       ),
                     ],
                   ),

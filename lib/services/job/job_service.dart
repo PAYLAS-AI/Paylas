@@ -1,5 +1,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 import 'package:paylas/models/job/job.dart';
 import 'package:paylas/services/user/user_service.dart';
@@ -16,7 +17,7 @@ class JobService {
         .get();
 
     return snapshot.docs
-        .map((doc) => Job.fromMap(doc.data(), doc.id))
+        .map((doc) => Job.fromMap(doc.data()))
         .toList();
   }
 
@@ -27,7 +28,7 @@ class JobService {
         .get();
 
     return snapshot.docs
-        .map((doc) => Job.fromMap(doc.data(), doc.id))
+        .map((doc) => Job.fromMap(doc.data()))
         .toList();
   }
   Future<List<Job>> getUnActiveJobs() async {
@@ -37,7 +38,7 @@ class JobService {
         .get();
 
     return snapshot.docs
-        .map((doc) => Job.fromMap(doc.data(), doc.id))
+        .map((doc) => Job.fromMap(doc.data()))
         .toList();
   }
   Future<List<Job>> getActiveJobs() async {
@@ -47,25 +48,23 @@ class JobService {
         .get();
 
     return snapshot.docs
-        .map((doc) => Job.fromMap(doc.data(), doc.id))
+        .map((doc) => Job.fromMap(doc.data()))
         .toList();
   }
   Future<List<Job>> getAllJobs() async {
     final snapshot = await _db.collection('jobs').get();
     List<Job> jobs = snapshot.docs
-        .map((doc) => Job.fromMap(doc.data(), doc.id))
+        .map((doc) => Job.fromMap(doc.data()))
         .toList();
     allJobs = jobs;
     return jobs;
   }
 
   Future<Job?> showJob(String jobId) async {
-    final doc = await _db.collection('jobs').doc(jobId).get();
-    if (doc.exists) {
-      return Job.fromMap(doc.data()!, doc.id);
-    } else {
-      return null;
-    }
+    final docs = await _db.collection('jobs').where('id', isEqualTo: jobId).get();
+   
+    return Job.fromMap(docs.docs.first.data());
+  
   }
   Future<void> addNewJob(Job job) async {
     await _db.collection('jobs').add(job.toMap());
@@ -81,6 +80,22 @@ class JobService {
   Future<void> makeJobActive(String jobId) async {
     await _db.collection('jobs').doc(jobId).update({'isActive': true});
   }
+  
+  Future<void> makeJobActiveByInnerId(String innerId) async {
+  final querySnapshot = await _db
+      .collection('jobs')
+      .where('id', isEqualTo: innerId)
+      .limit(1) // varsa sadece ilkini güncelle
+      .get();
+
+  if (querySnapshot.docs.isNotEmpty) {
+    final docId = querySnapshot.docs.first.id;
+    await _db.collection('jobs').doc(docId).update({'isActive': true});
+  } else {
+    throw Exception('İlgili job bulunamadı.');
+  }
+}
+
   Future<void> makeJobUnActive(String jobId) async {
     await _db.collection('jobs').doc(jobId).update({'isActive': false});
   }
@@ -92,4 +107,18 @@ class JobService {
   Future<void> deleteJob(String jobId) async {
     await _db.collection('jobs').doc(jobId).delete();
   }
+
+  Future<void> deleteDocByInnerId(String targetId) async {
+  final collection = FirebaseFirestore.instance.collection('jobs');
+
+  final querySnapshot = await collection.where('id', isEqualTo: targetId).get();
+
+  for (var doc in querySnapshot.docs) {
+    await collection.doc(doc.id).delete();
+  }
+
+  if (querySnapshot.docs.isEmpty) {
+    debugPrint('Belge bulunamadı.');
+  }
+}
 }

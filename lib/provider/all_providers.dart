@@ -4,8 +4,10 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:paylas/model/categoryby.dart';
-import 'package:paylas/model/sortedby.dart';
+import 'package:paylas/models/job_admin_control_request/job_admin_control_request.dart';
+import 'package:paylas/models/job_report_request/job_report_request.dart';
+import 'package:paylas/models/model/categoryby.dart';
+import 'package:paylas/models/model/sortedby.dart';
 import 'package:paylas/models/job/job.dart';
 import 'package:paylas/models/past_job/past_job.dart';
 
@@ -24,6 +26,10 @@ final addJobLoadingProvider = StateProvider<bool>((ref) => false,);
 final detailsPageCurrentJobProvider = StateProvider<Job?>((ref) => null,);
 
 final allJobsProvider = StateProvider<List<Job>>((ref) => [],);
+
+final adminJobRequestsProvider = StateProvider<List<JobAdminControlRequest>>((ref) => [],);
+
+final adminReportRequestsProvider = StateProvider<List<JobReportRequest>>((ref) => [],);
 
 final pastJobsProvider = StateProvider<List<PastJob>>((ref) => [],);
 

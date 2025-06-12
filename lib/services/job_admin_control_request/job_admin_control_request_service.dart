@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/rendering.dart';
 import 'package:paylas/models/job_admin_control_request/job_admin_control_request.dart';
 
 class JobAdminControlRequestService {
@@ -20,7 +21,16 @@ class JobAdminControlRequestService {
   }
 
   Future<void> deleteAdminControlRequest(String requestId) async {
-    await _collectionRef.doc(requestId).delete();
+    debugPrint(requestId);
+    final querySnapshot =
+        await _collectionRef.where('jobAdminControlRequestId', isEqualTo: requestId).get();
+    for (var doc in querySnapshot.docs) {
+      await _collectionRef.doc(doc.id).delete();
+    }
+
+    if (querySnapshot.docs.isEmpty) {
+      debugPrint('Belge bulunamadı.');
+    }
   }
 
   Future<JobAdminControlRequest?> getJobAdminControlRequestById(
