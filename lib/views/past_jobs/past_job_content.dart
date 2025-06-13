@@ -64,7 +64,7 @@ class _PastJobsContentState extends ConsumerState<PastJobsContent> {
                               widget.filteredPastJobs[index].completedDate),
                           title: widget.filteredPastJobs[index].jobTitle,
                           jobOwner:
-                              "${widget.filteredPastJobs[index].userId.substring(0, 5)} Bey",
+                              widget.filteredPastJobs[index].userName,
                           location: widget.filteredPastJobs[index].location,
                           jobDuration: widget
                               .filteredPastJobs[index].jobDuration

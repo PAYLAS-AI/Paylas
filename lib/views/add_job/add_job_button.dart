@@ -51,6 +51,7 @@ class _AddJobButtonState extends ConsumerState<AddJobButton> {
           await jobService.addNewJob(newJob);
           adminService.addJobAdminControlRequest(adminControlRequest);
           ref.read(currentStepProvider.notifier).state = 0;
+          TextControllerHelper.resetAddJobTextControllers();
           // ignore: use_build_context_synchronously
           Navigator.of(currentContext).pop();
           

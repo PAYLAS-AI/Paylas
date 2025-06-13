@@ -67,7 +67,7 @@ class _JobsPageContentState extends ConsumerState<JobsPageContent> {
                   children: List.generate(widget.jobs.length, (index) => JobBox(
                   imageUrl: "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg",
                   title: widget.jobs[index].title,
-                  jobOwner: "${widget.jobs[index].ownerId} Bey",
+                  jobOwner: widget.jobs[index].ownerName,
                   score: 4.8,
                   onTap: () {
                     ref.read(detailsPageCurrentJobProvider.notifier).state = widget.jobs[index];

@@ -14,12 +14,14 @@ class PastJob {
   final int earning;
   final String jobTitle;
   final double jobScore;
+  final String userName;
 
 
   PastJob({
     String? id,
     required this.jobId,
     required this.userId,
+    required this.userName,
     required this.completedDate,
     required this.jobDuration,
     required this.location,
@@ -33,6 +35,7 @@ class PastJob {
       id: map['id'] ?? '',
       jobId: map['jobId'] ?? '',
       userId: map['userId'] ?? '',
+      userName: map['userName'] ?? '',
       completedDate: (map['completedDate'] as Timestamp).toDate(),
       earning: map['earning'] ?? 0,
       jobDuration: (map['jobDuration']as Timestamp).toDate(),
@@ -47,6 +50,7 @@ class PastJob {
       'id': id,
       'jobId': jobId,
       'userId': userId,
+      'userName': userName,
       'completedDate': completedDate.millisecondsSinceEpoch,
       'jobDuration': jobDuration.millisecondsSinceEpoch,
       'location': location,
@@ -60,6 +64,7 @@ class PastJob {
     String? id,
     String? jobId,
     String? userId,
+    String? userName,
     DateTime? completedDate,
     DateTime? jobDuration,
     String? location,
@@ -71,6 +76,7 @@ class PastJob {
       id: id ?? this.id,
       jobId: jobId ?? this.jobId,
       userId: userId ?? this.userId,
+      userName: userName ?? this.userName,
       completedDate: completedDate ?? this.completedDate,
       jobDuration: jobDuration ?? this.jobDuration,
       location: location ?? this.location,

@@ -69,7 +69,7 @@ class HomeView extends ConsumerWidget {
                               "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg",
                           title: jobService.allJobs[index].title,
                           jobOwner:
-                              "${jobService.allJobs[index].ownerName} Bey",
+                              jobService.allJobs[index].ownerName,
                           score: 4.8,
                           onTap: () {
                             ref
