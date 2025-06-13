@@ -8,7 +8,7 @@ class PastJobService {
   Future<List<PastJob>> getAllPastJobs() async {
     final snapshot = await _db.collection('past_jobs').get();
     return snapshot.docs
-        .map((doc) => PastJob.fromMap(doc.data(), doc.id))
+        .map((doc) => PastJob.fromMap(doc.data()))
         .toList();
   }
   Future<List<PastJob>> getPastJobsByUser(String userId) async {
@@ -18,7 +18,7 @@ class PastJobService {
         .get();
 
     pastJobs = snapshot.docs
-        .map((doc) => PastJob.fromMap(doc.data(), doc.id))
+        .map((doc) => PastJob.fromMap(doc.data()))
         .toList();
     return pastJobs;
   }
@@ -26,7 +26,7 @@ class PastJobService {
   Future<PastJob?> showPastJob(String pastJobId) async {
     final doc = await _db.collection('past_jobs').doc(pastJobId).get();
     if (doc.exists) {
-      return PastJob.fromMap(doc.data()!, doc.id);
+      return PastJob.fromMap(doc.data()!);
     } else {
       return null;
     }

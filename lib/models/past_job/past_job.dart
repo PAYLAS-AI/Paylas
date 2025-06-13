@@ -2,9 +2,10 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uuid/uuid.dart';
 
 class PastJob {
-  final String id;
+  final String? id;
   final String jobId;
   final String userId;
   final DateTime completedDate;
@@ -16,7 +17,7 @@ class PastJob {
 
 
   PastJob({
-    required this.id,
+    String? id,
     required this.jobId,
     required this.userId,
     required this.completedDate,
@@ -25,11 +26,11 @@ class PastJob {
     required this.earning,
     required this.jobTitle,
     required this.jobScore,
-  });
+  }) : id = id ?? Uuid().v4();
 
-  factory PastJob.fromMap(Map<String, dynamic> map, String documentId) {
+  factory PastJob.fromMap(Map<String, dynamic> map) {
     return PastJob(
-      id: documentId,
+      id: map['id'] ?? '',
       jobId: map['jobId'] ?? '',
       userId: map['userId'] ?? '',
       completedDate: (map['completedDate'] as Timestamp).toDate(),

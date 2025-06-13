@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:paylas/locator/locator.dart';
 import 'package:paylas/models/job/job.dart';
 import 'package:paylas/provider/all_providers.dart';
+import 'package:paylas/services/auth/auth_service.dart';
 import 'package:paylas/tools/screen_sizes.dart';
 import 'package:paylas/views/details/details_card.dart';
 import 'package:paylas/views/ui_helpers/text_style_helper.dart';
@@ -39,7 +40,7 @@ class JobDetailsPage extends ConsumerWidget {
                 imgUrl: "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg",
                 jobId: currentJob.id!,
                 ownerId: currentJob.ownerId,
-                userId: currentJob.ownerId,
+                userId: AuthService().auth.currentUser!.uid,
                 title: currentJob.title,
                 favoriteCount: 13,
                 jobOwner: currentJob.ownerName,
@@ -47,8 +48,9 @@ class JobDetailsPage extends ConsumerWidget {
                 description:
                     currentJob.description,
                 location: " ${currentJob.location}",
-                jobDuration: currentJob.validityDate.hour.toDouble(),
+                jobDuration: currentJob.validityDate,
                 jobPrice: currentJob.price,
+                jobDate:currentJob.createdDate
               ),
               Positioned(
                 left: 30,

@@ -8,38 +8,44 @@ class PriceButton extends StatelessWidget {
   PriceButton({
     super.key,
     required this.price,
+    this.onPressed,
   });
 
   final screen = locator<ScreenSizes>();
   final int price;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
-          width: screen.width - 60,
-          height: 60,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: ColorUiHelper.categoryTicketColor),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-        
-              Text(
-                "İş Ücreti            |",
-                style: TextStyleHelper.detailPriceTextStyle,
-              ),
-                                        SizedBox(
-                width: 30,
-              ),
-              Text(
-                "$price TL",
-                style: TextStyleHelper.detailButtonTextStyle,
-              ),
-            ],
+        InkWell(
+          onTap: onPressed,
+          borderRadius: BorderRadius.circular(12),
+          child: Container(
+            width: screen.width - 60,
+            height: 60,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: ColorUiHelper.categoryTicketColor),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+          
+                Text(
+                  "İş Ücreti            |",
+                  style: TextStyleHelper.detailPriceTextStyle,
+                ),
+                                          SizedBox(
+                  width: 30,
+                ),
+                Text(
+                  "$price TL",
+                  style: TextStyleHelper.detailButtonTextStyle,
+                ),
+              ],
+            ),
           ),
         ),
       ],

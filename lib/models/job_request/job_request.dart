@@ -1,20 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uuid/uuid.dart';
 
 class JobRequest {
-  final String jobRequestId;
-  final String jobImgUrl;
-  final String jobOwnerName;
-  final String jobOwnerId;
-  final String jobLocation;
-  final DateTime jobDuration;
-  final DateTime jobDate;
-  final double jobPrice;
-  final String senderUserId;
-  final String senderUserName;
-  final String requestResponse;
+  String? jobRequestId;
+  String jobImgUrl;
+  String jobOwnerName;
+  String jobOwnerId;
+  String jobLocation;
+  DateTime jobDuration;
+  DateTime jobDate;
+  double jobPrice;
+  String senderUserId;
+  String senderUserName;
+  String requestResponse;
+  String jobTitle;
+  String jobId;
 
   JobRequest({
-    required this.jobRequestId,
+    String? jobRequestId,
+    required this.jobTitle,
+    required this.jobId,
     required this.jobImgUrl,
     required this.jobOwnerName,
     required this.jobOwnerId,
@@ -25,12 +30,14 @@ class JobRequest {
     required this.senderUserId,
     required this.senderUserName,
     required this.requestResponse,
-  });
+  })  : jobRequestId = jobRequestId ?? Uuid().v4(); 
 
 
   factory JobRequest.fromMap(Map<String, dynamic> map) {
     return JobRequest(
       jobRequestId: map['jobRequestId'] as String,
+      jobTitle: map['jobTitle'] as String,
+      jobId: map['jobId'] as String,
       jobImgUrl: map['jobImgUrl'] as String,
       jobOwnerName: map['jobOwnerName'] as String,
       jobOwnerId: map['jobOwnerId'] as String,
@@ -48,6 +55,8 @@ class JobRequest {
   Map<String, dynamic> toMap() {
     return {
       'jobRequestId': jobRequestId,
+      'jobTitle': jobTitle,
+      'jobId': jobId,
       'jobImgUrl': jobImgUrl,
       'jobOwnerName': jobOwnerName,
       'jobOwnerId': jobOwnerId,

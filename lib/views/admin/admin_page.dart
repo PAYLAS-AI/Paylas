@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:paylas/locator/locator.dart';
-import 'package:paylas/models/job_admin_control_request/job_admin_control_request.dart';
 import 'package:paylas/provider/all_providers.dart';
 import 'package:paylas/services/job_admin_control_request/job_admin_control_request_service.dart';
 import 'package:paylas/services/job_report_request/job_report_request_service.dart';

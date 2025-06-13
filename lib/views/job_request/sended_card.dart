@@ -1,11 +1,14 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:paylas/locator/locator.dart';
+import 'package:paylas/provider/all_providers.dart';
+import 'package:paylas/services/job_request/job_request_service.dart';
 import 'package:paylas/tools/screen_sizes.dart';
 import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 import 'package:paylas/views/ui_helpers/text_style_helper.dart';
 
-class SendedCard extends StatelessWidget {
+class SendedCard extends ConsumerWidget {
   SendedCard({
     super.key,
     required this.imageUrl,
@@ -16,9 +19,11 @@ class SendedCard extends StatelessWidget {
     required this.jobDate,
     required this.jobPrice,
     required this.requestResponse,
+    required this.requestId,
   });
 
   final screen = locator<ScreenSizes>();
+  final requestService = locator<JobRequestService>();
   final String imageUrl;
   final String title;
   final String jobOwner;
@@ -27,9 +32,10 @@ class SendedCard extends StatelessWidget {
   final String jobDate;
   final double jobPrice;
   final String requestResponse;
+  final String requestId;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       width: screen.width - 20,
       height: screen.height * 0.15,
@@ -77,7 +83,18 @@ class SendedCard extends StatelessWidget {
                       borderRadius:
                           BorderRadius.only(topRight: Radius.circular(24)),
                       splashColor: ColorUiHelper.categoryTicketColor,
-                      onTap: () {},
+                      onTap: () async {
+                        await requestService.deleteJobRequest(requestId);
+
+                        List removedList = ref.read(sendedJobRequestsProvider);
+
+                        removedList.removeWhere((req) => req.jobRequestId == requestId,);
+                        ref.read(sendedJobRequestsProvider.notifier).state =  [...removedList];
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Gönderilen istek iptal edildi!")),
+                          );
+                      },
                       child: Container(
                           width: 70,
                           height: 25,
