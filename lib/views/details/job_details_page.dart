@@ -36,10 +36,13 @@ class JobDetailsPage extends ConsumerWidget {
                 ),
               ),
               JobDetails(
+                imgUrl: "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg",
+                jobId: currentJob.id!,
+                ownerId: currentJob.ownerId,
                 userId: currentJob.ownerId,
                 title: currentJob.title,
                 favoriteCount: 13,
-                jobOwner: "${currentJob.ownerName} Bey",
+                jobOwner: currentJob.ownerName,
                 score: 4.8,
                 description:
                     currentJob.description,

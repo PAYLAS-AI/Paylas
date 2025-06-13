@@ -5,6 +5,7 @@ import 'package:paylas/locator/locator.dart';
 import 'package:paylas/models/job_admin_control_request/job_admin_control_request.dart';
 import 'package:paylas/provider/all_providers.dart';
 import 'package:paylas/services/job_admin_control_request/job_admin_control_request_service.dart';
+import 'package:paylas/services/job_report_request/job_report_request_service.dart';
 import 'package:paylas/views/admin/admin_appbar.dart';
 import 'package:paylas/views/admin/created_job_content.dart';
 import 'package:paylas/views/admin/report_content.dart';
@@ -17,11 +18,13 @@ class AdminPage extends ConsumerStatefulWidget {
 class _AdminPageState extends ConsumerState<AdminPage> {
 
   final adminRequestControlService = locator<JobAdminControlRequestService>();
+  final reportRequestService = locator<JobReportRequestService>();
 
   @override
   void initState() {
     super.initState();
     getAllRequests();
+    getAllReports();
   }
 
 
@@ -42,5 +45,9 @@ class _AdminPageState extends ConsumerState<AdminPage> {
 
   void getAllRequests()async{
     ref.read(adminJobRequestsProvider.notifier).state = await adminRequestControlService.getAllAdminControlRequests();
+  }
+
+  void getAllReports() async {
+    ref.read(adminReportRequestsProvider.notifier).state = await reportRequestService.getAllReportRequests();
   }
 }

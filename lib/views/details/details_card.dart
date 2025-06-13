@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:paylas/locator/locator.dart';
+import 'package:paylas/models/job_report_request/job_report_request.dart';
 import 'package:paylas/models/user/app_user.dart';
+import 'package:paylas/services/auth/auth_service.dart';
+import 'package:paylas/services/job_report_request/job_report_request_service.dart';
 import 'package:paylas/services/url_launcher/launcher_service.dart';
 import 'package:paylas/services/user/user_service.dart';
 import 'package:paylas/tools/screen_sizes.dart';
@@ -21,7 +24,10 @@ class JobDetails extends StatefulWidget {
       required this.location,
       required this.jobDuration,
       required this.jobPrice,
-      required this.userId});
+      required this.userId,
+      required this.jobId,
+      required this.ownerId,
+      required this.imgUrl});
 
   final String title;
   final int favoriteCount;
@@ -32,6 +38,9 @@ class JobDetails extends StatefulWidget {
   final double jobDuration;
   final int jobPrice;
   final String userId;
+  final String jobId;
+  final String ownerId;
+  final String imgUrl;
 
   @override
   State<JobDetails> createState() => _JobDetailsState();
@@ -51,6 +60,11 @@ class _JobDetailsState extends State<JobDetails> {
   final UserService userService = locator<UserService>();
 
   final UrlLauncherService launcherService = locator<UrlLauncherService>();
+
+  final JobReportRequestService reportService =
+      locator<JobReportRequestService>();
+
+  bool isReported = false;
 
   @override
   Widget build(BuildContext context) {
@@ -189,7 +203,8 @@ class _JobDetailsState extends State<JobDetails> {
                                 "İlan Sahibi Bilgileri Alınıyor Lütfen Az Sonra Tekrar Deneyin!")),
                       );
                     } else {
-                      launcherService.sendEmailTo(currentUser!.email,widget.title);
+                      launcherService.sendEmailTo(
+                          currentUser!.email, widget.title);
                     }
                   },
                 ),
@@ -227,7 +242,7 @@ class _JobDetailsState extends State<JobDetails> {
                     color: ColorUiHelper.categoryTicketColor,
                     size: 30,
                   ),
-                  onPressed: (){
+                  onPressed: () {
                     if (currentUser == null) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -249,6 +264,26 @@ class _JobDetailsState extends State<JobDetails> {
                     color: ColorUiHelper.detailCardColor,
                     size: 30,
                   ),
+                  onPressed: () async {
+                    if (isReported == false) {
+                      JobReportRequest newReport = JobReportRequest(
+                          jobId: widget.jobId,
+                          ownerId: widget.ownerId,
+                          reportedUserId: AuthService().auth.currentUser!.uid,
+                          jobImgUrl: widget.imgUrl,
+                          jobTitle: widget.title,
+                          ownerName: widget.jobOwner);
+                      await reportService.addReportRequest(newReport);
+                      isReported = true;
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Şikayet Edildi!")),
+                      );
+                    }else{
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Daha önce şikayet edildi!")),
+                      );
+                    }
+                  },
                 )
               ],
             ),

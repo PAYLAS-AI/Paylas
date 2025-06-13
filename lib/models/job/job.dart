@@ -17,7 +17,7 @@ class Job {
 
 
   Job({
-    this.id,
+    String? id,
     required this.title,
     required this.description,
     required this.category,
@@ -30,9 +30,7 @@ class Job {
     required this.imgUrl,
     this.isArchived = false,
     this.isActive = false
-  }){
-    id = Uuid().v4();
-  }
+  }): id = id ?? Uuid().v4(); 
 
   factory Job.fromMap(Map<String, dynamic> map) {
     return Job(
