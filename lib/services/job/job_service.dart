@@ -14,6 +14,7 @@ class JobService {
         .collection('jobs')
         .where('category', isEqualTo: category)
         .where('isArchived', isEqualTo: false)
+        .where('isActive', isEqualTo: true)
         .get();
 
     return snapshot.docs
@@ -51,8 +52,10 @@ class JobService {
         .map((doc) => Job.fromMap(doc.data()))
         .toList();
   }
+  
   Future<List<Job>> getAllJobs() async {
-    final snapshot = await _db.collection('jobs').get();
+    final snapshot = await _db.collection('jobs').where('isActive', isEqualTo: true).get();
+
     List<Job> jobs = snapshot.docs
         .map((doc) => Job.fromMap(doc.data()))
         .toList();
