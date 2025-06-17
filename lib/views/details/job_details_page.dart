@@ -32,12 +32,12 @@ class JobDetailsPage extends ConsumerWidget {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                       image: NetworkImage(
-                          "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg"),
+                          currentJob.imgUrl),
                       fit: BoxFit.fill),
                 ),
               ),
               JobDetails(
-                imgUrl: "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg",
+                imgUrl: currentJob.imgUrl,
                 jobId: currentJob.id!,
                 ownerId: currentJob.ownerId,
                 userId: AuthService().auth.currentUser!.uid,

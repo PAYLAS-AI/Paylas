@@ -45,3 +45,5 @@ final sendedJobRequestsProvider = StateProvider<List<JobRequest>>((ref) => [],);
 final incomingJobRequestsProvider = StateProvider<List<JobRequest>>((ref) => [],);
 
 final updateRequestPageProvider = StateProvider<int>((ref) => 0,);
+
+final currentValidityDate = StateProvider<DateTime?>((ref) => null,);

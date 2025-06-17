@@ -1,20 +1,20 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uuid/uuid.dart';
 
 class PastJob {
-  final String? id;
-  final String jobId;
-  final String userId;
-  final DateTime completedDate;
-  final DateTime jobDuration;
-  final String location;
-  final int earning;
-  final String jobTitle;
-  final double jobScore;
-  final String userName;
+  String? id;
+  String jobId;
+  String userId;
+  DateTime completedDate;
+  DateTime jobDuration;
+  String location;
+  int earning;
+  String jobTitle;
+  double jobScore;
+  String userName;
+  String imgUrl;
+  
 
 
   PastJob({
@@ -28,17 +28,19 @@ class PastJob {
     required this.earning,
     required this.jobTitle,
     required this.jobScore,
+    required this.imgUrl,
   }) : id = id ?? Uuid().v4();
 
   factory PastJob.fromMap(Map<String, dynamic> map) {
     return PastJob(
       id: map['id'] ?? '',
       jobId: map['jobId'] ?? '',
+      imgUrl: map['imgUrl'] ?? "https://raw.githubusercontent.com/PAYLAS-AI/Paylas/refs/heads/main/assets/logo/logo2.jpg",
       userId: map['userId'] ?? '',
       userName: map['userName'] ?? '',
-      completedDate: (map['completedDate'] as Timestamp).toDate(),
+      completedDate: DateTime.fromMillisecondsSinceEpoch(map['completedDate']),
       earning: map['earning'] ?? 0,
-      jobDuration: (map['jobDuration']as Timestamp).toDate(),
+      jobDuration: DateTime.fromMillisecondsSinceEpoch(map['jobDuration']),
       jobScore: map['jobScore'] ?? 0.0,
       jobTitle: map['jobTitle'] ?? '',
       location: map['location'] ?? ''
@@ -49,6 +51,7 @@ class PastJob {
     return <String, dynamic>{
       'id': id,
       'jobId': jobId,
+      'imgUrl': imgUrl,
       'userId': userId,
       'userName': userName,
       'completedDate': completedDate.millisecondsSinceEpoch,
@@ -71,10 +74,12 @@ class PastJob {
     int? earning,
     String? jobTitle,
     double? jobScore,
+    String? imgUrl,
   }) {
     return PastJob(
       id: id ?? this.id,
       jobId: jobId ?? this.jobId,
+      imgUrl: imgUrl ?? this.imgUrl,
       userId: userId ?? this.userId,
       userName: userName ?? this.userName,
       completedDate: completedDate ?? this.completedDate,

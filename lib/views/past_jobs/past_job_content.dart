@@ -58,8 +58,7 @@ class _PastJobsContentState extends ConsumerState<PastJobsContent> {
                   )
                 : ListView.separated(
                     itemBuilder: (context, index) => PastJobBox(
-                          imageUrl:
-                              "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg",
+                          imageUrl: widget.filteredPastJobs[index].imgUrl,
                           jobDate: DateFormat('dd/MM/yyyy').format(
                               widget.filteredPastJobs[index].completedDate),
                           title: widget.filteredPastJobs[index].jobTitle,

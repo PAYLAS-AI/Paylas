@@ -5,6 +5,7 @@ import 'package:paylas/firebase_options.dart';
 import 'package:paylas/locator/locator.dart';
 import 'package:paylas/router/page_router.dart';
 import 'package:paylas/tools/screen_sizes.dart';
+import 'package:paylas/views/admin/admin_page.dart';
 import 'package:paylas/views/home/home_wrapper.dart';
 import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 

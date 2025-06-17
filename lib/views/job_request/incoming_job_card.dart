@@ -251,6 +251,7 @@ class IncomingJobCard extends ConsumerWidget {
                   var newPastJob = PastJob(
                       jobId: jobId,
                       userId: userId,
+                      imgUrl: imageUrl,
                       userName: user,
                       completedDate: DateTime.now(),
                       jobDuration: jobDuration,

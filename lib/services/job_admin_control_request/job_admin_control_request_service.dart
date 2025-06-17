@@ -33,6 +33,20 @@ class JobAdminControlRequestService {
     }
   }
 
+  Future<void> addImgUrl(String jobId, String imgUrl) async {
+    final querySnapshot = await _collectionRef
+        .where('jobId', isEqualTo: jobId)
+        .limit(1) // varsa sadece ilkini güncelle
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      final docId = querySnapshot.docs.first.id;
+      await _collectionRef.doc(docId).update({'jobImgUrl': imgUrl});
+    } else {
+      throw Exception('İlgili job bulunamadı.');
+    }
+  }
+
   Future<JobAdminControlRequest?> getJobAdminControlRequestById(
       String requestId) async {
     final doc = await _collectionRef.doc(requestId).get();

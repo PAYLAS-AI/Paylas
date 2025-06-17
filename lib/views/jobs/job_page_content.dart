@@ -65,7 +65,7 @@ class _JobsPageContentState extends ConsumerState<JobsPageContent> {
                 GridView.count(
                   crossAxisCount: 2,
                   children: List.generate(widget.jobs.length, (index) => JobBox(
-                  imageUrl: "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg",
+                  imageUrl: widget.jobs[index].imgUrl,
                   title: widget.jobs[index].title,
                   jobOwner: widget.jobs[index].ownerName,
                   score: 4.8,

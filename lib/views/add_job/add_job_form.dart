@@ -29,7 +29,46 @@ class AddJobForm extends ConsumerWidget {
             physics: NeverScrollableScrollPhysics(),
             onStepContinue: () {
               if (currentStep < 7) {
-                ref.read(currentStepProvider.notifier).state = currentStep + 1;
+                if (currentStep == 0 &&
+                    ref.read(currentCategoryProvider).name == "all") {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Kategori boş olamaz!")),
+                  );
+                } else if (currentStep == 1 &&
+                    ref.read(currentImageProvider).path == "") {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Lütfen görsel ekleyin!")),
+                  );
+                } else if (currentStep == 2 &&
+                    TextControllerHelper.addJobTitleController.text == "") {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("İlan başlığı boş olamaz!")),
+                  );
+                } else if (currentStep == 3 &&
+                    TextControllerHelper.addJobLocationController.text == "") {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("İlan konumu boş olamaz!")),
+                  );
+                } else if (currentStep == 4 &&
+                    TextControllerHelper.addJobCostController.text == "") {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("ilan ücreti boş olamaz!")),
+                  );
+                } else if (currentStep == 5 &&
+                    ref.read(currentValidityDate) == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("ilan geçerlilik tarihi giriniz!")),
+                  );
+                }else if (currentStep == 6 &&
+                    TextControllerHelper.addJobDescriptionController.text ==
+                        "") {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("İlan açıklaması boş olamaz!")),
+                  );
+                } else {
+                  ref.read(currentStepProvider.notifier).state =
+                      currentStep + 1;
+                }
               }
             },
             onStepCancel: () {
@@ -177,13 +216,25 @@ class AddJobForm extends ConsumerWidget {
                   "İlan Geçerliliği",
                   style: TextStyleHelper.homeLabelStyle,
                 ),
-                content: AddJobCustomInput(
-                  height: 50,
-                  hintText: "Süre",
-                  iconAssetUrl: "assets/icon/time-passing.png",
-                  inputLabel: "İlan Geçerliliği",
-                  maxLine: 1,
-                  textController: TextControllerHelper.addJobTimeController,
+                content: IconButton.filled(
+                  onPressed: () async {
+                    DateTime? picked = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime(2100),
+                      helpText: 'Geçerlilik Süresini Seç',
+                      cancelText: 'İptal',
+                      confirmText: 'Tamam',
+                    );
+                    ref.read(currentValidityDate.notifier).state = picked;
+                  },
+                  icon: Icon(
+                    Icons.date_range,
+                    color: ColorUiHelper.mainSubtitleColor,
+                    size: 32,
+                  ),
+                  color: ColorUiHelper.mainTitleBlue,
                 ),
               ),
               Step(
@@ -198,7 +249,8 @@ class AddJobForm extends ConsumerWidget {
                   iconAssetUrl: "assets/icon/info.png",
                   inputLabel: "İlan Açıklaması",
                   maxLine: 6,
-                  textController: TextControllerHelper.addJobDescriptionController,
+                  textController:
+                      TextControllerHelper.addJobDescriptionController,
                 ),
               ),
               Step(
@@ -214,4 +266,3 @@ class AddJobForm extends ConsumerWidget {
     );
   }
 }
-

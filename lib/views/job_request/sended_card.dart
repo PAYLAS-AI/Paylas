@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:paylas/locator/locator.dart';
+import 'package:paylas/models/model/requestResponse.dart';
 import 'package:paylas/provider/all_providers.dart';
 import 'package:paylas/services/job_request/job_request_service.dart';
 import 'package:paylas/tools/screen_sizes.dart';
@@ -92,7 +93,7 @@ class SendedCard extends ConsumerWidget {
                         ref.read(sendedJobRequestsProvider.notifier).state =  [...removedList];
 
                         ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("Gönderilen istek iptal edildi!")),
+                            SnackBar(content: requestResponse == RequestResponse.waiting ? Text("Gönderilen istek iptal edildi!") : Text("Gönderilen istek silindi!") ),
                           );
                       },
                       child: Container(
@@ -110,7 +111,7 @@ class SendedCard extends ConsumerWidget {
                                 color: ColorUiHelper.mainSubtitleColor,
                               ),
                               Text(
-                                "İPTAL",
+                                requestResponse == RequestResponse.waiting ? "İPTAL" : "SİL",
                                 style:
                                     TextStyleHelper.jobRequestCloseButtonStyle,
                               ),

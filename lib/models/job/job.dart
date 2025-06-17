@@ -35,7 +35,7 @@ class Job {
   factory Job.fromMap(Map<String, dynamic> map) {
     return Job(
       id: map['id'] ?? '',
-      imgUrl: map['imgUrl'] ?? '',
+      imgUrl: map['imgUrl'] ?? "https://raw.githubusercontent.com/PAYLAS-AI/Paylas/refs/heads/main/assets/logo/logo2.jpg",
       title: map['title'] ?? '',
       description: map['description'] ?? '',
       category: map['category'] ?? '',

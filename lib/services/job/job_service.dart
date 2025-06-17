@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:paylas/locator/locator.dart';
 
 import 'package:paylas/models/job/job.dart';
+import 'package:paylas/services/storage/storage_service.dart';
 import 'package:paylas/services/user/user_service.dart';
 
 class JobService {
@@ -79,6 +81,21 @@ class JobService {
     }
   }
 
+  Future<void> addImgUrl(String jobId, String imgUrl) async {
+    final querySnapshot = await _db
+        .collection('jobs')
+        .where('id', isEqualTo: jobId)
+        .limit(1) // varsa sadece ilkini güncelle
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      final docId = querySnapshot.docs.first.id;
+      await _db.collection('jobs').doc(docId).update({'imgUrl': imgUrl});
+    } else {
+      throw Exception('İlgili job bulunamadı.');
+    }
+  }
+
   Future<void> unArchiveJob(String jobId) async {
     await _db.collection('jobs').doc(jobId).update({'isArchived': false});
   }
@@ -123,6 +140,8 @@ class JobService {
     for (var doc in querySnapshot.docs) {
       await collection.doc(doc.id).delete();
     }
+
+    locator<StorageService>().deleteImage(targetId);
 
     if (querySnapshot.docs.isEmpty) {
       debugPrint('Belge bulunamadı.');

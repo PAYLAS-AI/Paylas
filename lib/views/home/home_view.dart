@@ -66,7 +66,7 @@ class HomeView extends ConsumerWidget {
                     : ListView.separated(
                         itemBuilder: (context, index) => JobBox(
                           imageUrl:
-                              "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg",
+                              jobService.allJobs[index].imgUrl,
                           title: jobService.allJobs[index].title,
                           jobOwner:
                               jobService.allJobs[index].ownerName,

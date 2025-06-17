@@ -32,6 +32,7 @@ class CreatedJobRequestCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
+    debugPrint(imageUrl);
     return Container(
       width: screen.width,
       height: screen.height * 0.15,
