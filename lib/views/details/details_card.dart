@@ -23,6 +23,7 @@ class JobDetails extends StatefulWidget {
       required this.favoriteCount,
       required this.jobOwner,
       required this.score,
+      required this.category,
       required this.description,
       required this.location,
       required this.jobDuration,
@@ -39,6 +40,7 @@ class JobDetails extends StatefulWidget {
   final double score;
   final String description;
   final String location;
+  final String category;
   final DateTime jobDuration;
   final int jobPrice;
   final String userId;
@@ -301,6 +303,7 @@ class _JobDetailsState extends State<JobDetails> {
                 if (isSendRequest == false) {
                   var newRequest = JobRequest(
                       jobId: widget.jobId,
+                      jobCategory: widget.category,
                       jobTitle: widget.title,
                       jobImgUrl: widget.imgUrl,
                       jobOwnerName: widget.jobOwner,

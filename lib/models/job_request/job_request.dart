@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:paylas/models/model/categoryby.dart';
 import 'package:uuid/uuid.dart';
 
 class JobRequest {
@@ -7,6 +8,7 @@ class JobRequest {
   String jobOwnerName;
   String jobOwnerId;
   String jobLocation;
+  String jobCategory;
   DateTime jobDuration;
   DateTime jobDate;
   double jobPrice;
@@ -20,6 +22,7 @@ class JobRequest {
     String? jobRequestId,
     required this.jobTitle,
     required this.jobId,
+    required this.jobCategory,
     required this.jobImgUrl,
     required this.jobOwnerName,
     required this.jobOwnerId,
@@ -38,6 +41,7 @@ class JobRequest {
       jobRequestId: map['jobRequestId'] as String,
       jobTitle: map['jobTitle'] as String,
       jobId: map['jobId'] as String,
+      jobCategory: map['jobCategory'] as String? ?? CategoryBy.all.name,
       jobImgUrl: map['jobImgUrl'] as String,
       jobOwnerName: map['jobOwnerName'] as String,
       jobOwnerId: map['jobOwnerId'] as String,
@@ -57,6 +61,7 @@ class JobRequest {
       'jobRequestId': jobRequestId,
       'jobTitle': jobTitle,
       'jobId': jobId,
+      'jobCategory': jobCategory,
       'jobImgUrl': jobImgUrl,
       'jobOwnerName': jobOwnerName,
       'jobOwnerId': jobOwnerId,

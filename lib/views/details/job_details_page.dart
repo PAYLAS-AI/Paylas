@@ -40,6 +40,7 @@ class JobDetailsPage extends ConsumerWidget {
                 imgUrl: currentJob.imgUrl,
                 jobId: currentJob.id!,
                 ownerId: currentJob.ownerId,
+                category: currentJob.category,
                 userId: AuthService().auth.currentUser!.uid,
                 title: currentJob.title,
                 favoriteCount: 13,

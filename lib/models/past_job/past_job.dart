@@ -1,11 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
+import 'package:paylas/models/model/categoryby.dart';
 import 'package:uuid/uuid.dart';
 
 class PastJob {
   String? id;
   String jobId;
   String userId;
+  String category;
   DateTime completedDate;
   DateTime jobDuration;
   String location;
@@ -22,6 +24,7 @@ class PastJob {
     required this.jobId,
     required this.userId,
     required this.userName,
+    required this.category,
     required this.completedDate,
     required this.jobDuration,
     required this.location,
@@ -37,6 +40,7 @@ class PastJob {
       jobId: map['jobId'] ?? '',
       imgUrl: map['imgUrl'] ?? "https://raw.githubusercontent.com/PAYLAS-AI/Paylas/refs/heads/main/assets/logo/logo2.jpg",
       userId: map['userId'] ?? '',
+      category: map['category'] ?? CategoryBy.all.name,
       userName: map['userName'] ?? '',
       completedDate: DateTime.fromMillisecondsSinceEpoch(map['completedDate']),
       earning: map['earning'] ?? 0,
@@ -53,6 +57,7 @@ class PastJob {
       'jobId': jobId,
       'imgUrl': imgUrl,
       'userId': userId,
+      'category': category,
       'userName': userName,
       'completedDate': completedDate.millisecondsSinceEpoch,
       'jobDuration': jobDuration.millisecondsSinceEpoch,
@@ -67,6 +72,7 @@ class PastJob {
     String? id,
     String? jobId,
     String? userId,
+    String? category,
     String? userName,
     DateTime? completedDate,
     DateTime? jobDuration,
@@ -81,6 +87,7 @@ class PastJob {
       jobId: jobId ?? this.jobId,
       imgUrl: imgUrl ?? this.imgUrl,
       userId: userId ?? this.userId,
+      category: category ?? this.category,
       userName: userName ?? this.userName,
       completedDate: completedDate ?? this.completedDate,
       jobDuration: jobDuration ?? this.jobDuration,

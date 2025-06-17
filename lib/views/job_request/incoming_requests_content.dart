@@ -28,6 +28,7 @@ class IncomingRequestsContent extends ConsumerWidget {
             ? ListView.builder(
                 itemBuilder: (context, index) => IncomingJobCard(
                   earning: requests[index].jobPrice.toInt(),
+                  category: requests[index].jobCategory,
                   jobTitle: requests[index].jobTitle,
                   location: requests[index].jobLocation,
                   jobDuration:requests[index].jobDuration,

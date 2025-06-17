@@ -58,6 +58,18 @@ class ReportCard extends ConsumerWidget {
                       child: Image.network(
                         imageUrl,
                         fit: BoxFit.fill,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+
+                          return Center(
+                            child: CircularProgressIndicator(
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      (loadingProgress.expectedTotalBytes ?? 1)
+                                  : null,
+                            ),
+                          );
+                        },
                       ),
                     ),
                   )),
@@ -144,7 +156,9 @@ class ReportCard extends ConsumerWidget {
                           ref.read(adminReportRequestsProvider.notifier).state =
                               [...removedList];
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("İlan geçerli olarak kabul edildi!")),
+                            SnackBar(
+                                content:
+                                    Text("İlan geçerli olarak kabul edildi!")),
                           );
                         },
                       ),
@@ -160,8 +174,7 @@ class ReportCard extends ConsumerWidget {
                           size: 26,
                         ),
                         labelStyle: TextStyleHelper.adminButtonsSecondTextStyle,
-                        onPressed: () async{
-
+                        onPressed: () async {
                           await jobService.deleteDocByInnerId(jobId);
 
                           await reportService.deleteReportRequest(reportId);

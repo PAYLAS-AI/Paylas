@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:paylas/locator/locator.dart';
@@ -31,7 +30,7 @@ class CreatedJobRequestCard extends ConsumerWidget {
   final String jobOwner;
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     debugPrint(imageUrl);
     return Container(
       width: screen.width,
@@ -61,6 +60,18 @@ class CreatedJobRequestCard extends ConsumerWidget {
                       child: Image.network(
                         imageUrl,
                         fit: BoxFit.fill,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+
+                          return Center(
+                            child: CircularProgressIndicator(
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      (loadingProgress.expectedTotalBytes ?? 1)
+                                  : null,
+                            ),
+                          );
+                        },
                       ),
                     ),
                   )),
@@ -72,14 +83,14 @@ class CreatedJobRequestCard extends ConsumerWidget {
                   color: ColorUiHelper.productTitleColor,
                   size: 26,
                 ),
-                onPressed: () async{
+                onPressed: () async {
                   Job? job = await jobService.showJob(jobId);
-                  if(job != null){
-                    ref.read(detailsPageCurrentJobProvider.notifier).state = job;
+                  if (job != null) {
+                    ref.read(detailsPageCurrentJobProvider.notifier).state =
+                        job;
                     // ignore: use_build_context_synchronously
                     Navigator.of(context).pushNamed("DetailsPage");
                   }
-                  
                 },
               ),
             ],
@@ -89,18 +100,20 @@ class CreatedJobRequestCard extends ConsumerWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                Flexible(
+                  child: SizedBox(
+                      width: (screen.width - 20) / 1.5,
+                      height: 55,
+                      child: Text(
+                        title,
+                        textAlign: TextAlign.center,
+                        style: TextStyleHelper.adminJobRequestTitleTextStyle,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
+                      )),
+                ),
                 SizedBox(
-                    width: (screen.width - 20) / 1.5,
-                    height: 55,
-                    child: Text(
-                      title,
-                      textAlign: TextAlign.center,
-                      style: TextStyleHelper.adminJobRequestTitleTextStyle,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 3,
-                    )),
-                SizedBox(
-                  height: 2,
+                  height: 1,
                 ),
                 SizedBox(
                   width: (screen.width - 20) / 1.5,
@@ -124,7 +137,7 @@ class CreatedJobRequestCard extends ConsumerWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top:4.0),
+                  padding: const EdgeInsets.only(top: 2.0),
                   child: Row(
                     children: [
                       AdminProccessButton(
@@ -139,11 +152,15 @@ class CreatedJobRequestCard extends ConsumerWidget {
                         onPressed: () async {
                           jobService.makeJobActiveByInnerId(jobId);
 
-                          await adminRequestControlService.deleteAdminControlRequest(requestId);
+                          await adminRequestControlService
+                              .deleteAdminControlRequest(requestId);
                           List removedList = ref.read(adminJobRequestsProvider);
-                          removedList.removeWhere((req) => req.jobAdminControlRequestId == requestId,);
-                          ref.read(adminJobRequestsProvider.notifier).state =  [...removedList];
-     
+                          removedList.removeWhere(
+                            (req) => req.jobAdminControlRequestId == requestId,
+                          );
+                          ref.read(adminJobRequestsProvider.notifier).state = [
+                            ...removedList
+                          ];
                         },
                       ),
                       SizedBox(
@@ -158,17 +175,18 @@ class CreatedJobRequestCard extends ConsumerWidget {
                           size: 26,
                         ),
                         labelStyle: TextStyleHelper.adminButtonsSecondTextStyle,
-                        onPressed: () async{
-   
+                        onPressed: () async {
                           await jobService.deleteDocByInnerId(jobId);
-                          await adminRequestControlService.deleteAdminControlRequest(requestId);
-                          
-                
+                          await adminRequestControlService
+                              .deleteAdminControlRequest(requestId);
+
                           List removedList = ref.read(adminJobRequestsProvider);
-                          removedList.removeWhere((req) => req.jobAdminControlRequestId == requestId,);
-                          ref.read(adminJobRequestsProvider.notifier).state =  [...removedList];
-     
-                          
+                          removedList.removeWhere(
+                            (req) => req.jobAdminControlRequestId == requestId,
+                          );
+                          ref.read(adminJobRequestsProvider.notifier).state = [
+                            ...removedList
+                          ];
                         },
                       ),
                     ],

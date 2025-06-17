@@ -7,19 +7,17 @@ class PastJobService {
 
   Future<List<PastJob>> getAllPastJobs() async {
     final snapshot = await _db.collection('past_jobs').get();
-    return snapshot.docs
-        .map((doc) => PastJob.fromMap(doc.data()))
-        .toList();
+    return snapshot.docs.map((doc) => PastJob.fromMap(doc.data())).toList();
   }
+
   Future<List<PastJob>> getPastJobsByUser(String userId) async {
     final snapshot = await _db
         .collection('past_jobs')
         .where('userId', isEqualTo: userId)
         .get();
 
-    pastJobs = snapshot.docs
-        .map((doc) => PastJob.fromMap(doc.data()))
-        .toList();
+    pastJobs = snapshot.docs.map((doc) => PastJob.fromMap(doc.data())).toList();
+
     return pastJobs;
   }
 
@@ -31,6 +29,7 @@ class PastJobService {
       return null;
     }
   }
+
   // yeni bir pastJob eklerken mutlaka gecmis is olacak job
   // archived yapilmali ki yeni isler kisminda artik gozukmesin!!!!!!
   Future<void> addNewPastJob(PastJob pastJob) async {
@@ -44,4 +43,6 @@ class PastJobService {
   Future<void> deletePastJob(String pastJobId) async {
     await _db.collection('past_jobs').doc(pastJobId).delete();
   }
+
+ 
 }

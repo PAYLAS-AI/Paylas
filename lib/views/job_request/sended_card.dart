@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:paylas/locator/locator.dart';
@@ -63,6 +62,18 @@ class SendedCard extends ConsumerWidget {
                   child: Image.network(
                     imageUrl,
                     fit: BoxFit.fill,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  (loadingProgress.expectedTotalBytes ?? 1)
+                              : null,
+                        ),
+                      );
+                    },
                   ),
                 ),
               )),
@@ -89,12 +100,20 @@ class SendedCard extends ConsumerWidget {
 
                         List removedList = ref.read(sendedJobRequestsProvider);
 
-                        removedList.removeWhere((req) => req.jobRequestId == requestId,);
-                        ref.read(sendedJobRequestsProvider.notifier).state =  [...removedList];
+                        removedList.removeWhere(
+                          (req) => req.jobRequestId == requestId,
+                        );
+                        ref.read(sendedJobRequestsProvider.notifier).state = [
+                          ...removedList
+                        ];
 
                         ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: requestResponse == RequestResponse.waiting ? Text("Gönderilen istek iptal edildi!") : Text("Gönderilen istek silindi!") ),
-                          );
+                          SnackBar(
+                              content:
+                                  requestResponse == RequestResponse.waiting
+                                      ? Text("Gönderilen istek iptal edildi!")
+                                      : Text("Gönderilen istek silindi!")),
+                        );
                       },
                       child: Container(
                           width: 70,
@@ -111,7 +130,9 @@ class SendedCard extends ConsumerWidget {
                                 color: ColorUiHelper.mainSubtitleColor,
                               ),
                               Text(
-                                requestResponse == RequestResponse.waiting ? "İPTAL" : "SİL",
+                                requestResponse == RequestResponse.waiting
+                                    ? "İPTAL"
+                                    : "SİL",
                                 style:
                                     TextStyleHelper.jobRequestCloseButtonStyle,
                               ),

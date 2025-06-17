@@ -18,6 +18,7 @@ class IncomingJobCard extends ConsumerWidget {
       {super.key,
       required this.earning,
       required this.location,
+      required this.category,
       required this.jobTitle,
       required this.jobDuration,
       required this.jobId,
@@ -42,6 +43,7 @@ class IncomingJobCard extends ConsumerWidget {
   final String jobTitle;
   final int earning;
   final String location;
+  final String category;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -73,6 +75,18 @@ class IncomingJobCard extends ConsumerWidget {
                       child: Image.network(
                         imageUrl,
                         fit: BoxFit.fill,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+
+                          return Center(
+                            child: CircularProgressIndicator(
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      (loadingProgress.expectedTotalBytes ?? 1)
+                                  : null,
+                            ),
+                          );
+                        },
                       ),
                     ),
                   )),
@@ -251,6 +265,7 @@ class IncomingJobCard extends ConsumerWidget {
                   var newPastJob = PastJob(
                       jobId: jobId,
                       userId: userId,
+                      category: category,
                       imgUrl: imageUrl,
                       userName: user,
                       completedDate: DateTime.now(),
@@ -268,7 +283,8 @@ class IncomingJobCard extends ConsumerWidget {
                   ref.read(allJobsProvider.notifier).state =
                       await jobservice.getAllJobs();
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("İlan tamamlandı ve arşive alındı!")),
+                    SnackBar(
+                        content: Text("İlan tamamlandı ve arşive alındı!")),
                   );
                   Navigator.of(context).pop(); // AlertDialog'u kapatır
                   Navigator.of(context).pop();

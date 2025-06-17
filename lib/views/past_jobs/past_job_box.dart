@@ -6,7 +6,15 @@ import 'package:paylas/views/ui_helpers/text_style_helper.dart';
 
 class PastJobBox extends StatelessWidget {
   PastJobBox({
-    super.key, required this.imageUrl, required this.title, required this.score, required this.jobOwner, required this.location, required this.jobDuration, required this.jobDate, required this.jobPrice,
+    super.key,
+    required this.imageUrl,
+    required this.title,
+    required this.score,
+    required this.jobOwner,
+    required this.location,
+    required this.jobDuration,
+    required this.jobDate,
+    required this.jobPrice,
   });
 
   final screen = locator<ScreenSizes>();
@@ -18,7 +26,6 @@ class PastJobBox extends StatelessWidget {
   final double jobDuration;
   final String jobDate;
   final double jobPrice;
-
 
   @override
   Widget build(BuildContext context) {
@@ -48,11 +55,23 @@ class PastJobBox extends StatelessWidget {
                   child: Image.network(
                     imageUrl,
                     fit: BoxFit.fill,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  (loadingProgress.expectedTotalBytes ?? 1)
+                              : null,
+                        ),
+                      );
+                    },
                   ),
                 ),
               )),
           Padding(
-            padding: const EdgeInsets.only(top:8.0,bottom: 8),
+            padding: const EdgeInsets.only(top: 8.0, bottom: 8),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -61,13 +80,12 @@ class PastJobBox extends StatelessWidget {
                     SizedBox(
                         width: (screen.width - 20) / 2.3,
                         child: Text(
-                      title,
-                      style: TextStyleHelper.productTitleTextStyle,
-                      overflow: TextOverflow.ellipsis,
-                    )),
+                          title,
+                          style: TextStyleHelper.productTitleTextStyle,
+                          overflow: TextOverflow.ellipsis,
+                        )),
                     Padding(
-                      padding:
-                          const EdgeInsets.only(left: 2.0, right: 2),
+                      padding: const EdgeInsets.only(left: 2.0, right: 2),
                       child: Image.asset(
                         "assets/icon/star.png",
                         height: 20,
@@ -79,9 +97,9 @@ class PastJobBox extends StatelessWidget {
                     )
                   ],
                 ),
-    
-                SizedBox(height: 2,),
-            
+                SizedBox(
+                  height: 2,
+                ),
                 SizedBox(
                   width: (screen.width - 20) / 1.8,
                   child: Row(
@@ -93,7 +111,7 @@ class PastJobBox extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                       SizedBox(
-                         width:(screen.width - 20) / 3 ,
+                        width: (screen.width - 20) / 3,
                         child: Text(
                           " $jobOwner",
                           style: TextStyleHelper.productSubtitleSecondTextStyle,
@@ -103,20 +121,22 @@ class PastJobBox extends StatelessWidget {
                     ],
                   ),
                 ),
-            
                 SizedBox(
                   width: (screen.width - 20) / 1.8,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Image.asset("assets/icon/placeholder.png", height: 20,),
+                      Image.asset(
+                        "assets/icon/placeholder.png",
+                        height: 20,
+                      ),
                       Text(
                         "Lokasyon :",
                         style: TextStyleHelper.productSubtitleTextStyle,
                         overflow: TextOverflow.ellipsis,
                       ),
                       SizedBox(
-                        width:(screen.width - 20) / 3.2 ,
+                        width: (screen.width - 20) / 3.2,
                         child: Text(
                           " $location",
                           style: TextStyleHelper.productSubtitleSecondTextStyle,
@@ -126,20 +146,22 @@ class PastJobBox extends StatelessWidget {
                     ],
                   ),
                 ),
-            
                 SizedBox(
                   width: (screen.width - 20) / 1.8,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Image.asset("assets/icon/time-passing.png", height: 20,),
+                      Image.asset(
+                        "assets/icon/time-passing.png",
+                        height: 20,
+                      ),
                       Text(
                         "İş Süresi :",
                         style: TextStyleHelper.productSubtitleTextStyle,
                         overflow: TextOverflow.ellipsis,
                       ),
                       SizedBox(
-                        width:(screen.width - 20) / 3.2 ,
+                        width: (screen.width - 20) / 3.2,
                         child: Text(
                           " $jobDuration Saat",
                           style: TextStyleHelper.productSubtitleSecondTextStyle,
@@ -149,20 +171,22 @@ class PastJobBox extends StatelessWidget {
                     ],
                   ),
                 ),
-            
                 SizedBox(
                   width: (screen.width - 20) / 1.8,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Image.asset("assets/icon/calendar.png", height: 20,),
+                      Image.asset(
+                        "assets/icon/calendar.png",
+                        height: 20,
+                      ),
                       Text(
                         "İş Tarihi :",
                         style: TextStyleHelper.productSubtitleTextStyle,
                         overflow: TextOverflow.ellipsis,
                       ),
                       SizedBox(
-                        width:(screen.width - 20) / 3.2 ,
+                        width: (screen.width - 20) / 3.2,
                         child: Text(
                           " $jobDate",
                           style: TextStyleHelper.productSubtitleSecondTextStyle,
@@ -172,7 +196,6 @@ class PastJobBox extends StatelessWidget {
                     ],
                   ),
                 ),
-            
                 SizedBox(
                   width: (screen.width - 20) / 1.8,
                   child: Row(
@@ -188,12 +211,12 @@ class PastJobBox extends StatelessWidget {
                         style: TextStyleHelper.productPriceTextStyle,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(width: 20,)
+                      SizedBox(
+                        width: 20,
+                      )
                     ],
                   ),
                 ),
-            
-            
               ],
             ),
           )
