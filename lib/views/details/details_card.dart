@@ -179,7 +179,7 @@ class _JobDetailsState extends State<JobDetails> {
                   SizedBox(
                     width: (screen.width - 20) / 1.7,
                     child: Text(
-                      " ${widget.jobDuration.hour} Saat",
+                      " ${((widget.jobDuration.difference(DateTime.now())).inMinutes / 60).toStringAsFixed(0)} Saat",
                       style: TextStyleHelper.detailSubtitleTextStyle,
                       overflow: TextOverflow.ellipsis,
                     ),

@@ -7,6 +7,7 @@ import 'package:paylas/tools/text_controllers.dart';
 import 'package:paylas/views/add_job/add_job_button.dart';
 import 'package:paylas/views/add_job/add_job_image.dart';
 import 'package:paylas/views/add_job/category_dropdown.dart';
+import 'package:paylas/views/add_job/city_district_selector.dart';
 import 'package:paylas/views/add_job/custom_input.dart';
 import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 import 'package:paylas/views/ui_helpers/text_style_helper.dart';
@@ -45,9 +46,9 @@ class AddJobForm extends ConsumerWidget {
                     SnackBar(content: Text("İlan başlığı boş olamaz!")),
                   );
                 } else if (currentStep == 3 &&
-                    TextControllerHelper.addJobLocationController.text == "") {
+                    (ref.read(selectedCityProvider) == null || ref.read(selectedDistrictProvider) == null)) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("İlan konumu boş olamaz!")),
+                    SnackBar(content: Text("İl/İlçe boş olamaz!")),
                   );
                 } else if (currentStep == 4 &&
                     TextControllerHelper.addJobCostController.text == "") {
@@ -59,7 +60,7 @@ class AddJobForm extends ConsumerWidget {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text("ilan geçerlilik tarihi giriniz!")),
                   );
-                }else if (currentStep == 6 &&
+                } else if (currentStep == 6 &&
                     TextControllerHelper.addJobDescriptionController.text ==
                         "") {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -180,20 +181,12 @@ class AddJobForm extends ConsumerWidget {
                     textController: TextControllerHelper.addJobTitleController,
                   )),
               Step(
-                isActive: currentStep == 3,
-                title: Text(
-                  "İlan Lokasyonu",
-                  style: TextStyleHelper.homeLabelStyle,
-                ),
-                content: AddJobCustomInput(
-                  height: 60,
-                  hintText: "Lokasyon",
-                  iconAssetUrl: "assets/icon/placeholder.png",
-                  inputLabel: "İlan Lokasyonu",
-                  maxLine: 2,
-                  textController: TextControllerHelper.addJobLocationController,
-                ),
-              ),
+                  isActive: currentStep == 3,
+                  title: Text(
+                    "İlan Lokasyonu",
+                    style: TextStyleHelper.homeLabelStyle,
+                  ),
+                  content: CityDistrictSelector()),
               Step(
                 isActive: currentStep == 4,
                 title: Text(

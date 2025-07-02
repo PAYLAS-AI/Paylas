@@ -48,7 +48,7 @@ class _AddJobButtonState extends ConsumerState<AddJobButton> {
             ownerName: AuthService().auth.currentUser!.displayName!,
             createdDate: DateTime.now(),
             validityDate: ref.read(currentValidityDate)!,
-            location: TextControllerHelper.addJobLocationController.text,
+            location: "${ref.read(selectedCityProvider)!}/${ref.read(selectedDistrictProvider)!}",
             price: int.parse(TextControllerHelper.addJobCostController.text)
           );
           final adminControlRequest = JobAdminControlRequest(jobId: newJob.id!, ownerId: newJob.ownerId,ownerName: newJob.ownerName, jobImgUrl: newJob.imgUrl, jobTitle: newJob.title);
@@ -60,6 +60,8 @@ class _AddJobButtonState extends ConsumerState<AddJobButton> {
           ref.read(currentValidityDate.notifier).state = null;
           ref.read(currentImageProvider.notifier).state = File("");
           ref.read(currentCategoryProvider.notifier).state = CategoryBy.all;
+          ref.read(selectedCityProvider.notifier).state = null;
+          ref.read(selectedDistrictProvider.notifier).state = null;
           TextControllerHelper.resetAddJobTextControllers();
           // ignore: use_build_context_synchronously
           Navigator.of(currentContext).pop();

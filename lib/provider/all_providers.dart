@@ -47,3 +47,7 @@ final incomingJobRequestsProvider = StateProvider<List<JobRequest>>((ref) => [],
 final updateRequestPageProvider = StateProvider<int>((ref) => 0,);
 
 final currentValidityDate = StateProvider<DateTime?>((ref) => null,);
+
+final selectedCityProvider = StateProvider<String?>((ref) => null);
+
+final selectedDistrictProvider = StateProvider<String?>((ref) => null);
