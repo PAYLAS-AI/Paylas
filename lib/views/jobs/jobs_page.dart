@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:paylas/locator/locator.dart';
-import 'package:paylas/model/categoryby.dart';
+import 'package:paylas/models/model/categoryby.dart';
 import 'package:paylas/models/job/job.dart';
 import 'package:paylas/provider/all_providers.dart';
 import 'package:paylas/services/job/job_service.dart';

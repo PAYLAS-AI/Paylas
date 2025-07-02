@@ -6,7 +6,12 @@ import 'package:paylas/views/ui_helpers/text_style_helper.dart';
 
 class JobBox extends StatelessWidget {
   JobBox({
-    super.key, required this.imageUrl, required this.title, required this.jobOwner, required this.score, this.onTap,
+    super.key,
+    required this.imageUrl,
+    required this.title,
+    required this.jobOwner,
+    required this.score,
+    this.onTap,
   });
 
   final screen = locator<ScreenSizes>();
@@ -16,7 +21,6 @@ class JobBox extends StatelessWidget {
   final double score;
 
   final void Function()? onTap;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +51,27 @@ class JobBox extends StatelessWidget {
                     children: [
                       Container(
                         width: screen.width / 2 - 20,
-                        padding: const EdgeInsets.only(left: 8.0, right: 8 , top: 8, bottom: 4),
+                        padding: const EdgeInsets.only(
+                            left: 8.0, right: 8, top: 8, bottom: 4),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(18),
                           child: Image.network(
                             imageUrl,
                             fit: BoxFit.fill,
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) return child;
+
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  value: loadingProgress.expectedTotalBytes !=
+                                          null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                          (loadingProgress.expectedTotalBytes ??
+                                              1)
+                                      : null,
+                                ),
+                              );
+                            },
                           ),
                         ),
                       ),
@@ -61,13 +80,16 @@ class JobBox extends StatelessWidget {
                         child: Container(
                           width: 30,
                           height: 30,
-                          margin: EdgeInsets.only(right: 12,top: 12),
+                          margin: EdgeInsets.only(right: 12, top: 12),
                           decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: ColorUiHelper.favoriteBgColor
-                          ),
+                              shape: BoxShape.circle,
+                              color: ColorUiHelper.favoriteBgColor),
                           child: Center(
-                            child: Icon(Icons.favorite_sharp, color: ColorUiHelper.favoriteIconColor, size: 20,),
+                            child: Icon(
+                              Icons.favorite_sharp,
+                              color: ColorUiHelper.favoriteIconColor,
+                              size: 20,
+                            ),
                           ),
                         ),
                       )
@@ -94,8 +116,7 @@ class JobBox extends StatelessWidget {
                       width: ((screen.width / 2) - 40) / 2,
                       child: Text(
                         " $jobOwner",
-                        style: TextStyleHelper
-                            .productSubtitleSecondTextStyle,
+                        style: TextStyleHelper.productSubtitleSecondTextStyle,
                         overflow: TextOverflow.ellipsis,
                       ),
                     )
@@ -126,7 +147,9 @@ class JobBox extends StatelessWidget {
                             Icons.add_circle,
                             color: ColorUiHelper.categoryTicketColor,
                           ),
-                          SizedBox(width: 6,)
+                          SizedBox(
+                            width: 6,
+                          )
                         ],
                       ),
                     )

@@ -2,7 +2,7 @@
 // ignore: must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:paylas/model/categoryby.dart';
+import 'package:paylas/models/model/categoryby.dart';
 import 'package:paylas/models/job/job.dart';
 import 'package:paylas/provider/all_providers.dart';
 import 'package:paylas/tools/text_controllers.dart';
@@ -65,9 +65,9 @@ class _JobsPageContentState extends ConsumerState<JobsPageContent> {
                 GridView.count(
                   crossAxisCount: 2,
                   children: List.generate(widget.jobs.length, (index) => JobBox(
-                  imageUrl: "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg",
+                  imageUrl: widget.jobs[index].imgUrl,
                   title: widget.jobs[index].title,
-                  jobOwner: "${widget.jobs[index].ownerId} Bey",
+                  jobOwner: widget.jobs[index].ownerName,
                   score: 4.8,
                   onTap: () {
                     ref.read(detailsPageCurrentJobProvider.notifier).state = widget.jobs[index];

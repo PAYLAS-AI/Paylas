@@ -331,4 +331,17 @@ static TextStyle jobRequestResponseTextStyle = GoogleFonts.montserrat(
       color: ColorUiHelper.mainSubtitleColor,
       height: 1);
 
+
+// Request Page
+  static TextStyle requestDialogTitleTextStyle = GoogleFonts.montserrat(
+      fontSize: 18,
+      fontWeight: FontWeight.w700,
+      color: ColorUiHelper.inputHintColor,
+      height: 1);
+
+    static TextStyle requestDialogSubtitleTextStyle = GoogleFonts.montserrat(
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      color: ColorUiHelper.inputHintColor,
+      height: 1);
 }

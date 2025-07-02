@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:paylas/models/job_request/job_request.dart';
+import 'package:paylas/models/model/requestResponse.dart';
 
 
 class JobRequestService {
@@ -35,6 +36,7 @@ class JobRequestService {
   Future<List<JobRequest>> getJobRequestForOwnerId(String ownerId) async {
     final querySnapshot = await _jobRequestCollection
         .where('jobOwnerId', isEqualTo: ownerId)
+        .where('requestResponse', isEqualTo: RequestResponse.waiting.name)
         .get();
     return querySnapshot.docs
         .map((doc) => JobRequest.fromMap(doc.data() as Map<String, dynamic>))

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:paylas/locator/locator.dart';
-import 'package:paylas/model/categoryby.dart';
+import 'package:paylas/models/model/categoryby.dart';
 import 'package:paylas/provider/all_providers.dart';
 import 'package:paylas/tools/screen_sizes.dart';
 import 'package:paylas/views/ui_helpers/color_ui_helper.dart';

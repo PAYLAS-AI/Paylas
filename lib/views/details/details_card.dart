@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:paylas/locator/locator.dart';
+import 'package:paylas/models/job_report_request/job_report_request.dart';
+import 'package:paylas/models/job_request/job_request.dart';
+import 'package:paylas/models/model/requestResponse.dart';
 import 'package:paylas/models/user/app_user.dart';
+import 'package:paylas/services/auth/auth_service.dart';
+import 'package:paylas/services/job_report_request/job_report_request_service.dart';
+import 'package:paylas/services/job_request/job_request_service.dart';
 import 'package:paylas/services/url_launcher/launcher_service.dart';
 import 'package:paylas/services/user/user_service.dart';
 import 'package:paylas/tools/screen_sizes.dart';
@@ -17,11 +23,16 @@ class JobDetails extends StatefulWidget {
       required this.favoriteCount,
       required this.jobOwner,
       required this.score,
+      required this.category,
       required this.description,
       required this.location,
       required this.jobDuration,
       required this.jobPrice,
-      required this.userId});
+      required this.userId,
+      required this.jobId,
+      required this.ownerId,
+      required this.imgUrl,
+      required this.jobDate});
 
   final String title;
   final int favoriteCount;
@@ -29,9 +40,14 @@ class JobDetails extends StatefulWidget {
   final double score;
   final String description;
   final String location;
-  final double jobDuration;
+  final String category;
+  final DateTime jobDuration;
   final int jobPrice;
   final String userId;
+  final String jobId;
+  final String ownerId;
+  final String imgUrl;
+  final DateTime jobDate;
 
   @override
   State<JobDetails> createState() => _JobDetailsState();
@@ -51,6 +67,14 @@ class _JobDetailsState extends State<JobDetails> {
   final UserService userService = locator<UserService>();
 
   final UrlLauncherService launcherService = locator<UrlLauncherService>();
+
+  final JobRequestService jobRequestService = locator<JobRequestService>();
+
+  final JobReportRequestService reportService =
+      locator<JobReportRequestService>();
+
+  bool isReported = false;
+  bool isSendRequest = false;
 
   @override
   Widget build(BuildContext context) {
@@ -155,7 +179,7 @@ class _JobDetailsState extends State<JobDetails> {
                   SizedBox(
                     width: (screen.width - 20) / 1.7,
                     child: Text(
-                      " ${widget.jobDuration} Saat",
+                      " ${((widget.jobDuration.difference(DateTime.now())).inMinutes / 60).toStringAsFixed(0)} Saat",
                       style: TextStyleHelper.detailSubtitleTextStyle,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -189,7 +213,8 @@ class _JobDetailsState extends State<JobDetails> {
                                 "İlan Sahibi Bilgileri Alınıyor Lütfen Az Sonra Tekrar Deneyin!")),
                       );
                     } else {
-                      launcherService.sendEmailTo(currentUser!.email,widget.title);
+                      launcherService.sendEmailTo(
+                          currentUser!.email, widget.title);
                     }
                   },
                 ),
@@ -227,7 +252,7 @@ class _JobDetailsState extends State<JobDetails> {
                     color: ColorUiHelper.categoryTicketColor,
                     size: 30,
                   ),
-                  onPressed: (){
+                  onPressed: () {
                     if (currentUser == null) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -249,11 +274,59 @@ class _JobDetailsState extends State<JobDetails> {
                     color: ColorUiHelper.detailCardColor,
                     size: 30,
                   ),
+                  onPressed: () async {
+                    if (isReported == false) {
+                      JobReportRequest newReport = JobReportRequest(
+                          jobId: widget.jobId,
+                          ownerId: widget.ownerId,
+                          reportedUserId: AuthService().auth.currentUser!.uid,
+                          jobImgUrl: widget.imgUrl,
+                          jobTitle: widget.title,
+                          ownerName: widget.jobOwner);
+                      await reportService.addReportRequest(newReport);
+                      isReported = true;
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Şikayet Edildi!")),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Daha önce şikayet edildi!")),
+                      );
+                    }
+                  },
                 )
               ],
             ),
             PriceButton(
               price: widget.jobPrice,
+              onPressed: () async {
+                if (isSendRequest == false) {
+                  var newRequest = JobRequest(
+                      jobId: widget.jobId,
+                      jobCategory: widget.category,
+                      jobTitle: widget.title,
+                      jobImgUrl: widget.imgUrl,
+                      jobOwnerName: widget.jobOwner,
+                      jobOwnerId: widget.ownerId,
+                      jobLocation: widget.location,
+                      jobDuration: widget.jobDuration,
+                      jobDate: widget.jobDate,
+                      jobPrice: widget.jobPrice.toDouble(),
+                      senderUserId: widget.userId,
+                      senderUserName:
+                          AuthService().auth.currentUser!.displayName!,
+                      requestResponse: RequestResponse.waiting.name);
+                  await jobRequestService.addJobRequest(newRequest);
+                  isSendRequest = true;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("İlan isteği gönderildi!")),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("İlan isteği zaten gönderildi!")),
+                  );
+                }
+              },
             )
           ],
         ),
@@ -262,6 +335,6 @@ class _JobDetailsState extends State<JobDetails> {
   }
 
   void getJobOwnerCredential() async {
-    currentUser = await userService.getUser(widget.userId);
+    currentUser = await userService.getUser(widget.ownerId);
   }
 }

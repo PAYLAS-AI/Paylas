@@ -13,10 +13,11 @@ class Job {
   DateTime validityDate;
   String location;
   int price;
+  String imgUrl;
 
 
   Job({
-    this.id,
+    String? id,
     required this.title,
     required this.description,
     required this.category,
@@ -26,15 +27,15 @@ class Job {
     required this.validityDate,
     required this.location,
     required this.price,
+    required this.imgUrl,
     this.isArchived = false,
     this.isActive = false
-  }){
-    id = Uuid().v4();
-  }
+  }): id = id ?? Uuid().v4(); 
 
-  factory Job.fromMap(Map<String, dynamic> map, String documentId) {
+  factory Job.fromMap(Map<String, dynamic> map) {
     return Job(
-      id: documentId,
+      id: map['id'] ?? '',
+      imgUrl: map['imgUrl'] ?? "https://raw.githubusercontent.com/PAYLAS-AI/Paylas/refs/heads/main/assets/logo/logo2.jpg",
       title: map['title'] ?? '',
       description: map['description'] ?? '',
       category: map['category'] ?? '',
@@ -52,6 +53,7 @@ class Job {
   Map<String, dynamic> toMap() {
     return {
       'id':id,
+      'imgUrl':imgUrl,
       'title': title,
       'description': description,
       'category': category,

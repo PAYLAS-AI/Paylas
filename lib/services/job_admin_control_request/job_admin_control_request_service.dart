@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/rendering.dart';
 import 'package:paylas/models/job_admin_control_request/job_admin_control_request.dart';
 
 class JobAdminControlRequestService {
@@ -20,7 +21,30 @@ class JobAdminControlRequestService {
   }
 
   Future<void> deleteAdminControlRequest(String requestId) async {
-    await _collectionRef.doc(requestId).delete();
+    debugPrint(requestId);
+    final querySnapshot =
+        await _collectionRef.where('jobAdminControlRequestId', isEqualTo: requestId).get();
+    for (var doc in querySnapshot.docs) {
+      await _collectionRef.doc(doc.id).delete();
+    }
+
+    if (querySnapshot.docs.isEmpty) {
+      debugPrint('Belge bulunamadı.');
+    }
+  }
+
+  Future<void> addImgUrl(String jobId, String imgUrl) async {
+    final querySnapshot = await _collectionRef
+        .where('jobId', isEqualTo: jobId)
+        .limit(1) // varsa sadece ilkini güncelle
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      final docId = querySnapshot.docs.first.id;
+      await _collectionRef.doc(docId).update({'jobImgUrl': imgUrl});
+    } else {
+      throw Exception('İlgili job bulunamadı.');
+    }
   }
 
   Future<JobAdminControlRequest?> getJobAdminControlRequestById(

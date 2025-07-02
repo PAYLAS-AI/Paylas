@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:paylas/locator/locator.dart';
-import 'package:paylas/model/categoryby.dart';
+import 'package:paylas/models/model/categoryby.dart';
 import 'package:paylas/provider/all_providers.dart';
 import 'package:paylas/services/job/job_service.dart';
 import 'package:paylas/tools/screen_sizes.dart';
@@ -19,7 +19,7 @@ class HomeView extends ConsumerWidget {
   final jobService = locator<JobService>();
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(allJobsProvider);
     return Container(
       width: screen.width,
@@ -47,7 +47,8 @@ class HomeView extends ConsumerWidget {
                       CategoryBy.all;
                   Navigator.of(context).pushNamed("JobsPage");
                 },
-                widgetBuilder: jobService.allJobs.isEmpty ? Center(
+                widgetBuilder: jobService.allJobs.isEmpty
+                    ? Center(
                         child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(16),
@@ -61,27 +62,32 @@ class HomeView extends ConsumerWidget {
                               "İş İlanı Yok!",
                               style: TextStyleHelper.pastJobsEmptyStyle,
                             )),
-                      ) : ListView.separated(
-                  itemBuilder: (context, index) => JobBox(
-                    imageUrl:
-                        "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg",
-                    title: jobService.allJobs[index].title,
-                    jobOwner: "${jobService.allJobs[index].ownerName} Bey",
-                    score: 4.8,
-                    onTap: () {
-                      ref.read(detailsPageCurrentJobProvider.notifier).state =
-                          jobService.allJobs[index];
-                      Navigator.of(context).pushNamed("DetailsPage");
-                    },
-                  ),
-                  separatorBuilder: (context, index) => SizedBox(
-                    width: 2,
-                  ),
-                  itemCount: jobService.allJobs.length > 10
-                      ? 10
-                      : (jobService.allJobs.isEmpty ? 1 : jobService.allJobs.length),
-                  scrollDirection: Axis.horizontal,
-                ),
+                      )
+                    : ListView.separated(
+                        itemBuilder: (context, index) => JobBox(
+                          imageUrl:
+                              jobService.allJobs[index].imgUrl,
+                          title: jobService.allJobs[index].title,
+                          jobOwner:
+                              jobService.allJobs[index].ownerName,
+                          score: 4.8,
+                          onTap: () {
+                            ref
+                                .read(detailsPageCurrentJobProvider.notifier)
+                                .state = jobService.allJobs[index];
+                            Navigator.of(context).pushNamed("DetailsPage");
+                          },
+                        ),
+                        separatorBuilder: (context, index) => SizedBox(
+                          width: 2,
+                        ),
+                        itemCount: jobService.allJobs.length > 10
+                            ? 10
+                            : (jobService.allJobs.isEmpty
+                                ? 1
+                                : jobService.allJobs.length),
+                        scrollDirection: Axis.horizontal,
+                      ),
               ),
             ),
             Flexible(
@@ -101,15 +107,35 @@ class HomeView extends ConsumerWidget {
                   itemBuilder: (context, index) => Row(
                     children: [
                       CategoryBox(
+                          onPressed: () {
+                            ref.read(selectedCategoryProvider.notifier).state =
+                                CategoryBy.services;
+                            Navigator.of(context).pushNamed("JobsPage");
+                          },
                           label: "Hizmetler",
                           assetIconUrl: "assets/icon/categories/services.png"),
                       CategoryBox(
+                          onPressed: () {
+                            ref.read(selectedCategoryProvider.notifier).state =
+                                CategoryBy.shoppings;
+                            Navigator.of(context).pushNamed("JobsPage");
+                          },
                           label: "Ürünler",
                           assetIconUrl: "assets/icon/categories/shopping.png"),
                       CategoryBox(
+                          onPressed: () {
+                            ref.read(selectedCategoryProvider.notifier).state =
+                                CategoryBy.education;
+                            Navigator.of(context).pushNamed("JobsPage");
+                          },
                           label: "Eğitim",
                           assetIconUrl: "assets/icon/categories/education.png"),
                       CategoryBox(
+                          onPressed: () {
+                            ref.read(selectedCategoryProvider.notifier).state =
+                                CategoryBy.craftsmanship;
+                            Navigator.of(context).pushNamed("JobsPage");
+                          },
                           label: "Ustalık",
                           assetIconUrl:
                               "assets/icon/categories/craftsmanship.png"),

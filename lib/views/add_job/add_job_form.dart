@@ -7,6 +7,7 @@ import 'package:paylas/tools/text_controllers.dart';
 import 'package:paylas/views/add_job/add_job_button.dart';
 import 'package:paylas/views/add_job/add_job_image.dart';
 import 'package:paylas/views/add_job/category_dropdown.dart';
+import 'package:paylas/views/add_job/city_district_selector.dart';
 import 'package:paylas/views/add_job/custom_input.dart';
 import 'package:paylas/views/ui_helpers/color_ui_helper.dart';
 import 'package:paylas/views/ui_helpers/text_style_helper.dart';
@@ -29,7 +30,46 @@ class AddJobForm extends ConsumerWidget {
             physics: NeverScrollableScrollPhysics(),
             onStepContinue: () {
               if (currentStep < 7) {
-                ref.read(currentStepProvider.notifier).state = currentStep + 1;
+                if (currentStep == 0 &&
+                    ref.read(currentCategoryProvider).name == "all") {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Kategori boş olamaz!")),
+                  );
+                } else if (currentStep == 1 &&
+                    ref.read(currentImageProvider).path == "") {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Lütfen görsel ekleyin!")),
+                  );
+                } else if (currentStep == 2 &&
+                    TextControllerHelper.addJobTitleController.text == "") {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("İlan başlığı boş olamaz!")),
+                  );
+                } else if (currentStep == 3 &&
+                    (ref.read(selectedCityProvider) == null || ref.read(selectedDistrictProvider) == null)) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("İl/İlçe boş olamaz!")),
+                  );
+                } else if (currentStep == 4 &&
+                    TextControllerHelper.addJobCostController.text == "") {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("ilan ücreti boş olamaz!")),
+                  );
+                } else if (currentStep == 5 &&
+                    ref.read(currentValidityDate) == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("ilan geçerlilik tarihi giriniz!")),
+                  );
+                } else if (currentStep == 6 &&
+                    TextControllerHelper.addJobDescriptionController.text ==
+                        "") {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("İlan açıklaması boş olamaz!")),
+                  );
+                } else {
+                  ref.read(currentStepProvider.notifier).state =
+                      currentStep + 1;
+                }
               }
             },
             onStepCancel: () {
@@ -141,20 +181,12 @@ class AddJobForm extends ConsumerWidget {
                     textController: TextControllerHelper.addJobTitleController,
                   )),
               Step(
-                isActive: currentStep == 3,
-                title: Text(
-                  "İlan Lokasyonu",
-                  style: TextStyleHelper.homeLabelStyle,
-                ),
-                content: AddJobCustomInput(
-                  height: 60,
-                  hintText: "Lokasyon",
-                  iconAssetUrl: "assets/icon/placeholder.png",
-                  inputLabel: "İlan Lokasyonu",
-                  maxLine: 2,
-                  textController: TextControllerHelper.addJobLocationController,
-                ),
-              ),
+                  isActive: currentStep == 3,
+                  title: Text(
+                    "İlan Lokasyonu",
+                    style: TextStyleHelper.homeLabelStyle,
+                  ),
+                  content: CityDistrictSelector()),
               Step(
                 isActive: currentStep == 4,
                 title: Text(
@@ -177,13 +209,25 @@ class AddJobForm extends ConsumerWidget {
                   "İlan Geçerliliği",
                   style: TextStyleHelper.homeLabelStyle,
                 ),
-                content: AddJobCustomInput(
-                  height: 50,
-                  hintText: "Süre",
-                  iconAssetUrl: "assets/icon/time-passing.png",
-                  inputLabel: "İlan Geçerliliği",
-                  maxLine: 1,
-                  textController: TextControllerHelper.addJobTimeController,
+                content: IconButton.filled(
+                  onPressed: () async {
+                    DateTime? picked = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime(2100),
+                      helpText: 'Geçerlilik Süresini Seç',
+                      cancelText: 'İptal',
+                      confirmText: 'Tamam',
+                    );
+                    ref.read(currentValidityDate.notifier).state = picked;
+                  },
+                  icon: Icon(
+                    Icons.date_range,
+                    color: ColorUiHelper.mainSubtitleColor,
+                    size: 32,
+                  ),
+                  color: ColorUiHelper.mainTitleBlue,
                 ),
               ),
               Step(
@@ -198,7 +242,8 @@ class AddJobForm extends ConsumerWidget {
                   iconAssetUrl: "assets/icon/info.png",
                   inputLabel: "İlan Açıklaması",
                   maxLine: 6,
-                  textController: TextControllerHelper.addJobDescriptionController,
+                  textController:
+                      TextControllerHelper.addJobDescriptionController,
                 ),
               ),
               Step(
@@ -214,4 +259,3 @@ class AddJobForm extends ConsumerWidget {
     );
   }
 }
-

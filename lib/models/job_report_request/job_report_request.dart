@@ -7,22 +7,23 @@ class JobReportRequest {
   String reportedUserId;
   String jobImgUrl;
   String jobTitle;
+  String ownerName;
 
   JobReportRequest({
-    this.jobReportRequestId,
+    String? jobReportRequestId,
     required this.jobId,
     required this.ownerId,
     required this.reportedUserId,
     required this.jobImgUrl,
     required this.jobTitle,
-  }){
-    jobReportRequestId = Uuid().v4();
-  }
+    required this.ownerName,
+  }) : jobReportRequestId = jobReportRequestId ?? Uuid().v4(); 
 
 
   factory JobReportRequest.fromMap(Map<String, dynamic> map) {
     return JobReportRequest(
       jobReportRequestId: map['jobReportRequestId'] as String,
+      ownerName: map['ownerName'] as String,
       jobId: map['jobId'] as String,
       ownerId: map['ownerId'] as String,
       reportedUserId: map['reportedUserId'] as String,
@@ -35,6 +36,7 @@ class JobReportRequest {
     return {
       'jobReportRequestId': jobReportRequestId,
       'jobId': jobId,
+      'ownerName': ownerName,
       'ownerId': ownerId,
       'reportedUserId': reportedUserId,
       'jobImgUrl': jobImgUrl,
